@@ -1,57 +1,61 @@
-# app/__init__.py
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
+login_manager.login_view = 'main.admin_login'
 mail = Mail()
 
-def create_app():
+def create_app(config_class=None):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'ae7a9ae4a4fdb2bc6900825654ecc035'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    
+    # Configuration
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-key-change-in-production'
+    
+    # Database configuration
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = 'egliszaratus@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'xwzd nogw tavi qgtg'  # Use your actual app password
-    app.config['MAIL_DEFAULT_SENDER'] = 'egliszaratus@gmail.com'  # Add this to set the default sender
+    
+    # Email configuration
+    app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+    app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+    app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 
-    # Initialize extensions with the app
+    # Initialize extensions with app
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
-    login_manager.login_view = 'main.admin_login'
-
-    # Initialize Flask-Mail
     mail.init_app(app)
 
-    # Ensure Flask-Mail is registered in the app's extensions
-    with app.app_context():
-        if 'mail' not in app.extensions:
-            mail.init_app(app)  # Re-initialize to ensure it's properly registered
+    # Register blueprints
+    from app.routes import main
+    app.register_blueprint(main)
 
+    # User loader
     from app.models import Admin
-
+    
     @login_manager.user_loader
     def load_user(user_id):
         return Admin.query.get(int(user_id))
 
-    from app.routes import main
-    app.register_blueprint(main)
-
-    from app.models import Subscriber
-
-# Create tables if they don't exist
+    # Create database tables
     with app.app_context():
         db.create_all()
-    
-    
+
     return app
+
+# Create app instance for Gunicorn
+app = create_app()
