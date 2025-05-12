@@ -6,56 +6,48 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+load_dotenv()  # Load .env file locally (ignored in production)
 
 # Initialize extensions
 db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
-login_manager.login_view = 'main.admin_login'
 mail = Mail()
 
-def create_app(config_class=None):
+def create_app():
     app = Flask(__name__)
     
-    # Configuration
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-key-change-in-production'
+    # Railway provides DATABASE_URL automatically
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///site.db').replace(
+        'postgres://', 'postgresql://'  # Fix for SQLAlchemy 2.0+
+    )
     
-    # Database configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///site.db'
+    # Security and other configurations
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-fallback-key')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Email configuration
-    app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
-    app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
-    app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
-    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
-
-    # Initialize extensions with app
+    # Flask-Mail config (if using)
+    app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+    app.config['MAIL_PORT'] = os.getenv('MAIL_PORT', 587)
+    app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'
+    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+    
+    # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
     mail.init_app(app)
 
     # Register blueprints
-    from app.routes import main
-    app.register_blueprint(main)
+    from app.routes import main_bp
+    app.register_blueprint(main_bp)
 
-    # User loader
-    from app.models import Admin
-    
-    @login_manager.user_loader
-    def load_user(user_id):
-        return Admin.query.get(int(user_id))
-
-    # Create database tables
+    # Create tables (if using SQLite)
     with app.app_context():
         db.create_all()
 
     return app
 
-# Create app instance for Gunicorn
+# For Gunicorn/Railway
 app = create_app()
