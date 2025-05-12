@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}Marist Boys Secondary School - Holistic Education in Mwanza{% endblock %}
+
+{% block content %}
+    <!-- Hero Section with Gradient Animation -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container text-center">
+            <h1 class="animate__animated animate__fadeInDown" data-translate="Empowering Boys to Aim Higher">Empowering Boys to Aim Higher</h1>
+            <p class="lead animate__animated animate__fadeInUp" data-translate="At Marist Boys Secondary School in Mwanza, Tanzania, we provide a holistic education rooted in Catholic values, fostering academic excellence, character formation, and community service for boys from Form 1 to Form 6.">
+                At Marist Boys Secondary School in Mwanza, Tanzania, we provide a holistic education rooted in Catholic values, fostering academic excellence, character formation, and community service for boys from Form 1 to Form 6.
+            </p>
+            <div class="mt-4">
+                <a href="{{ url_for('main.admissions') }}" class="btn btn-primary me-2 animate__animated animate__pulse animate__infinite" data-translate="Learn More">Learn More</a>
+                <a href="{{ url_for('main.about') }}" class="btn btn-outline-light" data-translate="Join">Join</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="About Us">About Us</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h3 data-translate="Our History">Our History</h3>
+                    <p data-translate="Marist Boys Secondary School was established on May 10, 2013, by the Marist Brothers in Nyakato ward, Ilemela Municipal Council, Mwanza, Tanzania. Starting with 84 students, the school has grown to offer education from Form 1 to Form 6, embodying the Marist ethos of holistic development.">
+                        Marist Boys Secondary School was established on May 10, 2013, by the Marist Brothers in Nyakato ward, Ilemela Municipal Council, Mwanza, Tanzania. Starting with 84 students, the school has grown to offer education from Form 1 to Form 6, embodying the Marist ethos of holistic development.
+                    </p>
+                    <p data-translate="Located near the Sayona area (FX88+G7F), our school is a Catholic institution welcoming boys of all religious backgrounds, focusing on academic excellence and character formation under the motto 'Memento ascendere semper' (Remember always to aim higher).">
+                        Located near the Sayona area (FX88+G7F), our school is a Catholic institution welcoming boys of all religious backgrounds, focusing on academic excellence and character formation under the motto 'Memento ascendere semper' (Remember always to aim higher).
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h3 data-translate="Our Mission and Vision">Our Mission and Vision</h3>
+                    <p data-translate="Rooted in the values of the Marist Brothers, we provide a holistic education that nurtures intellectual, moral, and spiritual growth. Our mission is to empower boys to become responsible, self-reliant individuals who contribute positively to society.">
+                        Rooted in the values of the Marist Brothers, we provide a holistic education that nurtures intellectual, moral, and spiritual growth. Our mission is to empower boys to become responsible, self-reliant individuals who contribute positively to society.
+                    </p>
+                    <p data-translate="We emphasize community engagement through activities like singing and educational visits, such as to Sayona Drinking Company, fostering practical learning and a sense of service. Our academic programs are supported by facilities like science labs, libraries, and sports fields.">
+                        We emphasize community engagement through activities like singing and educational visits, such as to Sayona Drinking Company, fostering practical learning and a sense of service. Our academic programs are supported by facilities like science labs, libraries, and sports fields.
+                    </p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="https://www.instagram.com/marist_unleashed/?hl=en" target="_blank" class="btn btn-outline-primary me-2" data-translate="Follow Us on Instagram">Follow Us on Instagram</a>
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary" data-translate="Contact Us">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Counter Section -->
+    <section id="achievements" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h3 class="counter" data-target="500">0</h3>
+                    <p data-translate="Students Enrolled">Students Enrolled</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="counter" data-target="14">0%</h3>
+                    <p data-translate="Pass Rate Increase">Pass Rate Increase</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="counter" data-target="12">0</h3>
+                    <p data-translate="Years of Excellence">Years of Excellence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum and Extracurricular Activities Section -->
+    <section id="curriculum" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Discover Our Curriculum and Activities">Discover Our Curriculum and Activities</h2>
+            <p class="text-center mb-5" data-translate="We offer a robust curriculum designed to foster academic excellence and personal growth, alongside extracurricular activities like singing and community visits to enhance student development.">
+                We offer a robust curriculum designed to foster academic excellence and personal growth, alongside extracurricular activities like singing and community visits to enhance student development.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title" data-translate="Academic Excellence">Academic Excellence</h5>
+                            <p class="card-text" data-translate="Our curriculum prepares students for NECTA exams (FTNA, CSEE, ACSEE) with a focus on holistic learning. Check results using our NECTA code S5117.">
+                                Our curriculum prepares students for NECTA exams (FTNA, CSEE, ACSEE) with a focus on holistic learning. Check results using our NECTA code S5117.
+                            </p>
+                            <a href="https://matokeo.necta.go.tz/" target="_blank" class="btn btn-primary" data-translate="View Results">View Results</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-music fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title" data-translate="Cultural Engagement">Cultural Engagement</h5>
+                            <p class="card-text" data-translate="Students participate in singing and cultural activities, fostering creativity and community spirit.">
+                                Students participate in singing and cultural activities, fostering creativity and community spirit.
+                            </p>
+                            <a href="{{ url_for('main.school_life') }}" class="btn btn-primary" data-translate="Learn More">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-hands-helping fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title" data-translate="Community Service">Community Service</h5>
+                            <p class="card-text" data-translate="Educational visits to local companies like Sayona Drinking Company enhance practical learning and community ties.">
+                                Educational visits to local companies like Sayona Drinking Company enhance practical learning and community ties.
+                            </p>
+                            <a href="{{ url_for('main.community') }}" class="btn btn-primary" data-translate="Discover">Discover</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commitment to Excellence Section -->
+    <section id="excellence" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Commitment to Excellence">Our Commitment to Excellence</h2>
+            <p class="text-center mb-5" data-translate="We prioritize academic excellence and character development, ensuring every student reaches their full potential through innovative teaching and personalized support.">
+                We prioritize academic excellence and character development, ensuring every student reaches their full potential through innovative teaching and personalized support.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title" data-translate="Engaging Activities">Engaging Activities</h5>
+                            <p class="card-text" data-translate="From singing to sports, our programs foster teamwork and creativity.">
+                                From singing to sports, our programs foster teamwork and creativity.
+                            </p>
+                            <a href="{{ url_for('main.school_life') }}" class="btn btn-primary" data-translate="Learn More">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-hands-helping fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title" data-translate="Student Support">Student Support</h5>
+                            <p class="card-text" data-translate="Our dedicated staff support every student’s academic and personal growth.">
+                                Our dedicated staff support every student’s academic and personal growth.
+                            </p>
+                            <a href="{{ url_for('main.about') }}" class="btn btn-primary" data-translate="Sign Up">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-star fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title" data-translate="Join Our Community">Join Our Community</h5>
+                            <p class="card-text" data-translate="Enroll today to experience the Marist difference in Mwanza.">
+                                Enroll today to experience the Marist difference in Mwanza.
+                            </p>
+                            <a href="{{ url_for('main.admissions') }}" class="btn btn-primary" data-translate="Enroll">Enroll</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- State-of-the-Art Facilities Section with Parallax -->
+    <section id="facilities" class="section bg-light parallax-section" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Explore Our Facilities">Explore Our Facilities</h2>
+            <p class="text-center mb-5" data-translate="Our facilities, including science labs, libraries, and sports fields, are designed to inspire and support student learning.">
+                Our facilities, including science labs, libraries, and sports fields, are designed to inspire and support student learning.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="facility-box">
+                        <h3 data-translate="Learning Spaces">Learning Spaces</h3>
+                        <p data-translate="Modern classrooms and science labs equipped with the latest educational tools.">
+                            Modern classrooms and science labs equipped with the latest educational tools.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="facility-box">
+                        <h3 data-translate="Sports Facilities">Sports Facilities</h3>
+                        <p data-translate="Outdoor fields for football and other sports to promote physical development.">
+                            Outdoor fields for football and other sports to promote physical development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section with Interactive Timeline -->
+    <section id="success-stories" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Achievements and History">Our Achievements and History</h2>
+            <p class="text-center mb-5" data-translate="Celebrating our journey since 2013, we take pride in our students’ accomplishments and community impact in Mwanza.">
+                Celebrating our journey since 2013, we take pride in our students’ accomplishments and community impact in Mwanza.
+            </p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 data-translate="2013">2013</h3>
+                        <p data-translate="Marist Boys Secondary School Founded">Marist Boys Secondary School Founded</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 data-translate="2015">2015</h3>
+                        <p data-translate="First Form Four Graduates">First Form Four Graduates</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 data-translate="2021">2021</h3>
+                        <p data-translate="Notable Academic Improvement">Notable Academic Improvement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Feedback Section -->
+    <section id="student-feedback" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Student Feedback">Student Feedback</h2>
+            <p class="text-center mb-5" data-translate="A supportive and nurturing environment for all.">
+                A supportive and nurturing environment for all.
+            </p>
+            <div class="row">
+                {% for feedback in feedback_list %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 glass-card" data-tilt>
+                            <div class="card-body text-center">
+                                <h5 class="card-title" data-translate="{{ feedback.name }}, {{ feedback.role }}, Marist Boys Secondary School">{{ feedback.name }}, {{ feedback.role }}, Marist Boys Secondary School</h5>
+                                <p class="card-text" data-translate="{{ feedback.comment }}">{{ feedback.comment }}</p>
+                                <div class="star-rating">
+                                    {% for i in range(feedback.rating) %}
+                                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                                    {% endfor %}
+                                    {% for i in range(5 - feedback.rating) %}
+                                        <span class="fa fa-star" aria-hidden="true"></span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <a href="{{ url_for('main.feedback') }}" class="btn btn-primary" data-translate="Submit Feedback">Submit Feedback</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup Section -->
+    <section id="newsletter" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Stay Updated">Stay Updated</h2>
+            <p class="text-center mb-5" data-translate="Subscribe to our newsletter for the latest news and updates from Marist Boys Secondary School.">
+                Subscribe to our newsletter for the latest news and updates from Marist Boys Secondary School.
+            </p>
+            <form action="{{ url_for('main.subscribe') }}" method="POST" class="row g-3 justify-content-center">
+                <div class="col-md-6">
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" aria-label="Email" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100" data-translate="Subscribe">Subscribe</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Plan Your Visit Section -->
+    <section id="plan-visit" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Plan Your Visit Today">Plan Your Visit Today</h2>
+            <p class="text-center mb-5" data-translate="Discover what makes our school special in Mwanza. Contact us to arrange a visit or learn more about our programs.">
+                Discover what makes our school special in Mwanza. Contact us to arrange a visit or learn more about our programs.
+            </p>
+            <div class="text-center">
+                <a href="{{ url_for('main.contact') }}" class="btn btn-primary me-2" data-translate="Learn More">Learn More</a>
+                <a href="{{ url_for('main.admissions') }}" class="btn btn-outline-primary" data-translate="Sign Up">Sign Up</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

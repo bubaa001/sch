@@ -1,0 +1,1081 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover school life at Marist Boys Secondary School in Mwanza, Tanzania. Explore our community, facilities, wellbeing programs, and more.">
+    <meta name="keywords" content="Marist Boys, School Life, Community, Mwanza, Tanzania, Wellbeing">
+    <meta name="author" content="Marist Boys Secondary School">
+    <title>School Life - Marist Boys Secondary School</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="school-life-hero" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container text-center">
+            <h1 class="animate__animated animate__fadeInDown">School Life at Marist Boys Secondary School</h1>
+            <p class="lead animate__animated animate__fadeInUp">
+                Experience a vibrant and nurturing environment where boys grow into men of character, faith, and purpose in Mwanza, Tanzania.
+            </p>
+        </div>
+    </section>
+
+    <!-- Page 4: School Life Overview -->
+    <section id="school-life" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">School Life</h2>
+            <p class="text-center mb-5">
+                At Marist Boys Secondary School, school life is a blend of academic rigor, spiritual growth, and community engagement, guided by our motto, <em>"Memento ascendere semper"</em> (Remember always to aim higher).
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Our boarding school environment fosters discipline, camaraderie, and personal growth. Students start their day with morning prayers in the chapel, followed by a structured timetable of classes, meals, study periods, and extracurricular activities. Evenings are dedicated to supervised study in the dorms, ensuring academic focus, while weekends offer opportunities for sports, cultural events, and community service.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We emphasize holistic development, encouraging students to participate in sports, clubs, and spiritual activities. Our family spirit, rooted in the Marist tradition, ensures that every boy feels supported and valued as he navigates the challenges of adolescence and prepares for adulthood.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Our Community</h2>
+            <p class="text-center mb-5">
+                We are deeply connected to the Nyakato community in Mwanza, fostering a spirit of service and solidarity.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-hands-helping fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Local Engagement</h5>
+                            <p class="card-text">
+                                Our students participate in community outreach programs, such as tree planting and charity drives, to support the Nyakato area. We also organize visits to local businesses like Sayona Drinking Company to learn about industry and community impact.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Marist Family Spirit</h5>
+                            <p class="card-text">
+                                Inspired by St. Marcellin Champagnat, we cultivate a family spirit where students, staff, and parents support each other. Our annual Family Day brings everyone together for games, performances, and shared meals.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-heart fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Service Learning</h5>
+                            <p class="card-text">
+                                Students engage in service projects, such as mentoring younger children in Nyakato primary schools and participating in environmental cleanups, fostering a sense of responsibility and empathy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-light" data-aos="fade-up">
+        <div class="container text-center">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="mb-5">
+                We’re here to answer your questions about school life at Marist Boys Secondary School.
+            </p>
+            <p><strong>Phone:</strong> +255 767 487 819</p>
+            <p><strong>Email:</strong> egliszaratus@gmail.com (Messages will be received as PDFs)</p>
+            <p><strong>Address:</strong> Nyakato Ward, Ilemela, Mwanza, Tanzania (FX88+G7F)</p>
+            <p><strong>Office Hours:</strong> Monday to Friday, 8:00 AM - 4:00 PM; Saturday, 9:00 AM - 1:00 PM</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg mt-3">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Feedback</h2>
+            <p class="text-center mb-5">
+                We value your feedback! Share your thoughts to help us improve our school community.
+            </p>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <form action="{{ url_for('main.submit_feedback') }}" method="POST" class="glass-card p-4">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="feedback" class="form-label">Your Feedback</label>
+                            <textarea class="form-control" id="feedback" name="feedback" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buildings Section -->
+    <section id="buildings" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Our Campus Buildings</h2>
+            <p class="text-center mb-5">
+                Our campus in Nyakato, Mwanza, is designed to support learning, living, and growth.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="facility-box">
+                        <h3>Classrooms</h3>
+                        <p>Spacious and well-lit classrooms equipped with desks, chalkboards, and teaching aids, creating an ideal environment for learning Forms 1 to 6 subjects.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="facility-box">
+                        <h3>Dormitories</h3>
+                        <p>Comfortable boarding facilities with bunk beds, personal lockers, and study areas, housing up to 60 boarders per dorm, supervised by house masters.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="facility-box">
+                        <h3>Staff Areas</h3>
+                        <p>Staff offices and a common room for teachers to plan lessons and relax, ensuring they’re well-supported to guide our students.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="facility-box">
+                        <h3>Dining Hall</h3>
+                        <p>A large dining hall where students enjoy nutritious meals, with a small canteen offering snacks like mandazi and tea during breaks.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="facility-box">
+                        <h3>School Shop</h3>
+                        <p>A small on-campus shop selling stationery, toiletries, and school-branded items, open daily from 3:00 PM to 5:00 PM for student convenience.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="facility-box">
+                        <h3>Other Facilities</h3>
+                        <p>Includes science labs, a library, computer labs, a chapel, and sports fields, all designed to support a well-rounded education.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environment Section -->
+    <section id="environment" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Our Environment</h2>
+            <p class="text-center mb-5">
+                Our campus in Nyakato, Mwanza, provides a serene and inspiring setting for learning and growth.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Located near the Sayona area, our campus spans 5 hectares of green space, with acacia trees and well-maintained lawns creating a peaceful atmosphere. The proximity to Lake Victoria offers a refreshing breeze, enhancing the learning environment. We prioritize sustainability, with initiatives like rainwater harvesting and solar-powered lighting in dorms.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        The campus is free from urban noise, allowing students to focus on their studies. Our gardens, maintained by the Environmental Club, provide spaces for reflection and outdoor classes, fostering a connection with nature that aligns with our Marist values of simplicity and care for creation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wellbeing (PSHE) Section -->
+    <section id="wellbeing" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Wellbeing (Personal, Social, Health, and Economic Education)</h2>
+            <p class="text-center mb-5">
+                We support our students’ overall wellbeing through a comprehensive PSHE program.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h3>Personal Development</h3>
+                    <p>Workshops on self-confidence, time management, and goal-setting help students navigate adolescence and build life skills.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h3>Social Skills</h3>
+                    <p>Group activities and peer mentoring programs foster teamwork, respect, and empathy, aligning with our family spirit.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h3>Health Education</h3>
+                    <p>Weekly PSHE classes cover topics like nutrition, hygiene, and mental health, ensuring students lead healthy lives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Economics Section -->
+    <section id="economics" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Economics Education</h2>
+            <p class="text-center mb-5">
+                We prepare students to understand and address economic challenges in their lives and communities.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Economics is taught as part of the Form 5-6 curriculum, focusing on concepts like budgeting, entrepreneurship, and sustainable development. Students learn practical skills, such as managing personal finances and understanding local economic issues in Mwanza, through projects like creating mock businesses.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We also address economic challenges faced by students’ families by offering financial literacy workshops for parents and partnering with local organizations to provide school supplies for students in need, ensuring access to education for all.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Issues Section -->
+    <section id="personal-issues" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Support for Personal Issues</h2>
+            <p class="text-center mb-5">
+                We provide a safe space for students to address personal challenges.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Our Guidance Counselor, Mr. Peter Mushi, offers one-on-one sessions for students dealing with issues like homesickness, peer conflicts, or academic stress. We also have a peer support program where senior students mentor younger ones, fostering a sense of belonging.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Monthly “Circle Time” sessions allow students to share their concerns in a group setting, guided by a teacher, ensuring every boy feels heard and supported in line with our Marist value of presence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Section -->
+    <section id="health" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Health Services</h2>
+            <p class="text-center mb-5">
+                We prioritize the health and wellbeing of our students through comprehensive health services.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Our school clinic, staffed by a full-time nurse, provides basic medical care, first aid, and health screenings. We conduct annual health check-ups to monitor students’ growth and address any concerns early.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We partner with a local clinic in Nyakato for more serious medical needs, ensuring quick access to care. Health education sessions teach students about disease prevention, including malaria awareness, given our proximity to Lake Victoria.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Child Safety Section -->
+    <section id="child-safety" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Child Safety</h2>
+            <p class="text-center mb-5">
+                Ensuring the safety of our students is our top priority.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Our campus is fully fenced with 24/7 security guards to prevent unauthorized access. All visitors must sign in at the gate and wear a visitor’s badge while on campus.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We have a strict anti-bullying policy, with regular workshops to promote respect and kindness. Teachers and house masters are trained in child protection, ensuring a safe and supportive environment for all students.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medications Section -->
+    <section id="medications" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Medications</h2>
+            <p class="text-center mb-5">
+                Guidelines for managing student medications on campus.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <ul>
+                        <li>All medications must be registered with the school nurse upon arrival, with a doctor’s prescription and dosage instructions.</li>
+                        <li>Medications are stored securely in the school clinic and administered by the nurse during designated times.</li>
+                        <li>Students are not allowed to keep medications in dorms to prevent misuse, except for emergency items like asthma inhalers, with prior approval.</li>
+                        <li>Parents must inform the school of any changes in their child’s medication needs immediately.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Nurse Section -->
+    <section id="our-nurse" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Meet Our Nurse</h2>
+            <p class="text-center mb-5">
+                Our dedicated nurse ensures the health and wellbeing of all students.
+            </p>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="glass-card p-4 text-center">
+                        <i class="fas fa-user-nurse fa-2x mb-3" aria-hidden="true"></i>
+                        <h3>Sr. Grace Mwamba, RN</h3>
+                        <p>
+                            Sr. Grace has over 10 years of experience in pediatric nursing and is passionate about keeping our boys healthy. She oversees the school clinic, administers medications, and provides health education. Visit her at the clinic from 8:00 AM to 5:00 PM daily.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section id="information" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Additional Information</h2>
+            <p class="text-center mb-5">
+                Key details about daily life at Marist Boys Secondary School.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <ul>
+                        <li><strong>School Hours:</strong> Classes run from 7:30 AM to 3:30 PM, with supervised study until 8:00 PM for boarders.</li>
+                        <li><strong>Visitation:</strong> Parents can visit on the first Saturday of each month from 9:00 AM to 1:00 PM.</li>
+                        <li><strong>Communication:</strong> Students can use the school phone to call home on weekends, and parents can email teachers via the school office.</li>
+                        <li><strong>Holidays:</strong> The school follows the Tanzanian academic calendar, with breaks in April, August, and December.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Uniform Section -->
+    <section id="uniform" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">School Uniform</h2>
+            <p class="text-center mb-5">
+                Our uniform reflects.ConcurrentModificationException our values of discipline and unity.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <ul>
+                        <li><strong>Daily Uniform:</strong> White short-sleeved shirt, navy blue trousers, black shoes, and a navy blue tie with the school crest.</li>
+                        <li><strong>Sports Uniform:</strong> Blue and white sports kit (shorts and shirt) with the school logo, worn during PE and sports events.</li>
+                        <li><strong>Boarding Uniform:</strong> Navy blue pajamas for dorm use, ensuring uniformity and comfort.</li>
+                        <li><strong>Availability:</strong> Uniforms can be purchased at the school shop for TZS 80,000 (full set). Students must wear the uniform neatly at all times.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- School Lunch Section -->
+    <section id="school-lunch" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">School Lunch</h2>
+            <p class="text-center mb-5">
+                Nutritious meals to keep our students energized and focused.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <p>
+                        Meals are served in the dining hall three times a day for boarders, with day students joining for lunch. A typical lunch includes ugali, beans, vegetables, and a piece of fruit, with chicken or fish served twice a week. We cater to dietary needs (e.g., vegetarian options) upon request. Breakfast features porridge, bread, and tea, while dinner includes rice, stew, and greens.
+                    </p>
+                    <p>
+                        Our kitchen staff ensures hygiene and variety, with menus planned weekly to balance nutrition. Students can also buy snacks like mandazi or juice at the canteen during breaks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- School Timetable Section -->
+    <section id="school-timetable" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Sample School Timetable</h2>
+            <p class="text-center mb-5">
+                A typical day for a Form 3 student at Marist Boys Secondary School.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Activity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>6:00 AM</td>
+                                <td>Wake Up & Morning Routine</td>
+                            </tr>
+                            <tr>
+                                <td>6:30 AM</td>
+                                <td>Morning Prayers in Chapel</td>
+                            </tr>
+                            <tr>
+                                <td>7:00 AM</td>
+                                <td>Breakfast</td>
+                            </tr>
+                            <tr>
+                                <td>7:30 AM - 9:00 AM</td>
+                                <td>Mathematics & English</td>
+                            </tr>
+                            <tr>
+                                <td>9:00 AM - 10:30 AM</td>
+                                <td>Science & History</td>
+                            </tr>
+                            <tr>
+                                <td>10:30 AM - 11:00 AM</td>
+                                <td>Morning Break</td>
+                            </tr>
+                            <tr>
+                                <td>11:00 AM - 12:30 PM</td>
+                                <td>Geography & Kiswahili</td>
+                            </tr>
+                            <tr>
+                                <td>12:30 PM - 1:30 PM</td>
+                                <td>Lunch</td>
+                            </tr>
+                            <tr>
+                                <td>1:30 PM - 3:00 PM</td>
+                                <td>Physical Education & Religious Studies</td>
+                            </tr>
+                            <tr>
+                                <td>3:00 PM - 3:30 PM</td>
+                                <td>Afternoon Break</td>
+                            </tr>
+                            <tr>
+                                <td>3:30 PM - 5:00 PM</td>
+                                <td>Club Activities/Sports</td>
+                            </tr>
+                            <tr>
+                                <td>5:30 PM</td>
+                                <td>Dinner</td>
+                            </tr>
+                            <tr>
+                                <td>6:00 PM - 8:00 PM</td>
+                                <td>Supervised Study in Dorms</td>
+                            </tr>
+                            <tr>
+                                <td>8:30 PM</td>
+                                <td>Evening Prayers</td>
+                            </tr>
+                            <tr>
+                                <td>9:00 PM</td>
+                                <td>Lights Out</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community (Expanded) Section -->
+    <section id="community-expanded" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Community Involvement</h2>
+            <p class="text-center mb-5">
+                Building strong ties with our wider community in Mwanza.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We collaborate with local churches and schools in Nyakato to promote education and faith. Our students volunteer at St. Joseph’s Parish, assisting with catechism classes for younger children, and participate in annual community festivals, showcasing their talents in singing and drama.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Partnerships with local businesses, such as Sayona Drinking Company, provide practical learning opportunities, while our Community Outreach Club organizes clean-up drives and health awareness campaigns in the Nyakato area, fostering civic responsibility.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parent Organization Section -->
+    <section id="parent-organization" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Parent-Teacher Association (PTA)</h2>
+            <p class="text-center mb-5">
+                Our PTA plays a vital role in supporting our school community.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        The PTA, chaired by Mrs. Esther Kilonzo, meets monthly to discuss school improvements, plan events, and support student welfare. Recent initiatives include funding new library books and organizing the annual Family Day.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Parents are encouraged to join the PTA to contribute ideas and volunteer for events. Contact the PTA at pta@maristboysmwanza.org or attend the next meeting on the first Saturday of each month at 10:00 AM in the school hall.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Church Section -->
+    <section id="church" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Spiritual Life</h2>
+            <p class="text-center mb-5">
+                Our school chapel is the heart of our spiritual community.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Daily morning and evening prayers are held in the St. Marcellin Chapel, fostering a deep connection to our Catholic faith. Sunday Mass, led by Fr. Daniel Mbwambo, is mandatory for boarders and open to day students and parents.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We celebrate Marian devotions, such as the Rosary in October, and organize annual retreats for Forms 4 and 6 to reflect on their faith and purpose. Students of all faiths are welcome to participate in spiritual activities, ensuring inclusivity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Vacancies Section -->
+    <section id="career-vacancies" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Career Vacancies</h2>
+            <p class="text-center mb-5">
+                Join our team and make a difference in the lives of our students.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <h3>Current Openings</h3>
+                    <ul>
+                        <li><strong>Mathematics Teacher (Form 1-4):</strong> Full-time position starting June 2025. Requires a Bachelor’s degree in Education and 3+ years of experience. Apply by May 15, 2025.</li>
+                        <li><strong>Boarding House Master:</strong> Part-time role to supervise dorms and mentor students. Experience in boarding schools preferred. Apply by May 20, 2025.</li>
+                        <li><strong>School Counselor:</strong> Full-time position to support student wellbeing. Requires a degree in counseling or psychology. Apply by May 25, 2025.</li>
+                    </ul>
+                    <p>
+                        To apply, email your CV and cover letter to egliszaratus@gmail.com with the subject “Job Application: [Position Name].” We are committed to child safety and require all applicants to undergo background checks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page 5: Quick Thoughts -->
+    <section id="quick-thoughts" class="section bg-white" data-aos="fade-up">
+        <div class="container text-center">
+            <h2 class="section-title">Quick Thoughts</h2>
+            <p class="lead mb-5">
+                “At Marist Boys, every day is a step toward becoming a man of faith, character, and purpose.” – Br. Kiko Baeza, Founding Headmaster
+            </p>
+        </div>
+    </section>
+
+    <!-- Professional Video Section -->
+    <section id="professional-video" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">A Glimpse of School Life</h2>
+            <p class="text-center mb-5">
+                Watch our professional video to see the vibrant life at Marist Boys Secondary School.
+            </p>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="glass-card p-4 text-center">
+                        <p>[Placeholder: Embed a professional video showcasing daily life, including morning prayers, classes, sports, and dorm activities.]</p>
+                        <a href="#" class="btn btn-primary">Watch Video</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Short Tour Section -->
+    <section id="short-tour" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Short Tour</h2>
+            <p class="text-center mb-5">
+                Take a quick tour of our campus, either in person or virtually.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Our short tour covers the essentials: classrooms, dorms, dining hall, chapel, and sports fields. Led by student ambassadors, it’s a 30-minute journey through the heart of our campus, showcasing the spaces where our boys learn, live, and grow.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="glass-card p-4 text-center">
+                        <h3>Book a Tour</h3>
+                        <p>Schedule a visit to see our campus in action, or request a virtual tour link.</p>
+                        <a href="#arrange-visit" class="btn btn-primary">Arrange a Tour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inspiration Section -->
+    <section id="inspiration" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Inspiration</h2>
+            <p class="text-center mb-5">
+                We inspire our boys to aim higher in all aspects of life.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Through our Marist values of humility, simplicity, and love of work, we encourage students to pursue excellence with integrity. Our annual “Champagnat Awards” recognize students who embody these values, inspiring others to follow their example.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Guest speakers, including Marist alumni who have excelled in fields like medicine, education, and business, visit regularly to motivate our boys. Their stories of perseverance and faith inspire our students to dream big and serve others.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intake We Offer Section -->
+    <section id="intake" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Intake We Offer</h2>
+            <p class="text-center mb-5">
+                We provide education for boys at various stages of their secondary journey.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <ul>
+                        <li><strong>Pre-Form 1 Preparatory Program:</strong> A one-year program for younger students needing foundational skills before entering Form 1.</li>
+                        <li><strong>Forms 1-4 (Ordinary Level):</strong> Preparing students for the Certificate of Secondary Education Examination (CSEE).</li>
+                        <li><strong>Forms 5-6 (Advanced Level):</strong> Advanced studies leading to the Advanced Certificate of Secondary Education Examination (ACSEE).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects We Teach Section -->
+    <section id="subjects" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Subjects We Teach</h2>
+            <p class="text-center mb-5">
+                Our curriculum prepares students for national exams and lifelong learning.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h3>Core Subjects (Forms 1-4)</h3>
+                    <ul>
+                        <li>Mathematics</li>
+                        <li>English</li>
+                        <li>Kiswahili</li>
+                        <li>Science (Physics, Chemistry, Biology)</li>
+                        <li>History</li>
+                        <li>Geography</li>
+                        <li>Civics</li>
+                        <li>Religious Studies</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h3>Elective Subjects (Forms 5-6)</h3>
+                    <ul>
+                        <li>Economics</li>
+                        <li>Commerce</li>
+                        <li>Accountancy</li>
+                        <li>Advanced Mathematics</li>
+                        <li>Literature in English</li>
+                        <li>Information and Computer Studies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sports Section -->
+    <section id="sports" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Sports</h2>
+            <p class="text-center mb-5">
+                Our sports programs build teamwork, discipline, and physical fitness.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-futbol fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Football</h5>
+                            <p class="card-text">
+                                Our football team competes in regional tournaments, with recent wins at the Mwanza Secondary Schools League.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-basketball-ball fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Basketball</h5>
+                            <p class="card-text">
+                                Weekly training sessions and inter-house competitions help students develop skills and teamwork.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-running fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Athletics</h5>
+                            <p class="card-text">
+                                Annual sports days feature track and field events, with top athletes representing the school at national meets.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clubs Section -->
+    <section id="clubs" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Clubs</h2>
+            <p class="text-center mb-5">
+                Our extracurricular clubs encourage creativity, leadership, and service.
+            </p>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-leaf fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Environmental Club</h5>
+                            <p class="card-text">
+                                Focuses on sustainability projects like tree planting and campus cleanups, promoting environmental stewardship.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Debate Club</h5>
+                            <p class="card-text">
+                                Develops public speaking and critical thinking through weekly debates and regional competitions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-music fa-2x mb-3" aria-hidden="true"></i>
+                            <h5 class="card-title">Music and Drama Club</h5>
+                            <p class="card-text">
+                                Students perform at school events and community festivals, showcasing their talents in singing and acting.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- From Two Section -->
+    <section id="from-two" class="section bg-white" data-aos="fade-up">
+        <div class="container text-center">
+            <h2 class="section-title">From Our Community</h2>
+            <p class="lead mb-5">
+                “Marist Boys has taught me the value of hard work and faith. I’m proud to be part of this family.” – John M., Form 6 Student
+            </p>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section id="leadership" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Leadership Opportunities</h2>
+            <p class="text-center mb-5">
+                We empower our boys to become leaders in their school and community.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Students can serve as prefects, house captains, or club leaders, developing skills in responsibility and teamwork. Our Leadership Training Program, held annually, includes workshops on decision-making, conflict resolution, and public speaking.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        We also encourage leadership through service, with initiatives like the Peer Mentorship Program, where senior students guide younger ones, fostering a culture of support and guidance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exams We Do Section -->
+    <section id="exams" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Exams We Do</h2>
+            <p class="text-center mb-5">
+                We prepare students for national examinations to ensure academic success.
+            </p>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <ul>
+                        <li><strong>Form Two National Assessment (FTNA):</strong> Assesses Form 2 students’ skills and knowledge.</li>
+                        <li><strong>Certificate of Secondary Education Examination (CSEE):</strong> Form 4 exam for secondary completion.</li>
+                        <li><strong>Advanced Certificate of Secondary Education Examination (ACSEE):</strong> Form 6 exam for advanced education.</li>
+                    </ul>
+                    <p>Our NECTA registration code is S5117, ensuring our exams are recognized nationally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Recent Results</h2>
+            <p class="text-center mb-5">
+                Our students consistently achieve strong results in national examinations.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        In 2024, our Form 4 students achieved a 92% pass rate in the CSEE, with 15% earning Division I, placing us among the top schools in Mwanza. Our Form 2 students also excelled in the FTNA, with an 88% pass rate.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="glass-card p-4 text-center">
+                        <h3>View 2024 Results</h3>
+                        <p>Check our latest NECTA results:</p>
+                        <p><strong>Form 2 (FTNA):</strong> <a href="https://matokeo.necta.go.tz/results/2024/ftna/FTNA2024/S5117.htm" target="_blank">View Results</a></p>
+                        <p><strong>Form 4 (CSEE):</strong> <a href="https://matokeo.necta.go.tz/results/2024/csee/CSEE2024/CSEE2024/results/s5117.htm" target="_blank">View Results</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Arrange Visit Option Section -->
+    <section id="arrange-visit" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Arrange a Visit</h2>
+            <p class="text-center mb-5">
+                We’d love to show you around our campus! Schedule a visit to experience Marist Boys Secondary School firsthand.
+            </p>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="glass-card p-4">
+                        <form action="{{ url_for('main.arrange_visit') }}" method="POST">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Preferred Visit Date</label>
+                                <input type="date" class="form-control" id="date" name="date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message (Optional)</label>
+                                <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Application</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More on School Section -->
+    <section id="more-on-school" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">More About Our School</h2>
+            <p class="text-center mb-5">
+                Learn more about our mission, values, and vision for the future.
+            </p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Founded in 2013 by the Marist Brothers, our school is dedicated to educating boys in a values-driven environment. We aim to form “Good Christians and Good Citizens,” as envisioned by St. Marcellin Champagnat, through a holistic education that balances academics, spirituality, and service.
+                    </p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p>
+                        Our vision is to be a leading Catholic secondary school in Tanzania, empowering boys to become compassionate leaders who make a positive impact in their communities and beyond. Join us in this journey of growth and discovery.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4>Marist Boys Secondary School</h4>
+                    <p>Empowering boys to aim higher since 2013 in Mwanza, Tanzania.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/MaristsTanzania/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> Nyakato Ward, Ilemela, Mwanza, Tanzania (FX88+G7F)</li>
+                        <li><i class="fas fa-phone me-2" aria-hidden="true"></i> +255 767 487 819</li>
+                        <li><i class="fas fa-envelope me-2" aria-hidden="true"></i> egliszaratus@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                        <li><a href="{{ url_for('main.about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('main.admissions') }}">Admissions</a></li>
+                        <li><a href="{{ url_for('main.contact') }}">Contact Us</a></li>
+                        <li><a href="https://matokeo.necta.go.tz/" target="_blank">NECTA Results</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 Marist Boys Secondary School. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button class="chatbot-toggle" aria-label="Open Chatbot">
+            <i class="fas fa-comments" aria-hidden="true"></i>
+        </button>
+        <div class="chatbot-box">
+            <div class="chatbot-header">
+                <h5>Chat with Us</h5>
+                <button class="chatbot-close" aria-label="Close Chatbot">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="chatbot-body">
+                <p>Hello! How can we assist you with school life today?</p>
+            </div>
+            <div class="chatbot-footer">
+                <input type="text" placeholder="Type your message..." aria-label="Chat Input">
+                <button class="btn btn-primary">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize Vanilla Tilt for card hover effects
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3
+        });
+
+        // Dark Mode Toggle
+        const body = document.body;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = darkModeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Chatbot Toggle
+        const chatbotToggle = document.querySelector('.chatbot-toggle');
+        const chatbotBox = document.querySelector('.chatbot-box');
+        const chatbotClose = document.querySelector('.chatbot-close');
+        chatbotToggle.addEventListener('click', () => {
+            chatbotBox.classList.toggle('active');
+        });
+        chatbotClose.addEventListener('click', () => {
+            chatbotBox.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
+{% endblock %}
