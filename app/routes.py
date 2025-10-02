@@ -30,7 +30,7 @@ def generate_admission_pdf(student_name, parent_name, form_level, system_code):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
     c.setFont("Helvetica", 16)
-    c.drawString(100, 750, "Marist Boys Secondary School")
+    c.drawString(100, 750, "Francis Maria Libermann School")
     c.setFont("Helvetica", 12)
     c.drawString(100, 730, "Admission Application Confirmation")
     c.drawString(100, 700, f"Student Name: {student_name}")
@@ -120,9 +120,9 @@ def admin_admissions():
         # Notify parents if status is "accepted" or "paid"
         if new_status in ['accepted', 'paid']:
             msg_to_parents = Message(
-                subject=f"Admission Application Update - Marist Boys Secondary School",
+                subject=f"Admission Application Update - Francis Maria Libermann School",
                 recipients=[application.email],
-                body=f"Dear {application.parent_name},\n\nThe status of {application.student_name}'s application for admission to Marist Boys Secondary School has been updated to '{new_status}' for Form {application.form_level}.\n\nBest regards,\nMarist Boys Admissions Team"
+                body=f"Dear {application.parent_name},\n\nThe status of {application.student_name}'s application for admission to Francis Maria Libermann School has been updated to '{new_status}' for Form {application.form_level}.\n\nBest regards,\nFrancis Maria Libermann School Admissions Team"
             )
             try:
                 mail.send(msg_to_parents)
@@ -445,9 +445,9 @@ def admissions():
 
         # Send email to parent with the PDF
         msg_to_parent = Message(
-            subject="Admission Application Confirmation - Marist Boys Secondary School",
+            subject="Admission Application Confirmation - Francis Maria Libermann School",
             recipients=[email],
-            body=f"Dear {parent_name},\n\nThank you for submitting an admission application for {student_name} at Marist Boys Secondary School. Please find attached the admission confirmation with payment instructions.\n\nBest regards,\nMarist Boys Admissions Team"
+            body=f"Dear {parent_name},\n\nThank you for submitting an admission application for {student_name} at Francis Maria Libermann School. Please find attached the admission confirmation with payment instructions.\n\nBest regards,\nFrancis Maria Libermann School Admissions Team"
         )
         msg_to_parent.attach(
             filename=f"Admission_Confirmation_{student_name}.pdf",
@@ -512,9 +512,9 @@ def arrange_visit():
         msg_to_school = Message(subject=f"New Visit Application from {name}",
                                 recipients=['egliszaratus@gmail.com'],
                                 body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nPreferred Date: {date}\nMessage: {message}")
-        msg_to_applicant = Message(subject="Visit Application Confirmation - Marist Boys Secondary School",
+        msg_to_applicant = Message(subject="Visit Application Confirmation - Francis Maria Libermann School",
                                    recipients=[email],
-                                   body=f"Dear {name},\n\nThank you for scheduling a visit to Marist Boys Secondary School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nMarist Boys Team")
+                                   body=f"Dear {name},\n\nThank you for scheduling a visit to Francis Maria Libermann School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nFrancis Maria Libermann School Team")
 
         try:
             mail.send(msg_to_school)
@@ -629,9 +629,9 @@ def subscribe():
 
         # Send confirmation email to the subscriber
         msg_to_subscriber = Message(
-            subject="Newsletter Subscription Confirmation - Marist Boys Secondary School",
+            subject="Newsletter Subscription Confirmation - Francis Maria Libermann School",
             recipients=[email],
-            body=f"Dear Subscriber,\n\nThank you for subscribing to the Marist Boys Secondary School newsletter! You'll receive the latest news and updates from us.\n\nBest regards,\nMarist Boys Team"
+            body=f"Dear Subscriber,\n\nThank you for subscribing to the Francis Maria Libermann School newsletter! You'll receive the latest news and updates from us.\n\nBest regards,\nFrancis Maria Libermann School Team"
         )
         mail.send(msg_to_subscriber)
 
