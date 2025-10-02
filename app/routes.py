@@ -64,10 +64,10 @@ def admin_login():
         
         if admin and admin.check_password(password):
             login_user(admin)
-            flash('Logged in successfully!', 'success')
             return redirect(url_for('main.admin_dashboard'))
         else:
             flash('Invalid username or password.', 'danger')
+            return redirect(url_for('main.admin_login'))
     
     return render_template('admin_login.html')
 
