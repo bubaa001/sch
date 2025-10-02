@@ -39,9 +39,24 @@ def create_app():
     login_manager.init_app(app)
     mail.init_app(app)
 
-    # Register blueprints
-    from app.routes import main_bp
-    app.register_blueprint(main_bp)
+    # Configure Flask-Login
+    login_manager.login_view = 'main.admin_login'  # The route for admin login
+    login_manager.login_message_category = 'info'
+
+    # User loader callback - REQUIRED for Flask-Login
+    # This must be imported here to avoid circular imports
+    from app.models import Admin
+    
+    @login_manager.user_loader
+    def load_user(user_id):
+        return Admin.query.get(int(user_id))
+
+    # Register blueprints - FIXED: import 'main' not 'main_bp'
+    from app.routes import main
+    app.register_blueprint(main)
+
+    # Import models to ensure they are registered with SQLAlchemy
+    from app import models
 
     # Create tables (if using SQLite)
     with app.app_context():
