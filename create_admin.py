@@ -6,7 +6,7 @@ app = create_app()
 
 with app.app_context():
     db.create_all()
-    admin = Admin(username='admin1')
+    admin = Admin(username='administrator')
     admin.set_password('emoji3')
     db.session.add(admin)
     db.session.commit()
