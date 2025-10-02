@@ -134,8 +134,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Handle form submissions with AJAX
-    const forms = document.querySelectorAll('form');
+    // Handle form submissions with AJAX (opt-in only)
+    // To enable AJAX handling for a form, add: <form data-ajax="true" ...>
+    const forms = document.querySelectorAll('form[data-ajax="true"]');
     forms.forEach(form => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const formData = new FormData(form);
             const action = form.action || window.location.href;
-            const method = form.method.toUpperCase();
+            const method = (form.method || 'POST').toUpperCase();
 
             try {
                 const response = await fetch(action, {
@@ -169,7 +170,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                const result = await response.json();
+                // Try to parse JSON, but handle non-JSON gracefully
+                let result = { success: false, category: 'danger', message: 'An error occurred. Please try again.' };
+                try {
+                    result = await response.json();
+                } catch (jsonErr) {
+                    console.warn('Expected JSON response but got non-JSON:', jsonErr);
+                    // If response is HTML or redirect, treat as success for non-AJAX flows
+                    if (response.ok) {
+                        // Replace current document with response if it's a redirect/HTML
+                        const text = await response.text();
+                        document.open();
+                        document.write(text);
+                        document.close();
+                        return;
+                    }
+                }
 
                 // Update flash messages
                 const flashMessages = document.getElementById('flashMessages');
