@@ -7,3 +7,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+
+insrace/*.sqlite3
+instance/*.db
+instance/*site.db
