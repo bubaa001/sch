@@ -533,11 +533,17 @@ def arrange_visit():
     main.logger.info(f"Visit application received: Name: {name}, Email: {email}, Phone: {phone}, Date: {date}, Message: {message}")
 
     if name and email and phone and date:
+<<<<<<< HEAD
         msg_to_school = Message(
             subject=f"New Visit Application from {name}",
             recipients=['fmlibermann@gmail.com'],
             body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nPreferred Date: {date}\nMessage: {message}"
         )
+=======
+        msg_to_school = Message(subject=f"New Visit Application from {name}",
+                                recipients=['fmlibermann@gmail.com'],
+                                body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nPreferred Date: {date}\nMessage: {message}")
+>>>>>>> dfcfbdd29b0deae39171590533a813d202ee9707
         msg_to_applicant = Message(subject="Visit Application Confirmation - Francis Maria Libermann School",
                                    recipients=[email],
                                    body=f"Dear {name},\n\nThank you for scheduling a visit to Francis Maria Libermann School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nFrancis Maria Libermann School Team")
