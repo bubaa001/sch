@@ -627,6 +627,8 @@ p, a, li {
         letter-spacing: 1px;
     }
 }
+
+/* Flash Messages */
 #flash-messages-container {
     z-index: 1055;
 }
@@ -646,5 +648,20 @@ p, a, li {
     to {
         transform: translateY(0);
         opacity: 1;
+    }
+}
+
+/* Ensure alerts look good on mobile */
+@media (max-width: 768px) {
+    #flash-messages-container {
+        width: 90%;
+        left: 5%;
+        transform: translateX(0);
+        /* Overrides the start-50 translate-middle-x for better mobile alignment */
+    }
+    
+    .alert {
+        min-width: unset;
+        max-width: unset;
     }
 }

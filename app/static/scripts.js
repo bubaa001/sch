@@ -1,3 +1,98 @@
+// Enhanced Flash Message System (NEW)
+function showFlashMessage(message, category = 'info') {
+    // Create or get flash container
+    let flashContainer = document.getElementById('flash-messages-container');
+    if (!flashContainer) {
+        // Fallback creation
+        flashContainer = document.createElement('div');
+        flashContainer.id = 'flash-messages-container';
+        flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
+        flashContainer.style.zIndex = '1055';
+        document.body.appendChild(flashContainer);
+    }
+
+    // Create message element
+    const messageId = 'flash-' + Date.now();
+    const flashMessage = document.createElement('div');
+    flashMessage.id = messageId;
+    // Added box-shadow, border, and border-radius styles inline (also in CSS)
+    flashMessage.className = `alert alert-${category} alert-dismissible fade show`;
+    flashMessage.style.minWidth = '300px';
+    flashMessage.style.maxWidth = '500px';
+    flashMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+    flashMessage.style.border = 'none';
+    flashMessage.style.borderRadius = '8px';
+    flashMessage.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    // Add to container
+    flashContainer.appendChild(flashMessage);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        const element = document.getElementById(messageId);
+        if (element) {
+            // Use Bootstrap's method to fade out and dismiss the alert gracefully
+            const alert = bootstrap.Alert.getOrCreateInstance(element);
+            alert.close();
+        }
+    }, 5000);
+}
+
+// Enhanced form handler (NEW)
+function handleFormSubmission(form) {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        
+        // Safety check if button is not found
+        if (!submitButton) return;
+
+        const originalContent = submitButton.innerHTML;
+        const originalDisabled = submitButton.disabled;
+
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = `
+            <span class="spinner-border spinner-border-sm" role="status"></span>
+            Processing...
+        `;
+
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            const result = await response.json();
+            
+            // Show the flash message - use message and category directly
+            showFlashMessage(result.message, result.category || (result.success ? 'success' : 'danger'));
+
+            // Reset form if successful
+            if (result.success) {
+                form.reset();
+            }
+
+        } catch (error) {
+            console.error('Form submission error:', error);
+            showFlashMessage('An error occurred. Please try again.', 'danger');
+        } finally {
+            // Restore button
+            submitButton.disabled = originalDisabled;
+            submitButton.innerHTML = originalContent;
+        }
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const preloader = document.querySelector('.preloader');
     const content = document.getElementById('content');
@@ -134,105 +229,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Enhanced Flash Message System
-    function showFlashMessage(message, category = 'info') {
-        // Create or get flash container
-        let flashContainer = document.getElementById('flash-messages-container');
-        if (!flashContainer) {
-            flashContainer = document.createElement('div');
-            flashContainer.id = 'flash-messages-container';
-            flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
-            flashContainer.style.zIndex = '1055';
-            document.body.appendChild(flashContainer);
-        }
 
-        // Create message element
-        const messageId = 'flash-' + Date.now();
-        const flashMessage = document.createElement('div');
-        flashMessage.id = messageId;
-        flashMessage.className = `alert alert-${category} alert-dismissible fade show`;
-        flashMessage.style.minWidth = '300px';
-        flashMessage.style.maxWidth = '500px';
-        flashMessage.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        
-        // Add to container
-        flashContainer.appendChild(flashMessage);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            const element = document.getElementById(messageId);
-            if (element && element.parentElement) {
-                element.remove();
-            }
-        }, 5000);
+    // Initialize AJAX forms (MERGED NEW LOGIC)
+    
+    // Ensure flash container exists (Redundant check but kept for safety)
+    let flashContainer = document.getElementById('flash-messages-container');
+    if (!flashContainer) {
+        flashContainer = document.createElement('div');
+        flashContainer.id = 'flash-messages-container';
+        flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
+        flashContainer.style.zIndex = '1055';
+        document.body.appendChild(flashContainer);
     }
 
-    // Enhanced form handler
-    function handleFormSubmission(form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalContent = submitButton.innerHTML;
-            const originalDisabled = submitButton.disabled;
-
-            // Show loading state
-            submitButton.disabled = true;
-            submitButton.innerHTML = `
-                <span class="spinner-border spinner-border-sm" role="status"></span>
-                Processing...
-            `;
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
-
-                const result = await response.json();
-                
-                // Show the flash message - use message and category directly
-                showFlashMessage(result.message, result.category || (result.success ? 'success' : 'danger'));
-
-                // Reset form if successful
-                if (result.success) {
-                    form.reset();
-                }
-
-            } catch (error) {
-                console.error('Form submission error:', error);
-                showFlashMessage('An error occurred. Please try again.', 'danger');
-            } finally {
-                // Restore button
-                submitButton.disabled = originalDisabled;
-                submitButton.innerHTML = originalContent;
-            }
-        });
-    }
-
-    // Initialize all forms with data-ajax attribute
-    document.addEventListener('DOMContentLoaded', function() {
-        // Ensure flash container exists
-        let flashContainer = document.getElementById('flash-messages-container');
-        if (!flashContainer) {
-            flashContainer = document.createElement('div');
-            flashContainer.id = 'flash-messages-container';
-            flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
-            flashContainer.style.zIndex = '1055';
-            document.body.appendChild(flashContainer);
-        }
-
-        // Initialize AJAX forms
-        const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
-        ajaxForms.forEach(form => {
-            handleFormSubmission(form);
-        });
+    // Initialize AJAX forms
+    const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
+    ajaxForms.forEach(form => {
+        handleFormSubmission(form);
     });
 });
