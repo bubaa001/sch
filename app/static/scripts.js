@@ -61,7 +61,7 @@ function showFlashMessage(message, category = 'info') {
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         border: none;
         border-radius: 12px;
-        min-width: 320px;
+        width: 100%;
         max-width: 500px;
         padding: 15px 20px;
         font-weight: 500;

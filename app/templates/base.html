@@ -93,19 +93,7 @@
             <!-- Dynamic flash messages will appear here -->
         </div>
 
-        <!-- Static Flash Messages (for non-AJAX requests) -->
-        <div class="container mt-5 pt-5" id="flashMessages">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
+        <!-- Server-side flash messages are injected into the bottom container by client JS -->
 
         <!-- Page Content -->
         {% block content %}{% endblock %}
@@ -181,5 +169,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     <script src="{{ url_for('static', filename='translations.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script>
+        // Inject server-side flashed messages into the unified bottom flash container
+        (function() {
+            // Put the JSON into a JS string to avoid template braces confusing static analysis
+            const messagesJson = '{{ get_flashed_messages(with_categories=true) | tojson | safe }}';
+            let messages = [];
+            try {
+                messages = JSON.parse(messagesJson || '[]');
+            } catch (e) {
+                console.warn('Failed to parse flashed messages JSON', e);
+                messages = [];
+            }
+
+            if (messages && messages.length) {
+                function flushMessages() {
+                    if (typeof showFlashMessage === 'function') {
+                        messages.forEach(function(pair) {
+                            const category = pair[0] || 'info';
+                            const message = pair[1] || '';
+                            showFlashMessage(message, category);
+                        });
+                    } else {
+                        setTimeout(flushMessages, 50);
+                    }
+                }
+                flushMessages();
+            }
+        })();
+    </script>
 </body>
 </html>
