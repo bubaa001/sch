@@ -45,7 +45,7 @@ def generate_admission_pdf(student_name, parent_name, form_level, system_code):
     c.drawString(100, 520, "Account Number: 444444444444")
     c.drawString(100, 500, "Amount: TZS 150,000 (Application Fee: TZS 50,000 + Admission Fee: TZS 100,000)")
     c.drawString(100, 480, f"Reference: Include the System Code ({system_code}) in the payment reference.")
-    c.drawString(100, 460, "After payment, please email a payment confirmation to egliszaratus@gmail.com.")
+    c.drawString(100, 460, "After payment, please email a payment confirmation to fmlibermann@gmail.com.")
     c.showPage()
     c.save()
     buffer.seek(0)
@@ -284,7 +284,7 @@ def contact():
             db.session.add(new_contact)
             db.session.commit()
             msg = Message(subject=f"New Contact Form Submission from {name}",
-                          recipients=['egliszaratus@gmail.com'],
+                          recipients=['fmlibermann@gmail.com'],
                           body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
             try:
                 mail.send(msg)
@@ -319,7 +319,7 @@ def community():
                 db.session.add(new_parent)
                 db.session.commit()
                 msg = Message(subject=f"New Parent Registration from {name}",
-                              recipients=['egliszaratus@gmail.com'],
+                              recipients=['fmlibermann@gmail.com'],
                               body=f"Name: {name}\nEmail: {email}\nStudent Name: {student_name}\nPhone: {phone}\nVolunteer Interest: {volunteer}")
                 try:
                     mail.send(msg)
@@ -349,7 +349,7 @@ def community():
                 db.session.add(new_alumni)
                 db.session.commit()
                 msg = Message(subject=f"New Alumni Registration from {name}",
-                              recipients=['egliszaratus@gmail.com'],
+                              recipients=['fmlibermann@gmail.com'],
                               body=f"Name: {name}\nEmail: {email}\nGraduation Year: {graduation_year}\nProfession: {profession}\nMentorship Interest: {mentor}")
                 try:
                     mail.send(msg)
@@ -473,7 +473,7 @@ def admissions():
         # Send email to school with the application details and attachments
         msg_to_school = Message(
             subject=f"New Admission Inquiry from {parent_name}",
-            recipients=['egliszaratus@gmail.com'],
+            recipients=['fmlibermann@gmail.com'],
             body=f"Student Name: {student_name}\nDate of Birth: {date_of_birth}\nGender: {gender}\nParent Name: {parent_name}\nEmail: {email}\nPhone: {phone}\nForm Level: {form_level}\nPrevious School: {previous_school}\nLast Grade: {last_grade}\nMessage: {message}\n\nSystem Code: {system_code}"
         )
         for field in ['birth_certificate_path', 'report_cards_path', 'transfer_certificate_path', 'medical_report_path', 'parent_id_path']:
@@ -509,7 +509,7 @@ def submit_feedback():
 
     if name and email and feedback:
         msg = Message(subject=f"New Feedback from {name}",
-                      recipients=['egliszaratus@gmail.com'],
+                      recipients=['fmlibermann@gmail.com'],
                       body=f"Name: {name}\nEmail: {email}\nFeedback: {feedback}")
         try:
             mail.send(msg)
@@ -533,9 +533,11 @@ def arrange_visit():
     main.logger.info(f"Visit application received: Name: {name}, Email: {email}, Phone: {phone}, Date: {date}, Message: {message}")
 
     if name and email and phone and date:
-        msg_to_school = Message(subject=f"New Visit Application from {name}",
-                                recipients=['egliszaratus@gmail.com'],
-                                body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nPreferred Date: {date}\nMessage: {message}")
+        msg_to_school = Message(
+            subject=f"New Visit Application from {name}",
+            recipients=['fmlibermann@gmail.com'],
+            body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nPreferred Date: {date}\nMessage: {message}"
+        )
         msg_to_applicant = Message(subject="Visit Application Confirmation - Francis Maria Libermann School",
                                    recipients=[email],
                                    body=f"Dear {name},\n\nThank you for scheduling a visit to Francis Maria Libermann School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nFrancis Maria Libermann School Team")
@@ -568,7 +570,7 @@ def submit_contact():
         db.session.add(new_contact)
         db.session.commit()
         msg = Message(subject=f"New Contact Form Submission from {name}",
-                      recipients=['egliszaratus@gmail.com'],
+                      recipients=['fmlibermann@gmail.com'],
                       body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
         try:
             main.logger.info(f"Sending contact form email from {name} ({email})")
@@ -613,7 +615,7 @@ def submit_volunteer():
 
     if name and email and phone and interest:
         msg = Message(subject=f"New Volunteer Sign-Up from {name}",
-                      recipients=['egliszaratus@gmail.com'],
+                      recipients=['fmlibermann@gmail.com'],
                       body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nArea of Interest: {interest}")
         try:
             mail.send(msg)
@@ -644,7 +646,7 @@ def feedback():
             db.session.add(new_feedback)
             db.session.commit()
             msg = Message(subject=f"New Feedback Submission from {name}",
-                          recipients=['egliszaratus@gmail.com'],
+                          recipients=['fmlibermann@gmail.com'],
                           body=f"Name: {name}\nRole: {role}\nComment: {comment}\nRating: {rating}\nApproved: {new_feedback.approved}")
             try:
                 mail.send(msg)
@@ -706,7 +708,7 @@ def subscribe():
         # Notify the school
         msg_to_school = Message(
             subject=f"New Newsletter Subscription from {email}",
-            recipients=['egliszaratus@gmail.com'],
+            recipients=['fmlibermann@gmail.com'],
             body=f"A new user has subscribed to the newsletter.\nEmail: {email}"
         )
         mail.send(msg_to_school)
