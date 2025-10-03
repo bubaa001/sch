@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="community-hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container text-center">
+        <h1 class="animate__animated animate__fadeInDown">Join Our Libermann Community</h1>
+        <p class="lead animate__animated animate__fadeInUp">
+            Connect with parents, alumni, and volunteers to make a lasting impact.
+        </p>
+        <a href="#join-community" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">Get Involved</a>
+    </div>
+</section>
+
+<!-- Community Impact Counter -->
+<section id="community-impact" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title text-center">Our Community Impact</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <h3 class="display-4" id="volunteer-counter">150+</h3>
+                    <p>Volunteers Engaged</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <h3 class="display-4" id="event-counter">50+</h3>
+                    <p>Community Events</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <h3 class="display-4" id="alumni-counter">200+</h3>
+                    <p>Alumni Connected</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Community Engagement Section -->
+<section id="join-community" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Get Involved</h2>
+        <p class="text-center mb-5">
+            Whether you’re a parent, an alumnus, or a community member, there’s a place for you in the Libermann family.
+        </p>
+        <div class="row">
+            <!-- Parent Registration -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h3>Join as a Parent</h3>
+                    <form action="{{ url_for('main.community') }}" method="POST">
+                        <div class="mb-3">
+                            <label for="parent_name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="parent_name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="parent_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="parent_email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student_name" class="form-label">Student Name</label>
+                            <input type="text" class="form-control" id="student_name" name="student_name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="parent_phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="parent_phone" name="phone">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="volunteer" name="volunteer">
+                            <label class="form-check-label" for="volunteer">I’m interested in volunteering</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="parent_submit">Register</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Alumni Registration -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h3>Join as an Alumnus</h3>
+                    <form action="{{ url_for('main.community') }}" method="POST">
+                        <div class="mb-3">
+                            <label for="alumni_name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="alumni_name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alumni_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="alumni_email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="graduation_year" class="form-label">Graduation Year</label>
+                            <input type="number" class="form-control" id="graduation_year" name="graduation_year" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="profession" class="form-label">Profession</label>
+                            <input type="text" class="form-control" id="profession" name="profession">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="mentor" name="mentor">
+                            <label class="form-check-label" for="mentor">I’m interested in mentoring students</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="alumni_submit">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Event Feed (Simulated) -->
+<section id="live-feed" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Community Live Feed</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="glass-card p-4 mb-3">
+                    <h5>Family Day 2025 Preparations</h5>
+                    <p>Our parent committee is planning a spectacular Family Day on May 10, 2025. Volunteers needed!</p>
+                    <small>Posted on April 10, 2025</small>
+                </div>
+                <div class="glass-card p-4 mb-3">
+                    <h5>Alumni Mentorship Program Launch</h5>
+                    <p>We’re excited to launch our mentorship program with 10 alumni mentors joining us this month!</p>
+                    <small>Posted on April 5, 2025</small>
+                </div>
+                <div class="glass-card p-4 mb-3">
+                    <h5>Tree Planting Success</h5>
+                    <p>Our students planted 200 trees, thanks to our amazing volunteers!</p>
+                    <small>Posted on March 30, 2025</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Simple counter animation (for demo purposes)
+    document.addEventListener('DOMContentLoaded', () => {
+        const counters = [
+            { id: 'volunteer-counter', end: 150, duration: 2000 },
+            { id: 'event-counter', end: 50, duration: 2000 },
+            { id: 'alumni-counter', end: 200, duration: 2000 }
+        ];
+
+        counters.forEach(counter => {
+            let start = 0;
+            const element = document.getElementById(counter.id);
+            const increment = counter.end / (counter.duration / 16);
+            const updateCounter = () => {
+                start += increment;
+                if (start >= counter.end) {
+                    element.textContent = counter.end + '+';
+                    return;
+                }
+                element.textContent = Math.ceil(start) + '+';
+                requestAnimationFrame(updateCounter);
+            };
+            updateCounter();
+        });
+    });
+</script>
+{% endblock %}

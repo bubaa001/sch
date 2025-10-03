@@ -1,0 +1,532 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="admissions-hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container text-center">
+        <h1 class="animate__animated animate__fadeInDown">Admissions at Francis Maria Libermann School</h1>
+        <p class="lead animate__animated animate__fadeInUp">
+            Join our vibrant community in Zanzibar, where we empower students to aim higher through holistic education. Start your journey today!
+        </p>
+        <a href="#application-form" class="btn btn-primary btn-lg mt-3">Apply Now</a>
+    </div>
+</section>
+
+<!-- Arrange a Visit Section -->
+<section id="arrange-visit" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Arrange a Visit</h2>
+        <p class="text-center mb-5">
+            We warmly invite prospective students and families to visit our campus and experience the Libermann difference firsthand.
+        </p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <p>
+                    To arrange a visit, please contact our Admissions Office at <strong>+255 767 487 819</strong> or email us at <strong>fmlibermann@gmail.com</strong>. Visits are available Monday to Friday from 9:00 AM to 3:00 PM, and on Saturdays from 10:00 AM to 1:00 PM. We recommend scheduling at least a week in advance to ensure availability.
+                </p>
+                <p>
+                    During your visit, you’ll have the opportunity to tour our facilities, meet our staff, and learn more about our academic and extracurricular programs. We also offer virtual tours for families unable to visit in person—simply request a virtual tour link when you contact us.
+                </p>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 text-center">
+                    <h3>Ready to Visit?</h3>
+                    <p>Fill out our online visit request form to schedule your tour.</p>
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Request a Visit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Online Registration Form Section -->
+<section id="application-form" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Online Registration Form</h2>
+        <p class="text-center mb-5">
+            Begin your journey at Francis Maria Libermann School by completing our online registration form. <br>
+            <small>(Please fill out all required fields. Instructions are available in English and Swahili.)</small>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="glass-card p-4">
+                    <form action="{{ url_for('main.admissions') }}" method="POST" enctype="multipart/form-data">
+                        <!-- Language Toggle -->
+                        <div class="mb-3 text-end">
+                            <select id="language-toggle" onchange="toggleLanguage()">
+                                <option value="en">English</option>
+                                <option value="sw">Swahili</option>
+                            </select>
+                        </div>
+
+                        <!-- Student Information -->
+                        <h4 class="mb-3">Student Information</h4>
+                        <div class="mb-3">
+                            <label for="student_name" class="form-label" data-en="Student Full Name" data-sw="Jina Kamili la Mwanafunzi">Student Full Name</label>
+                            <input type="text" class="form-control" id="student_name" name="student_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_of_birth" class="form-label" data-en="Date of Birth" data-sw="Tarehe ya Kuzaliwa">Date of Birth</label>
+                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label" data-en="Gender" data-sw="Jinsia">Gender</label>
+                            <select class="form-control" id="gender" name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="level" class="class-label" data-en="Applying for Educational Level" data-sw="Inaomba Darasa/Kidato">Applying for Educational Level</label>
+                            <select class="form-control" id="level" name="form_level" required>
+                                <option value="Nursery">Nursery</option>
+                                <option value="Kindergarten">Kindergarten</option>
+                                <option value="class 1">class 1</option>
+                                <option value="class 2">class 2</option>
+                                <option value="class 3">class 3</option>
+                                <option value="class 4">class 4</option>
+                                <option value="class 5">class 5</option>
+                                <option value="class 6">class 6</option>
+                                <option value="class 7">class 7</option>
+                                <option value="Form 1">Form 1</option>
+                                <option value="Form 2">Form 2</option>
+                                <option value="Form 3">Form 3</option>
+                                <option value="Form 4">Form 4</option>
+                            </select>
+                        </div>
+
+                        <!-- Parent/Guardian Information -->
+                        <h4 class="mb-3">Parent/Guardian Information</h4>
+                        <div class="mb-3">
+                            <label for="parent_name" class="form-label" data-en="Parent/Guardian Full Name" data-sw="Jina Kamili la Mzazi/Mlezi">Parent/Guardian Full Name</label>
+                            <input type="text" class="form-control" id="parent_name" name="parent_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label" data-en="Email Address" data-sw="Barua Pepe">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label" data-en="Phone Number" data-sw="Namba ya Simu">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+
+                        <!-- Academic Information -->
+                        <h4 class="mb-3">Academic Information</h4>
+                        <div class="mb-3">
+                            <label for="previous_school" class="form-label" data-en="Previous School Name" data-sw="Jina la Shule ya Awali">Previous School Name</label>
+                            <input type="text" class="form-control" id="previous_school" name="previous_school" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="last_grade" class="form-label" data-en="Last Grade/Form Completed" data-sw="Darasa/Kidato cha Mwisho">Last Grade/Form Completed</label>
+                            <input type="text" class="form-control" id="last_grade" name="last_grade" required>
+                        </div>
+
+                        <!-- Document Uploads -->
+                        <h4 class="mb-3">Required Documents</h4>
+                        <p data-en="Please upload the following documents (PDF or image format, max 5MB each):" data-sw="Tafadhali pakia hati zifuatazo (umbile la PDF au picha, max 5MB kila moja):">
+                            Please upload the following documents (PDF or image format, max 5MB each):
+                        </p>
+                        <div class="mb-3">
+                            <label for="birth_certificate" class="form-label" data-en="Birth Certificate" data-sw="Cheti cha Kuzaliwa">Birth Certificate</label>
+                            <input type="file" class="form-control" id="birth_certificate" name="birth_certificate" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="report_cards" class="form-label" data-en="Recent Report Cards (Last Two Years)" data-sw="Ripoti za Hivi Karibuni (Miaka Miwili ya Mwisho)">Recent Report Cards (Last Two Years)</label>
+                            <input type="file" class="form-control" id="report_cards" name="report_cards" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="transfer_certificate" class="form-label" data-en="Transfer Certificate (if applicable)" data-sw="Cheti cha Kuhamia (ikiwa inatumika)">Transfer Certificate (if applicable)</label>
+                            <input type="file" class="form-control" id="transfer_certificate" name="transfer_certificate" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+                        <div class="mb-3">
+                            <label for="medical_report" class="form-label" data-en="Medical Report (including vaccinations)" data-sw="Ripoti ya Matibabu (pamoja na chanjo)">Medical Report (including vaccinations)</label>
+                            <input type="file" class="form-control" id="medical_report" name="medical_report" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="parent_id" class="form-label" data-en="Parent/Guardian ID" data-sw="Kitambulisho cha Mzazi/Mlezi">Parent/Guardian ID</label>
+                            <input type="file" class="form-control" id="parent_id" name="parent_id" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <div class="mb-3">
+                            <label for="message" class="form-label" data-en="Additional Information (Optional)" data-sw="Maelezo ya Ziada (Hiari)">Additional Information (Optional)</label>
+                            <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+                        </div>
+
+                        <!-- Registration Fee Note -->
+                        <p class="mb-3" data-en="A non-refundable registration fee of TZS 50,000 is required to complete your application. After submission, you will receive payment instructions via email." data-sw="Ada ya usajili isiyoweza kurejeshwa ya TZS 50,000 inahitajika ili kukamilisha maombi yako. Baada ya kuwasilisha, utapokea maelekezo ya malipo kupitia barua pepe.">
+                            A non-refundable registration fee of TZS 50,000 is required to complete your application. After submission, you will receive payment instructions via email.
+                        </p>
+
+                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Conditions for Enrollment Section -->
+<section id="conditions-enrollment" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Conditions for Enrollment</h2>
+        <p class="text-center mb-5">
+            We welcome students who are ready to embrace our values-driven education and contribute to our community.
+        </p>
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <ul>
+                    <li><strong>Age Requirement:</strong> Applicants for Nursery must be at least 3 years old by September 30 of the admission year. For higher forms, age is assessed based on the student’s previous academic level.</li>
+                    <li><strong>Academic Performance:</strong> Applicants must demonstrate satisfactory performance in their previous school, as evidenced by report cards, and pass our entrance exam.</li>
+                    <li><strong>Entrance Exam and Interview:</strong> All applicants are required to take an entrance exam covering English, Mathematics, and General Knowledge, followed by an interview with the Admissions Team.</li>
+                    <li><strong>Character and Discipline:</strong> Applicants must exhibit good behavior and a willingness to adhere to the school’s Catholic values and code of conduct, though students of all faiths are welcome.</li>
+                    <li><strong>Boarding Requirement:</strong> All students are required to board, as Francis Maria Libermann School operates as a full boarding school, fostering a disciplined and supportive environment.</li>
+                    <li><strong>Health Requirements:</strong> A medical report confirming the student’s fitness and up-to-date vaccinations is mandatory.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Open Days Section -->
+<section id="open-days" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Open Days</h2>
+        <p class="text-center mb-5">
+            Join us for our Open Days to explore our campus, meet our staff, and learn more about life at Francis Maria Libermann School.
+        </p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h3>Upcoming Open Days</h3>
+                    <ul>
+                        <li><strong>May 10, 2025:</strong> Discover Francis Maria Libermann Day (9:00 AM - 2:00 PM)</li>
+                        <li><strong>August 15, 2025:</strong> Family Open House (10:00 AM - 3:00 PM)</li>
+                        <li><strong>November 8, 2025:</strong> Academic Showcase Day (9:00 AM - 1:00 PM)</li>
+                    </ul>
+                    <p>No registration is required—just come and experience our vibrant community!</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <p>
+                    Our Open Days are the perfect opportunity to see our school in action. You’ll have the chance to tour our facilities, attend sample classes, watch student performances, and interact with current students and parents. We’ll also host Q&A sessions with our faculty and leadership team to answer all your questions about academics, boarding life, and extracurricular activities.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What to Expect Section -->
+<section id="what-to-expect" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">What to Expect</h2>
+        <p class="text-center mb-5">
+            Here’s a step-by-step guide to what happens after you apply to Francis Maria Libermann School.
+        </p>
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <ol>
+                    <li><strong>Application Review:</strong> Our Admissions Team reviews your application and documents within two weeks of submission.</li>
+                    <li><strong>Entrance Exam and Interview:</strong> Applicants are scheduled for an entrance exam and interview, typically within a month of applying.</li>
+                    <li><strong>Admission Decision:</strong> You’ll receive an admission decision via email within one week of the interview. Successful candidates will receive an acceptance letter and enrollment package.</li>
+                    <li><strong>Fee Payment:</strong> Pay the initial tuition fee installment (see Fees section below) to secure your spot.</li>
+                    <li><strong>Orientation:</strong> Attend our New Student Orientation in January, where students and parents will learn about the school’s expectations, meet the house masters, and prepare for the academic year.</li>
+                    <li><strong>First Day:</strong> The academic year begins in January, and your child will officially join the Francis Maria Libermann community as a boarder.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Guided Tour Section -->
+<section id="guided-tour" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Guided Tour</h2>
+        <p class="text-center mb-5">
+            Explore our campus through a personalized guided tour led by our student ambassadors.
+        </p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <p>
+                    Our guided tours offer a comprehensive look at life at Francis Maria Libermann School. You’ll visit key areas of our campus, including:
+                </p>
+                <ul>
+                    <li>Classrooms and science laboratories</li>
+                    <li>Boarding facilities and dining hall</li>
+                    <li>Library and computer labs</li>
+                    <li>Sports fields and recreational areas</li>
+                    <li>Chapel and spiritual spaces</li>
+                </ul>
+                <p>
+                    The tour lasts approximately one hour and is led by current students who will share their experiences and answer your questions. You’ll also have the chance to meet with a member of our Admissions Team to discuss the application process.
+                </p>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 text-center">
+                    <h3>Book Your Tour</h3>
+                    <p>Contact us to schedule a guided tour and see our campus in action.</p>
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Schedule Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Meet the Team Section -->
+<section id="meet-the-team" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Meet the Admissions Team</h2>
+        <p class="text-center mb-5">
+            Our dedicated Admissions Team is here to guide you through every step of the process.
+        </p>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 glass-card" data-tilt>
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-tie fa-2x mb-3" aria-hidden="true"></i>
+                        <h5 class="card-title">Mrs. Agnes Mrema</h5>
+                        <p class="card-text">Admissions Director</p>
+                        <p>Mrs. Mrema has over 15 years of experience in education and is passionate about helping families find the right school for their children.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 glass-card" data-tilt>
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-graduate fa-2x mb-3" aria-hidden="true"></i>
+                        <h5 class="card-title">Mr. Joseph Kweka</h5>
+                        <p class="card-text">Admissions Coordinator</p>
+                        <p>Mr. Kweka oversees the entrance exams and interviews, ensuring a smooth admissions process for all applicants.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 glass-card" data-tilt>
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-2x mb-3" aria-hidden="true"></i>
+                        <h5 class="card-title">Sr. Maria Goretti</h5>
+                        <p class="card-text">Boarding Life Advisor</p>
+                        <p>Sr. Maria supports new students in transitioning to boarding life, ensuring they feel at home in our community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Connect Section -->
+<section id="connect" class="section bg-white" data-aos="fade-up">
+    <div class="container text-center">
+        <h2 class="section-title">Connect with Us</h2>
+        <p class="mb-5">
+            Have questions about admissions? We’re here to help! Reach out to us through the following channels:
+        </p>
+        <p><strong>Phone:</strong> +255 767 487 819</p>
+        <p><strong>Email:</strong> fmlibermann@gmail.com (Messages will be received as PDFs)</p>
+        <p><strong>Visit Us:</strong> Shehia of Tomondo (R65G+8X8, Zanzibar)</p>
+        <p><strong>Office Hours:</strong> Monday to Friday, 8:00 AM - 4:00 PM; Saturday, 9:00 AM - 1:00 PM</p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg mt-3">Get in Touch</a>
+    </div>
+</section>
+
+<!-- Non-Candidate and Candidate Classes Section -->
+<section id="classes" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Our Academic Programs</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <h3>Non-Candidate Classes</h3>
+                <p>
+                    We offer a Pre-Form 1 Preparatory Program for students who are not yet ready to join Form 1 but show potential for growth. This program focuses on foundational skills in English, Mathematics, and Science, preparing students for the rigors of secondary education. The program runs for one year and includes:
+                </p>
+                <ul>
+                    <li>Intensive academic support</li>
+                    <li>Character development workshops</li>
+                    <li>Introduction to boarding life</li>
+                </ul>
+                <p>Students who successfully complete this program are guaranteed admission to Form 1.</p>
+            </div>
+            <div class="col-md-6 mb-4">
+                <h3>Candidate Classes</h3>
+                <p>
+                    Francis Maria Libermann School offers education from Nursery to Form 4, preparing students for national examinations (FTNA, CSEE) under the NECTA curriculum (school code ZP0372 && S4202). Our candidate classes focus on:
+                </p>
+                <ul>
+                    <li>Academic excellence in core subjects</li>
+                    <li>Practical learning through science labs and field trips</li>
+                    <li>Spiritual and moral growth through our Catholic ethos</li>
+                    <li>Extracurricular activities, including sports and cultural events</li>
+                </ul>
+                <p>Admission to these classes is based on the entrance exam, interview, and previous academic performance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fees Section -->
+<section id="fees" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Fees for Forms 1 to 6</h2>
+        <p class="text-center mb-5">
+            Below is the fee structure for the 2025 academic year, including tuition, boarding, and other costs. Fees are payable in installments.
+        </p>
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <h3>Annual Fee Structure</h3>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Form</th>
+                            <th>Tuition Fee (TZS)</th>
+                            <th>Boarding Fee (TZS)</th>
+                            <th>Other Fees (TZS)</th>
+                            <th>Total Annual Fee (TZS)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Form 1</td>
+                            <td>1,200,000</td>
+                            <td>800,000</td>
+                            <td>200,000 (Uniforms, Books)</td>
+                            <td>2,200,000</td>
+                        </tr>
+                        <tr>
+                            <td>Form 2</td>
+                            <td>1,250,000</td>
+                            <td>800,000</td>
+                            <td>150,000 (Books, Activities)</td>
+                            <td>2,200,000</td>
+                        </tr>
+                        <tr>
+                            <td>Form 3</td>
+                            <td>1,300,000</td>
+                            <td>850,000</td>
+                            <td>150,000 (Books, Activities)</td>
+                            <td>2,300,000</td>
+                        </tr>
+                        <tr>
+                            <td>Form 4</td>
+                            <td>1,350,000</td>
+                            <td>850,000</td>
+                            <td>200,000 (Exam Fees, Books)</td>
+                            <td>2,400,000</td>
+                        </tr>
+                        <tr>
+                            <td>Form 5</td>
+                            <td>1,400,000</td>
+                            <td>900,000</td>
+                            <td>200,000 (Books, Activities)</td>
+                            <td>2,500,000</td>
+                        </tr>
+                        <tr>
+                            <td>Form 6</td>
+                            <td>1,450,000</td>
+                            <td>900,000</td>
+                            <td>250,000 (Exam Fees, Books)</td>
+                            <td>2,600,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 mb-4">
+                <h3>Installment Payment Schedule</h3>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Installment</th>
+                            <th>Percentage of Total Fee</th>
+                            <th>Due Date</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>First Installment</td>
+                            <td>40%</td>
+                            <td>January 15, 2025</td>
+                            <td>Required to secure admission</td>
+                        </tr>
+                        <tr>
+                            <td>Second Installment</td>
+                            <td>30%</td>
+                            <td>May 1, 2025</td>
+                            <td>Before the start of Term 2</td>
+                        </tr>
+                        <tr>
+                            <td>Third Installment</td>
+                            <td>30%</td>
+                            <td>September 1, 2025</td>
+                            <td>Before the start of Term 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Payment Methods:</strong> Fees can be paid via bank transfer to Francis Maria Libermann School (Account details provided upon acceptance) or in person at the Finance Office. Late payments may incur a 5% penalty.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Language toggle function
+    function toggleLanguage() {
+        const lang = document.getElementById('language-toggle').value;
+        document.querySelectorAll('[data-en]').forEach(element => {
+            element.textContent = element.getAttribute(`data-${lang}`);
+        });
+    }
+
+    // Client-side form validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const requiredFields = [
+            { id: 'student_name', name: 'Student Name' },
+            { id: 'date_of_birth', name: 'Date of Birth' },
+            { id: 'gender', name: 'Gender' },
+            { id: 'parent_name', name: 'Parent/Guardian Full Name' },
+            { id: 'email', name: 'Email Address' },
+            { id: 'phone', name: 'Phone Number' },
+            { id: 'form_level', name: 'Form Level' },
+            { id: 'previous_school', name: 'Previous School Name' },
+            { id: 'last_grade', name: 'Last Grade/Form Completed' }
+        ];
+
+        for (let field of requiredFields) {
+            const value = document.getElementById(field.id).value.trim();
+            if (!value) {
+                e.preventDefault();
+                alert(`${field.name} is required.`);
+                document.getElementById(field.id).focus();
+                return;
+            }
+        }
+
+        // Validate file uploads
+        const requiredFiles = [
+            { id: 'birth_certificate', name: 'Birth Certificate' },
+            { id: 'report_cards', name: 'Recent Report Cards' },
+            { id: 'medical_report', name: 'Medical Report' },
+            { id: 'parent_id', name: 'Parent/Guardian ID' }
+        ];
+
+        for (let file of requiredFiles) {
+            const input = document.getElementById(file.id);
+            if (!input.files || input.files.length === 0) {
+                e.preventDefault();
+                alert(`Please upload a ${file.name}.`);
+                input.focus();
+                return;
+            }
+            // Check file size (max 5MB)
+            if (input.files[0].size > 5 * 1024 * 1024) {
+                e.preventDefault();
+                alert(`${file.name} must be less than 5MB.`);
+                input.focus();
+                return;
+            }
+        }
+    });
+</script>
+{% endblock %}

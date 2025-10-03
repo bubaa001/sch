@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Events Section -->
+<section id="events" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Upcoming Events at Francis Maria Libermann School</h2>
+        <p class="text-center mb-5">
+            Join us for exciting events that bring our community together! From Family Day to service projects, there’s always something happening at Francis Maria Libermann School.
+        </p>
+        <div class="row">
+            <!-- Event 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 glass-card" data-tilt>
+                    <div class="card-body">
+                        <h5 class="card-title">Family Day 2025</h5>
+                        <p class="card-text">
+                            <strong>Date:</strong> May 10, 2025<br>
+                            <strong>Time:</strong> 8:00 AM - 4:00 PM<br>
+                            <strong>Location:</strong> Francis Maria Libermann School Campus<br>
+                            A day of games, cultural performances, and shared meals to celebrate our Libermann family spirit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Event 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 glass-card" data-tilt>
+                    <div class="card-body">
+                        <h5 class="card-title">Annual Tree Planting Drive</h5>
+                        <p class="card-text">
+                            <strong>Date:</strong> July 20, 2025<br>
+                            <strong>Time:</strong> 7:00 AM - 12:00 PM<br>
+                            <strong>Location:</strong> Nyakato Ward<br>
+                            Help us plant 500 trees to support environmental sustainability in our community.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p>Want to get involved or learn more? Contact us to participate in these events!</p>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Get in Touch</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
