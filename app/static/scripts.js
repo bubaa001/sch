@@ -134,94 +134,105 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Handle form submissions with AJAX (opt-in only)
-    // To enable AJAX handling for a form, add: <form data-ajax="true" ...>
-    const forms = document.querySelectorAll('form[data-ajax="true"]');
-    forms.forEach(form => {
+    // Enhanced Flash Message System
+    function showFlashMessage(message, category = 'info') {
+        // Create or get flash container
+        let flashContainer = document.getElementById('flash-messages-container');
+        if (!flashContainer) {
+            flashContainer = document.createElement('div');
+            flashContainer.id = 'flash-messages-container';
+            flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
+            flashContainer.style.zIndex = '1055';
+            document.body.appendChild(flashContainer);
+        }
+
+        // Create message element
+        const messageId = 'flash-' + Date.now();
+        const flashMessage = document.createElement('div');
+        flashMessage.id = messageId;
+        flashMessage.className = `alert alert-${category} alert-dismissible fade show`;
+        flashMessage.style.minWidth = '300px';
+        flashMessage.style.maxWidth = '500px';
+        flashMessage.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        
+        // Add to container
+        flashContainer.appendChild(flashMessage);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            const element = document.getElementById(messageId);
+            if (element && element.parentElement) {
+                element.remove();
+            }
+        }, 5000);
+    }
+
+    // Enhanced form handler
+    function handleFormSubmission(form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Find the submit button within the form
             const submitButton = form.querySelector('button[type="submit"]');
-            if (!submitButton) return;
+            const originalContent = submitButton.innerHTML;
+            const originalDisabled = submitButton.disabled;
 
-            // Store the original button HTML and attributes
-            const originalButtonHTML = submitButton.innerHTML;
-            const originalDisabledState = submitButton.disabled;
-
-            // Change button to loading state using Bootstrap spinner
+            // Show loading state
             submitButton.disabled = true;
-            submitButton.className = 'btn btn-primary disabled';
             submitButton.innerHTML = `
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Sending...
+                <span class="spinner-border spinner-border-sm" role="status"></span>
+                Processing...
             `;
 
-            const formData = new FormData(form);
-            const action = form.action || window.location.href;
-            const method = (form.method || 'POST').toUpperCase();
-
             try {
-                const response = await fetch(action, {
-                    method: method,
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
                     body: formData,
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
 
-                // Try to parse JSON, but handle non-JSON gracefully
-                let result = { success: false, category: 'danger', message: 'An error occurred. Please try again.' };
-                try {
-                    result = await response.json();
-                } catch (jsonErr) {
-                    console.warn('Expected JSON response but got non-JSON:', jsonErr);
-                    // If response is HTML or redirect, treat as success for non-AJAX flows
-                    if (response.ok) {
-                        // Replace current document with response if it's a redirect/HTML
-                        const text = await response.text();
-                        document.open();
-                        document.write(text);
-                        document.close();
-                        return;
-                    }
-                }
-
-                // Update flash messages
-                const flashMessages = document.getElementById('flashMessages');
-                if (flashMessages) {
-                    flashMessages.innerHTML = `
-                        <div class="alert alert-${result.category} alert-dismissible fade show" role="alert">
-                            ${result.message}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>
-                        </div>
-                    `;
-                }
+                const result = await response.json();
+                
+                // Show the flash message - use message and category directly
+                showFlashMessage(result.message, result.category || (result.success ? 'success' : 'danger'));
 
                 // Reset form if successful
                 if (result.success) {
                     form.reset();
                 }
+
             } catch (error) {
                 console.error('Form submission error:', error);
-                const flashMessages = document.getElementById('flashMessages');
-                if (flashMessages) {
-                    flashMessages.innerHTML = `
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            An error occurred. Please try again.
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true"></button>
-                        </div>
-                    `;
-                }
+                showFlashMessage('An error occurred. Please try again.', 'danger');
             } finally {
-                // Revert button to original state
-                submitButton.disabled = originalDisabledState;
-                submitButton.innerHTML = originalButtonHTML;
-                submitButton.className = 'btn btn-primary';
+                // Restore button
+                submitButton.disabled = originalDisabled;
+                submitButton.innerHTML = originalContent;
             }
         });
-    });
+    }
 
-    // Debug Preloader
-    console.log("Page loaded, checking preloader...");
+    // Initialize all forms with data-ajax attribute
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ensure flash container exists
+        let flashContainer = document.getElementById('flash-messages-container');
+        if (!flashContainer) {
+            flashContainer = document.createElement('div');
+            flashContainer.id = 'flash-messages-container';
+            flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
+            flashContainer.style.zIndex = '1055';
+            document.body.appendChild(flashContainer);
+        }
+
+        // Initialize AJAX forms
+        const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
+        ajaxForms.forEach(form => {
+            handleFormSubmission(form);
+        });
+    });
 });
