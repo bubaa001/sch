@@ -129,6 +129,7 @@ def admin_admissions():
                 flash('Parents have been notified of the status update.', 'success')
             except Exception as e:
                 flash(f'Failed to notify parents. Error: {str(e)}', 'warning')
+                main.logger.error(f"Failed to notify parents: {str(e)}")
 
         return redirect(url_for('main.admin_admissions'))
 
@@ -287,8 +288,10 @@ def contact():
                           body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
             try:
                 mail.send(msg)
+                main.logger.info(f"Contact form email sent successfully from {name} ({email})")
                 return jsonify({'success': True, 'message': 'Message sent successfully! We will get back to you soon.', 'category': 'success'})
             except Exception as e:
+                main.logger.error(f"Failed to send contact form email from {name} ({email}): {str(e)}")
                 return jsonify({'success': False, 'message': f'Message saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
         else:
             return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
@@ -320,8 +323,10 @@ def community():
                               body=f"Name: {name}\nEmail: {email}\nStudent Name: {student_name}\nPhone: {phone}\nVolunteer Interest: {volunteer}")
                 try:
                     mail.send(msg)
+                    main.logger.info(f"Parent registration email sent successfully from {name} ({email})")
                     return jsonify({'success': True, 'message': 'Thank you for registering! We’ll be in touch soon.', 'category': 'success'})
                 except Exception as e:
+                    main.logger.error(f"Failed to send parent registration email from {name} ({email}): {str(e)}")
                     return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
             else:
                 return jsonify({'success': False, 'message': 'Please provide name and email.', 'category': 'danger'})
@@ -348,8 +353,10 @@ def community():
                               body=f"Name: {name}\nEmail: {email}\nGraduation Year: {graduation_year}\nProfession: {profession}\nMentorship Interest: {mentor}")
                 try:
                     mail.send(msg)
+                    main.logger.info(f"Alumni registration email sent successfully from {name} ({email})")
                     return jsonify({'success': True, 'message': 'Thank you for joining the alumni network!', 'category': 'success'})
                 except Exception as e:
+                    main.logger.error(f"Failed to send alumni registration email from {name} ({email}): {str(e)}")
                     return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
             else:
                 return jsonify({'success': False, 'message': 'Please provide name, email, and graduation year.', 'category': 'danger'})
@@ -402,14 +409,22 @@ def admissions():
         file_paths = {}
         total_attachment_size = 0
         for field, file in files.items():
+            main.logger.info(f"Processing file: {field} for student: {student_name}")
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file_path = os.path.join(UPLOAD_FOLDER, f"{field}_{student_name}_{filename}")
-                file.save(file_path)
-                file_paths[field + '_path'] = file_path
-                file_size = os.path.getsize(file_path)
-                total_attachment_size += file_size
+                try:
+                    filename = secure_filename(file.filename)
+                    file_path = os.path.join(UPLOAD_FOLDER, f"{field}_{student_name}_{filename}")
+                    main.logger.info(f"Saving file: {filename} to {file_path}")
+                    file.save(file_path)
+                    file_paths[field + '_path'] = file_path
+                    file_size = os.path.getsize(file_path)
+                    total_attachment_size += file_size
+                    main.logger.info(f"File {filename} saved successfully. Size: {file_size} bytes")
+                except Exception as e:
+                    main.logger.error(f"Error saving file {file.filename} for student: {student_name}. Error: {str(e)}")
+                    return jsonify({'success': False, 'message': f'Error saving {field.replace("_", " ")}. Error: {str(e)}', 'category': 'danger'})
             elif field in ['birth_certificate', 'report_cards', 'medical_report', 'parent_id'] and not file:
+                main.logger.warning(f"Missing required file: {field} for student: {student_name}")
                 return jsonify({'success': False, 'message': f'Please upload a valid {field.replace("_", " ")}.', 'category': 'danger'})
 
         if total_attachment_size > 25 * 1024 * 1024:
@@ -476,17 +491,21 @@ def admissions():
         try:
             mail.send(msg_to_parent)
             mail.send(msg_to_school)
+            main.logger.info(f"Admission application emails sent successfully to {email} and school")
             return jsonify({'success': True, 'message': 'Application submitted successfully! Please check your email for payment instructions.', 'category': 'success'})
         except Exception as e:
+            main.logger.error(f"Failed to send admission application emails to {email} and school: {str(e)}")
             return jsonify({'success': False, 'message': f'Application saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
 
     return render_template('admissions.html', current_page='admissions')
-
 @main.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
+    language.logging.info("Submitting feedback...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     feedback = request.form.get('feedback', '').strip()
+    language.logging.info(f"Feedback received: Name: {name}, Email: {email}, Feedback: {feedback}")
+
 
     if name and email and feedback:
         msg = Message(subject=f"New Feedback from {name}",
@@ -494,19 +513,24 @@ def submit_feedback():
                       body=f"Name: {name}\nEmail: {email}\nFeedback: {feedback}")
         try:
             mail.send(msg)
+            language.logging.info(f"Feedback email sent successfully from {name} ({email})")
             return jsonify({'success': True, 'message': 'Thank you for your feedback!', 'category': 'success'})
         except Exception as e:
+            language.logging.error(f"Failed to send feedback email from {name} ({email}). Error: {str(e)}")
             return jsonify({'success': False, 'message': f'Failed to send your feedback. Error: {str(e)}', 'category': 'danger'})
     else:
+        language.logging.warning("Feedback submission failed: Please fill out all fields.")
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
 
 @main.route('/arrange_visit', methods=['POST'])
 def arrange_visit():
+    language.logging.info("Submitting visit application...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     phone = request.form.get('phone', '').strip()
     date = request.form.get('date', '').strip()
     message = request.form.get('message', '')
+    language.logging.info(f"Visit application received: Name: {name}, Email: {email}, Phone: {phone}, Date: {date}, Message: {message}")
 
     if name and email and phone and date:
         msg_to_school = Message(subject=f"New Visit Application from {name}",
@@ -517,19 +541,23 @@ def arrange_visit():
                                    body=f"Dear {name},\n\nThank you for scheduling a visit to Marist Boys Secondary School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nMarist Boys Team")
 
         try:
+            language.logging.info(f"Sending visit application emails to school and applicant ({email})")
             mail.send(msg_to_school)
             mail.send(msg_to_applicant)
+            language.logging.info(f"Visit application emails sent successfully to school and applicant ({email})")
             return jsonify({'success': True, 'message': 'Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success'})
         except Exception as e:
             return jsonify({'success': False, 'message': f'Failed to submit your visit application. Error: {str(e)}', 'category': 'danger'})
     else:
         return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger'})
-
 @main.route('/submit_contact', methods=['POST'])
 def submit_contact():
+    language.logging.info("Submitting contact form...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     message = request.form.get('message', '').strip()
+    language.logging.info(f"Contact form received: Name: {name}, Email: {email}, Message: {message}")
+
 
     if name and email and message:
         new_contact = Contact(name=name, email=email, message=message)
@@ -539,11 +567,15 @@ def submit_contact():
                       recipients=['egliszaratus@gmail.com'],
                       body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
         try:
+            language.logging.info(f"Sending contact form email from {name} ({email})")
             mail.send(msg)
+            language.logging.info(f"Contact form email sent successfully from {name} ({email})")
             return jsonify({'success': True, 'message': 'Your message has been sent successfully! We will get back to you soon.', 'category': 'success'})
         except Exception as e:
+            language.logging.error(f"Failed to send contact form email from {name} ({email}). Error: {str(e)}")
             return jsonify({'success': False, 'message': f'Failed to send your message. Error: {str(e)}', 'category': 'danger'})
     else:
+        language.logging.warning("Contact form submission failed: Please fill out all fields.")
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
 
 @main.route('/events')
@@ -563,8 +595,10 @@ def submit_volunteer():
                       body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nArea of Interest: {interest}")
         try:
             mail.send(msg)
+            main.logger.info(f"Volunteer sign-up email sent successfully from {name} ({email})")
             return jsonify({'success': True, 'message': 'Thank you for signing up to volunteer! We’ll be in touch soon.', 'category': 'success'})
         except Exception as e:
+            main.logger.error(f"Failed to send volunteer sign-up email from {name} ({email}): {str(e)}")
             return jsonify({'success': False, 'message': f'Failed to send your volunteer sign-up. Error: {str(e)}', 'category': 'danger'})
     else:
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
@@ -592,11 +626,23 @@ def feedback():
                           body=f"Name: {name}\nRole: {role}\nComment: {comment}\nRating: {rating}\nApproved: {new_feedback.approved}")
             try:
                 mail.send(msg)
-                return jsonify({'success': True, 'message': 'Feedback submitted for moderation. Thank you for your input!', 'category': 'success'})
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return jsonify({'success': True, 'message': 'Feedback submitted for moderation. Thank you for your input!', 'category': 'success'})
+                else:
+                    flash('Feedback submitted for moderation. Thank you for your input!', 'success')
+                    return redirect(url_for('main.feedback'))
             except Exception as e:
-                return jsonify({'success': False, 'message': f'Feedback saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return jsonify({'success': False, 'message': f'Feedback saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
+                else:
+                    flash(f'Feedback saved, but failed to send email. Error: {str(e)}', 'warning')
+                    return redirect(url_for('main.feedback'))
         else:
-            return jsonify({'success': False, 'message': 'Please complete all fields.', 'category': 'danger'})
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return jsonify({'success': False, 'message': 'Please complete all fields.', 'category': 'danger'})
+            else:
+                flash('Please complete all fields.', 'danger')
+                return redirect(url_for('main.feedback'))
 
     approved_feedback = Feedback.query.filter_by(approved=True).all()
     return render_template('student-feedback.html',
@@ -642,8 +688,10 @@ def subscribe():
             body=f"A new user has subscribed to the newsletter.\nEmail: {email}"
         )
         mail.send(msg_to_school)
+        main.logger.info(f"Newsletter subscription email sent successfully to {email} and school")
 
         return jsonify({'success': True, 'category': 'success', 'message': 'Thank you for subscribing! A confirmation email has been sent.'})
     except Exception as e:
         db.session.rollback()
+        main.logger.error(f"Failed to send newsletter subscription emails to {email} and school: {str(e)}")
         return jsonify({'success': False, 'category': 'danger', 'message': f'An error occurred: {str(e)}'}), 500
