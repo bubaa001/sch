@@ -88,7 +88,12 @@
             </div>
         </div>
 
-        <!-- Flash Messages -->
+        <!-- Flash Messages Container -->
+        <div id="flash-messages-container" class="position-fixed top-0 start-50 translate-middle-x mt-3 z-3" style="z-index: 1055;">
+            <!-- Dynamic flash messages will appear here -->
+        </div>
+
+        <!-- Static Flash Messages (for non-AJAX requests) -->
         <div class="container mt-5 pt-5" id="flashMessages">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}

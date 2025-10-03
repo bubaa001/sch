@@ -500,11 +500,11 @@ def admissions():
     return render_template('admissions.html', current_page='admissions')
 @main.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
-    language.logging.info("Submitting feedback...")
+    main.logger.info("Submitting feedback...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     feedback = request.form.get('feedback', '').strip()
-    language.logging.info(f"Feedback received: Name: {name}, Email: {email}, Feedback: {feedback}")
+    main.logger.info(f"Feedback received: Name: {name}, Email: {email}, Feedback: {feedback}")
 
 
     if name and email and feedback:
@@ -513,24 +513,24 @@ def submit_feedback():
                       body=f"Name: {name}\nEmail: {email}\nFeedback: {feedback}")
         try:
             mail.send(msg)
-            language.logging.info(f"Feedback email sent successfully from {name} ({email})")
+            main.logger.info(f"Feedback email sent successfully from {name} ({email})")
             return jsonify({'success': True, 'message': 'Thank you for your feedback!', 'category': 'success'})
         except Exception as e:
-            language.logging.error(f"Failed to send feedback email from {name} ({email}). Error: {str(e)}")
+            main.logger.error(f"Failed to send feedback email from {name} ({email}). Error: {str(e)}")
             return jsonify({'success': False, 'message': f'Failed to send your feedback. Error: {str(e)}', 'category': 'danger'})
     else:
-        language.logging.warning("Feedback submission failed: Please fill out all fields.")
+        main.logger.warning("Feedback submission failed: Please fill out all fields.")
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
 
 @main.route('/arrange_visit', methods=['POST'])
 def arrange_visit():
-    language.logging.info("Submitting visit application...")
+    main.logger.info("Submitting visit application...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     phone = request.form.get('phone', '').strip()
     date = request.form.get('date', '').strip()
     message = request.form.get('message', '')
-    language.logging.info(f"Visit application received: Name: {name}, Email: {email}, Phone: {phone}, Date: {date}, Message: {message}")
+    main.logger.info(f"Visit application received: Name: {name}, Email: {email}, Phone: {phone}, Date: {date}, Message: {message}")
 
     if name and email and phone and date:
         msg_to_school = Message(subject=f"New Visit Application from {name}",
@@ -541,22 +541,26 @@ def arrange_visit():
                                    body=f"Dear {name},\n\nThank you for scheduling a visit to Francis Maria Libermann School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nFrancis Maria Libermann School Team")
 
         try:
-            language.logging.info(f"Sending visit application emails to school and applicant ({email})")
+            main.logger.info(f"Sending visit application emails to school and applicant ({email})")
             mail.send(msg_to_school)
             mail.send(msg_to_applicant)
-            language.logging.info(f"Visit application emails sent successfully to school and applicant ({email})")
-            return jsonify({'success': True, 'message': 'Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success'})
+            main.logger.info(f"Visit application emails sent successfully to school and applicant ({email})")
+            flash('Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'success')
+            return jsonify({'success': True, 'message': 'Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success', 'flash': 'Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'flash_category': 'success'})
         except Exception as e:
-            return jsonify({'success': False, 'message': f'Failed to submit your visit application. Error: {str(e)}', 'category': 'danger'})
+            flash(f'Failed to submit your visit application. Error: {str(e)}', 'danger')
+            return jsonify({'success': False, 'message': f'Failed to submit your visit application. Error: {str(e)}', 'category': 'danger', 'flash': f'Failed to submit your visit application. Error: {str(e)}', 'flash_category': 'danger'})
     else:
-        return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger'})
+        flash('Please fill out all required fields.', 'danger')
+        return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger', 'flash': 'Please fill out all required fields.', 'flash_category': 'danger'})
 @main.route('/submit_contact', methods=['POST'])
 def submit_contact():
-    language.logging.info("Submitting contact form...")
+    main.logger.info("Checking if main.logger is available")
+    main.logger.info("Submitting contact form...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     message = request.form.get('message', '').strip()
-    language.logging.info(f"Contact form received: Name: {name}, Email: {email}, Message: {message}")
+    main.logger.info(f"Contact form received: Name: {name}, Email: {email}, Message: {message}")
 
 
     if name and email and message:
@@ -567,16 +571,34 @@ def submit_contact():
                       recipients=['egliszaratus@gmail.com'],
                       body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
         try:
-            language.logging.info(f"Sending contact form email from {name} ({email})")
+            main.logger.info(f"Sending contact form email from {name} ({email})")
             mail.send(msg)
-            language.logging.info(f"Contact form email sent successfully from {name} ({email})")
-            return jsonify({'success': True, 'message': 'Your message has been sent successfully! We will get back to you soon.', 'category': 'success'})
+            main.logger.info(f"Contact form email sent successfully from {name} ({email})")
+            msg_str = 'Your message has been sent successfully! We will get back to you soon.'
+            flash(msg_str, 'success')
+            return jsonify({
+                'success': True, 
+                'message': msg_str, 
+                'category': 'success'
+            })
         except Exception as e:
-            language.logging.error(f"Failed to send contact form email from {name} ({email}). Error: {str(e)}")
-            return jsonify({'success': False, 'message': f'Failed to send your message. Error: {str(e)}', 'category': 'danger'})
+            main.logger.error(f"Failed to send contact form email from {name} ({email}). Error: {str(e)}")
+            msg_str = f'Failed to send your message. Error: {str(e)}'
+            flash(msg_str, 'danger')
+            return jsonify({
+                'success': False, 
+                'message': msg_str, 
+                'category': 'danger'
+            })
     else:
-        language.logging.warning("Contact form submission failed: Please fill out all fields.")
-        return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
+        main.logger.warning("Contact form submission failed: Please fill out all fields.")
+        msg_str = 'Please fill out all fields.'
+        flash(msg_str, 'danger')
+        return jsonify({
+            'success': False, 
+            'message': msg_str, 
+            'category': 'danger'
+        })
 
 @main.route('/events')
 def events():
