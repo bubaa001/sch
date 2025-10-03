@@ -1,13 +1,22 @@
-// Enhanced Flash Message System (NEW)
+// Enhanced Flash Message System for Bottom Position
 function showFlashMessage(message, category = 'info') {
     // Create or get flash container
     let flashContainer = document.getElementById('flash-messages-container');
     if (!flashContainer) {
-        // Fallback creation
         flashContainer = document.createElement('div');
         flashContainer.id = 'flash-messages-container';
-        flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
-        flashContainer.style.zIndex = '1055';
+        // Bottom positioning
+        flashContainer.style.position = 'fixed';
+        flashContainer.style.bottom = '20px';
+        flashContainer.style.left = '50%';
+        flashContainer.style.transform = 'translateX(-50%)';
+        flashContainer.style.zIndex = '1060';
+        flashContainer.style.width = 'auto';
+        flashContainer.style.maxWidth = '90%';
+        flashContainer.style.display = 'flex';
+        flashContainer.style.flexDirection = 'column';
+        flashContainer.style.alignItems = 'center';
+        flashContainer.style.gap = '10px';
         document.body.appendChild(flashContainer);
     }
 
@@ -15,42 +24,88 @@ function showFlashMessage(message, category = 'info') {
     const messageId = 'flash-' + Date.now();
     const flashMessage = document.createElement('div');
     flashMessage.id = messageId;
-    // Added box-shadow, border, and border-radius styles inline (also in CSS)
-    flashMessage.className = `alert alert-${category} alert-dismissible fade show`;
-    flashMessage.style.minWidth = '300px';
-    flashMessage.style.maxWidth = '500px';
-    flashMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-    flashMessage.style.border = 'none';
-    flashMessage.style.borderRadius = '8px';
+    
+    // Set colors based on category
+    const colorConfig = {
+        success: {
+            bg: 'linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%)',
+            color: '#155724',
+            border: '#28a745'
+        },
+        danger: {
+            bg: 'linear-gradient(135deg, #f8d7da 0%, #f1b0b7 100%)',
+            color: '#721c24',
+            border: '#dc3545'
+        },
+        warning: {
+            bg: 'linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%)',
+            color: '#856404',
+            border: '#ffc107'
+        },
+        info: {
+            bg: 'linear-gradient(135deg, #d1ecf1 0%, #b8e2e8 100%)',
+            color: '#0c5460',
+            border: '#17a2b8'
+        },
+        primary: {
+            bg: 'linear-gradient(135deg, #cce7ff 0%, #b3d9ff 100%)',
+            color: '#004085',
+            border: '#007bff'
+        }
+    };
+    
+    const config = colorConfig[category] || colorConfig.info;
+    
+    // Apply styles
+    flashMessage.style.cssText = `
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border: none;
+        border-radius: 12px;
+        min-width: 320px;
+        max-width: 500px;
+        padding: 15px 20px;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+        border-left: 5px solid ${config.border};
+        transform-origin: center;
+        animation: slideUpBounce 0.6s ease-out;
+        background: ${config.bg};
+        color: ${config.color};
+    `;
+
     flashMessage.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="d-flex align-items-center">
+            <div class="flex-grow-1">${message}</div>
+            <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: currentColor; opacity: 0.3; animation: progressBar 5s linear forwards;"></div>
     `;
     
     // Add to container
     flashContainer.appendChild(flashMessage);
     
-    // Auto remove after 5 seconds
+    // Auto remove after 5 seconds with cool exit animation
     setTimeout(() => {
         const element = document.getElementById(messageId);
-        if (element) {
-            // Use Bootstrap's method to fade out and dismiss the alert gracefully
-            const alert = bootstrap.Alert.getOrCreateInstance(element);
-            alert.close();
+        if (element && element.parentElement) {
+            element.style.animation = 'slideDownFade 0.5s ease-in forwards';
+            setTimeout(() => {
+                if (element.parentElement) {
+                    element.remove();
+                }
+            }, 500);
         }
     }, 5000);
 }
 
-// Enhanced form handler (NEW)
+// Enhanced form handler
 function handleFormSubmission(form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const submitButton = form.querySelector('button[type="submit"]');
-        
-        // Safety check if button is not found
-        if (!submitButton) return;
-
         const originalContent = submitButton.innerHTML;
         const originalDisabled = submitButton.disabled;
 
@@ -73,7 +128,7 @@ function handleFormSubmission(form) {
 
             const result = await response.json();
             
-            // Show the flash message - use message and category directly
+            // Show the flash message
             showFlashMessage(result.message, result.category || (result.success ? 'success' : 'danger'));
 
             // Reset form if successful
@@ -91,7 +146,6 @@ function handleFormSubmission(form) {
         }
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const preloader = document.querySelector('.preloader');
@@ -156,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.add('loaded'); // Enable scrolling
         initializePageFeatures();
     }
-
+    
     // Function to initialize all page features (AOS, counters, chatbot, etc.)
     function initializePageFeatures() {
         // Initialize AOS animations
@@ -168,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.warn('AOS library not loaded');
         }
-
+        
         // Initialize Vanilla Tilt for card hover effects
         if (typeof VanillaTilt !== 'undefined') {
             VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
@@ -180,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.warn('VanillaTilt library not loaded');
         }
-
+        
         // Close navbar on link click (mobile)
         const navbarToggler = document.querySelector('.navbar-toggler');
         const navbarCollapse = document.querySelector('.navbar-collapse');
@@ -191,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-
+        
         // Animated Counter
         const counters = document.querySelectorAll('.counter');
         counters.forEach(counter => {
@@ -214,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }, { threshold: 0.5 });
             observer.observe(counter);
         });
-
+        
         // Chatbot Toggle
         const chatbotToggle = document.querySelector('.chatbot-toggle');
         const chatbotBox = document.querySelector('.chatbot-box');
@@ -227,24 +281,92 @@ document.addEventListener('DOMContentLoaded', function() {
                 chatbotBox.classList.remove('active');
             });
         }
+
+        // Initialize AJAX forms
+        const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
+        ajaxForms.forEach(form => {
+            handleFormSubmission(form);
+        });
     }
-
-
-    // Initialize AJAX forms (MERGED NEW LOGIC)
-    
-    // Ensure flash container exists (Redundant check but kept for safety)
-    let flashContainer = document.getElementById('flash-messages-container');
-    if (!flashContainer) {
-        flashContainer = document.createElement('div');
-        flashContainer.id = 'flash-messages-container';
-        flashContainer.className = 'position-fixed top-0 start-50 translate-middle-x mt-3 z-3';
-        flashContainer.style.zIndex = '1055';
-        document.body.appendChild(flashContainer);
-    }
-
-    // Initialize AJAX forms
-    const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
-    ajaxForms.forEach(form => {
-        handleFormSubmission(form);
-    });
 });
+
+// Add CSS animations to the page if they don't exist
+function ensureFlashAnimations() {
+    if (!document.getElementById('flash-animations')) {
+        const style = document.createElement('style');
+        style.id = 'flash-animations';
+        style.textContent = `
+            @keyframes slideUpBounce {
+                0% {
+                    transform: translate(-50%, 100px);
+                    opacity: 0;
+                    scale: 0.8;
+                }
+                60% {
+                    transform: translate(-50%, -10px);
+                    opacity: 1;
+                    scale: 1.05;
+                }
+                80% {
+                    transform: translate(-50%, 5px);
+                    scale: 0.98;
+                }
+                100% {
+                    transform: translate(-50%, 0);
+                    opacity: 1;
+                    scale: 1;
+                }
+            }
+            
+            @keyframes progressBar {
+                0% {
+                    width: 100%;
+                }
+                100% {
+                    width: 0%;
+                }
+            }
+            
+            @keyframes slideDownFade {
+                0% {
+                    transform: translate(-50%, 0);
+                    opacity: 1;
+                    scale: 1;
+                }
+                100% {
+                    transform: translate(-50%, 100px);
+                    opacity: 0;
+                    scale: 0.8;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                @keyframes slideUpBounce {
+                    0% {
+                        transform: translate(-50%, 100px);
+                        opacity: 0;
+                        scale: 0.8;
+                    }
+                    60% {
+                        transform: translate(-50%, -5px);
+                        opacity: 1;
+                        scale: 1.03;
+                    }
+                    80% {
+                        transform: translate(-50%, 2px);
+                        scale: 0.99;
+                    }
+                    100% {
+                        transform: translate(-50%, 0);
+                        opacity: 1;
+                        scale: 1;
+                    }
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Ensure animations are available when the page loads
+document.addEventListener('DOMContentLoaded', ensureFlashAnimations);
