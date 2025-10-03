@@ -301,65 +301,92 @@ def contact():
 @main.route('/community', methods=['GET', 'POST'])
 def community():
     if request.method == 'POST':
-        if 'parent_submit' in request.form:
-            name = request.form.get('name', '').strip()
-            email = request.form.get('email', '').strip()
-            student_name = request.form.get('student_name', '').strip()
-            phone = request.form.get('phone', '').strip()
-            volunteer = 'volunteer' in request.form
+        # Diagnostic logging for debugging form submissions
+        try:
+            main.logger.info('Received community POST from %s', request.remote_addr)
+            main.logger.info('Form keys: %s', list(request.form.keys()))
+            # Truncate long values for safety
+            try:
+                truncated = {k: (v[:100] + '...' if len(v) > 100 else v) for k, v in request.form.items()}
+                main.logger.info('Form data (truncated): %s', truncated)
+            except Exception:
+                main.logger.info('Unable to truncate form data')
+            main.logger.info('Files keys: %s', list(request.files.keys()))
+        except Exception:
+            main.logger.exception('Failed to log community request data')
 
-            if name and email:
-                new_parent = Parent(
-                    name=name,
-                    email=email,
-                    student_name=student_name,
-                    phone=phone,
-                    volunteer_interest=volunteer
-                )
-                db.session.add(new_parent)
-                db.session.commit()
-                msg = Message(subject=f"New Parent Registration from {name}",
-                              recipients=['fmlibermann@gmail.com'],
-                              body=f"Name: {name}\nEmail: {email}\nStudent Name: {student_name}\nPhone: {phone}\nVolunteer Interest: {volunteer}")
-                try:
-                    mail.send(msg)
-                    main.logger.info(f"Parent registration email sent successfully from {name} ({email})")
-                    return jsonify({'success': True, 'message': 'Thank you for registering! We’ll be in touch soon.', 'category': 'success'})
-                except Exception as e:
-                    main.logger.error(f"Failed to send parent registration email from {name} ({email}): {str(e)}")
-                    return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
-            else:
-                return jsonify({'success': False, 'message': 'Please provide name and email.', 'category': 'danger'})
+        try:
+            # Parent registration
+            if 'parent_submit' in request.form:
+                name = request.form.get('name', '').strip()
+                email = request.form.get('email', '').strip()
+                student_name = request.form.get('student_name', '').strip()
+                phone = request.form.get('phone', '').strip()
+                volunteer = 'volunteer' in request.form
 
-        elif 'alumni_submit' in request.form:
-            name = request.form.get('name', '').strip()
-            email = request.form.get('email', '').strip()
-            graduation_year = request.form.get('graduation_year', '').strip()
-            profession = request.form.get('profession', '').strip()
-            mentor = 'mentor' in request.form
+                if name and email:
+                    new_parent = Parent(
+                        name=name,
+                        email=email,
+                        student_name=student_name,
+                        phone=phone,
+                        volunteer_interest=volunteer
+                    )
+                    db.session.add(new_parent)
+                    db.session.commit()
+                    msg = Message(subject=f"New Parent Registration from {name}",
+                                  recipients=['fmlibermann@gmail.com'],
+                                  body=f"Name: {name}\nEmail: {email}\nStudent Name: {student_name}\nPhone: {phone}\nVolunteer Interest: {volunteer}")
+                    try:
+                        mail.send(msg)
+                        main.logger.info("Parent registration email sent successfully from %s (%s)", name, email)
+                        return jsonify({'success': True, 'message': 'Thank you for registering! We’ll be in touch soon.', 'category': 'success'})
+                    except Exception as e:
+                        main.logger.error("Failed to send parent registration email from %s (%s): %s", name, email, str(e))
+                        return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
+                else:
+                    return jsonify({'success': False, 'message': 'Please provide name and email.', 'category': 'danger'})
 
-            if name and email and graduation_year:
-                new_alumni = Alumni(
-                    name=name,
-                    email=email,
-                    graduation_year=int(graduation_year),
-                    profession=profession,
-                    mentorship_interest=mentor
-                )
-                db.session.add(new_alumni)
-                db.session.commit()
-                msg = Message(subject=f"New Alumni Registration from {name}",
-                              recipients=['fmlibermann@gmail.com'],
-                              body=f"Name: {name}\nEmail: {email}\nGraduation Year: {graduation_year}\nProfession: {profession}\nMentorship Interest: {mentor}")
-                try:
-                    mail.send(msg)
-                    main.logger.info(f"Alumni registration email sent successfully from {name} ({email})")
-                    return jsonify({'success': True, 'message': 'Thank you for joining the alumni network!', 'category': 'success'})
-                except Exception as e:
-                    main.logger.error(f"Failed to send alumni registration email from {name} ({email}): {str(e)}")
-                    return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
-            else:
-                return jsonify({'success': False, 'message': 'Please provide name, email, and graduation year.', 'category': 'danger'})
+            # Alumni registration
+            elif 'alumni_submit' in request.form:
+                name = request.form.get('name', '').strip()
+                email = request.form.get('email', '').strip()
+                graduation_year = request.form.get('graduation_year', '').strip()
+                profession = request.form.get('profession', '').strip()
+                mentor = 'mentor' in request.form
+
+                if name and email and graduation_year:
+                    try:
+                        grad_year_int = int(graduation_year)
+                    except ValueError:
+                        return jsonify({'success': False, 'message': 'Graduation year must be a number.', 'category': 'danger'})
+
+                    new_alumni = Alumni(
+                        name=name,
+                        email=email,
+                        graduation_year=grad_year_int,
+                        profession=profession,
+                        mentorship_interest=mentor
+                    )
+                    db.session.add(new_alumni)
+                    db.session.commit()
+                    msg = Message(subject=f"New Alumni Registration from {name}",
+                                  recipients=['fmlibermann@gmail.com'],
+                                  body=f"Name: {name}\nEmail: {email}\nGraduation Year: {graduation_year}\nProfession: {profession}\nMentorship Interest: {mentor}")
+                    try:
+                        mail.send(msg)
+                        main.logger.info("Alumni registration email sent successfully from %s (%s)", name, email)
+                        return jsonify({'success': True, 'message': 'Thank you for joining the alumni network!', 'category': 'success'})
+                    except Exception as e:
+                        main.logger.error("Failed to send alumni registration email from %s (%s): %s", name, email, str(e))
+                        return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
+                else:
+                    return jsonify({'success': False, 'message': 'Please provide name, email, and graduation year.', 'category': 'danger'})
+
+        except Exception as e:
+            # Catch-all to ensure JSON is returned on unexpected server errors
+            main.logger.exception('Unhandled error in community POST handler: %s', str(e))
+            return jsonify({'success': False, 'message': 'Internal server error. Please try again later.', 'category': 'danger'}), 500
 
     return render_template('community.html', current_page='community')
 
@@ -492,6 +519,7 @@ def admissions():
             mail.send(msg_to_parent)
             mail.send(msg_to_school)
             main.logger.info(f"Admission application emails sent successfully to {email} and school")
+            main.logger.info("Admissions route: Application submitted successfully!")
             return jsonify({'success': True, 'message': 'Application submitted successfully! Please check your email for payment instructions.', 'category': 'success'})
         except Exception as e:
             main.logger.error(f"Failed to send admission application emails to {email} and school: {str(e)}")

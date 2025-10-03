@@ -51,7 +51,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="glass-card p-4">
-                    <form action="{{ url_for('main.admissions') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url_for('main.admissions') }}" method="POST" enctype="multipart/form-data" data-ajax="true">
                         <!-- Language Toggle -->
                         <div class="mb-3 text-end">
                             <select id="language-toggle" onchange="toggleLanguage()">

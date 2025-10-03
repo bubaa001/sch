@@ -118,6 +118,7 @@ function handleFormSubmission(form) {
 
         try {
             const formData = new FormData(form);
+            console.log('AJAX submit for form', form.action, form);
             const response = await fetch(form.action, {
                 method: 'POST',
                 body: formData,
@@ -126,10 +127,24 @@ function handleFormSubmission(form) {
                 }
             });
 
-            const result = await response.json();
-            
+            let result = null;
+            try {
+                result = await response.json();
+            } catch (jsonErr) {
+                // Not JSON - log and create a fallback
+                console.warn('Non-JSON response from', form.action, jsonErr);
+                const text = await response.text().catch(() => '');
+                result = { success: false, message: text || 'Unexpected server response', category: 'danger' };
+            }
+
+            console.log('AJAX response for', form.action, result);
+
             // Show the flash message
-            showFlashMessage(result.message, result.category || (result.success ? 'success' : 'danger'));
+            if (result && result.message) {
+                showFlashMessage(result.message, result.category || (result.success ? 'success' : 'info'));
+            } else {
+                showFlashMessage('No message returned from server.', 'warning');
+            }
 
             // Reset form if successful
             if (result.success) {
@@ -369,4 +384,7 @@ function ensureFlashAnimations() {
 }
 
 // Ensure animations are available when the page loads
-document.addEventListener('DOMContentLoaded', ensureFlashAnimations);
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('ensureFlashAnimations is running');
+    ensureFlashAnimations();
+});
