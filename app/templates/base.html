@@ -58,7 +58,7 @@
                             <a class="nav-link {% if current_page == 'index' %}active{% endif %}" href="{{ url_for('main.index') }}" data-translate="Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if current_page == 'about' %}active{% endif %}" href="{{ url_for('main.index') }}#about" data-translate="About Us">About Us</a>
+                            <a class="nav-link {% if current_page == 'about' %}active{% endif %}" href="{{ url_for('main.index') }}about" data-translate="About Us">About Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {% if current_page == 'admissions' %}active{% endif %}" href="{{ url_for('main.admissions') }}" data-translate="Admissions">Admissions</a>
@@ -118,15 +118,15 @@
                         <h4 data-translate="Contact Us">Contact Us</h4>
                         <ul class="footer-links">
                             <li><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> <span data-translate="Shehia of Tomondo, in western district, in urban western Region.">Shehia of Tomondo, in western district, in urban western Region.</span></li>
-                            <li><i class="fas fa-phone me-2" aria-hidden="true"></i> <span data-translate="+255 755 837 886">+255 755 837 886</span></li>
+                            <li><i class="fas fa-phone me-2" aria-hidden="true"></i> <span data-translate="+255 658 638 938, +255 713 616 049">+255 658 638 938, +255 713 616 049</span></li>
                             <li><i class="fas fa-envelope me-2" aria-hidden="true"></i> <span data-translate="info@maristboys.ac.tz"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7ded9d1d8f7dad6c5dec4c3d5d8cec499d6d499c3cd">[email protected]</a></span></li>
-                            <li><i class="fab fa-whatsapp me-2" aria-hidden="true"></i> <a href="https://wa.me/255742901900?text=Hello,%20I%20need%20assistance%20with%20Francis%20Maria%20Libermann%20School!" target="_blank" data-translate="Chat on WhatsApp">Chat on WhatsApp</a></li>
+                            <li><i class="fab fa-whatsapp me-2" aria-hidden="true"></i> <a href="https://wa.me/255658638938?text=Hello,%20I%20need%20assistance%20with%20Francis%20Maria%20Libermann%20School!" target="_blank" data-translate="Chat on WhatsApp">Chat on WhatsApp</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-4">
                         <h4 data-translate="Quick Links">Quick Links</h4>
                         <ul class="footer-links">
-                            <li><a href="{{ url_for('main.index') }}#about" data-translate="About Us">About Us</a></li>
+                            <li><a href="{{ url_for('main.index') }}about" data-translate="About Us">About Us</a></li>
                             <li><a href="{{ url_for('main.admissions') }}" data-translate="Admissions Info">Admissions Info</a></li>
                             <li><a href="{{ url_for('main.school_life') }}" data-translate="School Life">School Life</a></li>
                             <li><a href="{{ url_for('main.contact') }}" data-translate="Contact Us">Contact Us</a></li>
