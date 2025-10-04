@@ -745,3 +745,58 @@ def subscribe():
         db.session.rollback()
         main.logger.error(f"Failed to send newsletter subscription emails to {email} and school: {str(e)}")
         return jsonify({'success': False, 'category': 'danger', 'message': f'An error occurred: {str(e)}'}), 500
+    
+
+    # ======== Delete Routes ========
+@main.route('/admin/parents/delete/<int:parent_id>', methods=['POST'])
+@login_required
+def delete_parent(parent_id):
+    parent = Parent.query.get_or_404(parent_id)
+    db.session.delete(parent)
+    db.session.commit()
+    flash('Parent registration deleted successfully!', 'success')
+    return redirect(url_for('main.admin_parents'))
+
+@main.route('/admin/alumni/delete/<int:alumni_id>', methods=['POST'])
+@login_required
+def delete_alumni(alumni_id):
+    alumni = Alumni.query.get_or_404(alumni_id)
+    db.session.delete(alumni)
+    db.session.commit()
+    flash('Alumni registration deleted successfully!', 'success')
+    return redirect(url_for('main.admin_alumni'))
+
+@main.route('/admin/admissions/delete/<int:app_id>', methods=['POST'])
+@login_required
+def delete_admission(app_id):
+    application = AdmissionInquiry.query.get_or_404(app_id)
+    
+    # Delete associated files
+    files_to_delete = [
+        application.birth_certificate_path,
+        application.report_cards_path,
+        application.transfer_certificate_path,
+        application.medical_report_path,
+        application.parent_id_path
+    ]
+    
+    for file_path in files_to_delete:
+        if file_path and os.path.exists(file_path):
+            try:
+                os.remove(file_path)
+            except Exception as e:
+                main.logger.error(f"Error deleting file {file_path}: {str(e)}")
+    
+    db.session.delete(application)
+    db.session.commit()
+    flash('Admission application deleted successfully!', 'success')
+    return redirect(url_for('main.admin_admissions'))
+
+@main.route('/admin/contacts/delete/<int:contact_id>', methods=['POST'])
+@login_required
+def delete_contact(contact_id):
+    contact = Contact.query.get_or_404(contact_id)
+    db.session.delete(contact)
+    db.session.commit()
+    flash('Contact message deleted successfully!', 'success')
+    return redirect(url_for('main.admin_contacts'))
