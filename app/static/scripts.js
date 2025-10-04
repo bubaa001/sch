@@ -283,19 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }, { threshold: 0.5 });
             observer.observe(counter);
         });
-        
-        // Chatbot Toggle
-        const chatbotToggle = document.querySelector('.chatbot-toggle');
-        const chatbotBox = document.querySelector('.chatbot-box');
-        const chatbotClose = document.querySelector('.chatbot-close');
-        if (chatbotToggle && chatbotBox && chatbotClose) {
-            chatbotToggle.addEventListener('click', () => {
-                chatbotBox.classList.toggle('active');
-            });
-            chatbotClose.addEventListener('click', () => {
-                chatbotBox.classList.remove('active');
-            });
-        }
 
         // Initialize AJAX forms
         const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
@@ -388,3 +375,543 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('ensureFlashAnimations is running');
     ensureFlashAnimations();
 });
+
+// Comprehensive AI Chatbot for FML School
+class SchoolChatbot {
+    constructor() {
+        this.knowledgeBase = {
+            // Admissions Information
+            'admission': {
+                keywords: ['admission', 'apply', 'enroll', 'application', 'register', 'join'],
+                answer: `📚 <strong>Admission Process:</strong>
+
+1. <strong>Online Application:</strong> Submit through our website
+2. <strong>Required Documents:</strong>
+   - Birth certificate
+   - Previous school reports
+   - Medical certificate
+   - Parent/guardian ID
+   - Transfer certificate (if applicable)
+3. <strong>Application Fee:</strong> TZS 50,000
+4. <strong>Assessment:</strong> Academic evaluation
+5. <strong>Interview:</strong> Student and parent meeting
+6. <strong>Registration:</strong> Final enrollment
+
+<em>We accept students from Nursery to Form 6 levels.</em>`
+            },
+
+            'fees': {
+                keywords: ['fee', 'fees', 'cost', 'price', 'payment', 'tuition'],
+                answer: `💰 <strong>Fee Structure 2025:</strong>
+
+• <strong>Form 1-2:</strong> TZS 1,200,000 per term
+• <strong>Form 3-4:</strong> TZS 1,400,000 per term  
+• <strong>Form 5-6:</strong> TZS 1,600,000 per term
+
+<strong>What's Included:</strong>
+✓ Tuition fees
+✓ Meals and boarding
+✓ Basic learning materials
+✓ Sports facilities
+✓ Library access
+
+<strong>Additional Costs:</strong>
+- Uniforms: TZS 150,000
+- Textbooks: TZS 200,000 (annual)
+- Examination fees: As per NECTA rates
+
+<em>Payment plans and scholarships available for qualifying students.</em>`
+            },
+
+            'programs': {
+                keywords: ['program', 'course', 'subject', 'curriculum', 'study'],
+                answer: `🏫 <strong>Academic Programs:</strong>
+
+<strong>Science Stream:</strong>
+• Physics, Chemistry, Biology
+• Advanced Mathematics
+• Computer Studies
+
+<strong>Arts Stream:</strong>
+• History, Geography, Commerce
+• English Language & Literature
+• Kiswahili
+
+<strong>Technical Subjects:</strong>
+• Engineering Science
+• Technical Drawing
+• Information Technology
+
+<strong>Extracurricular Activities:</strong>
+🎵 Music & Choir
+⚽ Sports (Football, Basketball, Athletics)
+🎭 Drama & Cultural Activities
+🔬 Science Club
+💻 Computer Club
+📚 Debate Society
+
+<em>All programs follow Tanzanian National Curriculum with practical enhancements.</em>`
+            },
+
+            'location': {
+                keywords: ['location', 'address', 'where', 'map', 'directions'],
+                answer: `📍 <strong>School Location:</strong>
+
+<strong>Francis Maria Libermann School</strong>
+Shehia of Tomondo, Western District
+Urban Western Region, Zanzibar
+Tanzania
+
+<strong>Distance:</strong> Just 5km from Stone Town
+<strong>Accessibility:</strong> Easily accessible by public transport
+
+<strong>Contact Information:</strong>
+📞 Phone: +255 658 638 938 / +255 713 616 049
+📧 Email: fmlibermann@gmail.com
+📱 WhatsApp: <a href="https://wa.me/255658638938" target="_blank">Chat with us</a>
+
+<em>We welcome visitors during school hours (7:00 AM - 4:00 PM).</em>`
+            },
+
+            'calendar': {
+                keywords: ['calendar', 'term', 'holiday', 'schedule', 'dates'],
+                answer: `📅 <strong>2025 Academic Calendar:</strong>
+
+<strong>Term 1:</strong> January 15th - April 5th
+• Mid-term break: February 20th-25th
+
+<strong>Term 2:</strong> May 6th - August 15th  
+• Mid-term break: June 20th-25th
+
+<strong>Term 3:</strong> September 9th - November 29th
+• Mid-term break: October 15th-20th
+
+<strong>Major Holidays:</strong>
+• April Break: April 6th - May 5th (1 month)
+• August Break: August 16th - September 8th (3 weeks)
+• December Break: November 30th - January 14th (6 weeks)
+
+<strong>Examination Periods:</strong>
+• Form 2 (FTNA): October
+• Form 4 (CSEE): October-November`
+            },
+
+            'results': {
+                keywords: ['result', 'exam', 'necta', 'performance', 'grades'],
+                answer: `🎓 <strong>Academic Performance:</strong>
+
+<strong>NECTA Registration Codes:</strong>
+• Primary: ZP0372
+• Secondary: S4202
+
+<strong>2024 Examination Results:</strong>
+• <strong>Form 2 (FTNA):</strong> <a href="https://bmz.go.tz/exam_result/schools/STD7(2024)/ZP0372.html" target="_blank">View Results</a>
+• <strong>Form 4 (CSEE):</strong> <a href="https://onlinesys.necta.go.tz/results/2024/csee/results/s4202.htm" target="_blank">View Results</a>
+
+<strong>Performance Highlights:</strong>
+✓ Consistent improvement in pass rates
+✓ Strong performance in Sciences
+✓ Excellent results in Mathematics
+✓ Notable achievements in Languages
+
+<em>Check our detailed results on the official NECTA portal.</em>`
+            },
+
+            'history': {
+                keywords: ['history', 'founded', 'established', 'background', 'story'],
+                answer: `🏛️ <strong>School History:</strong>
+
+<strong>Foundation:</strong> 1994
+<strong>Ownership:</strong> Catholic Diocese of Zanzibar
+<strong>Religious Affiliation:</strong> Catholic (welcoming all faiths)
+
+<strong>Historical Timeline:</strong>
+• <strong>1994:</strong> School founded
+• <strong>1996:</strong> Nursery section opened
+• <strong>1998:</strong> Primary education introduced
+• <strong>2007:</strong> Secondary education launched
+• <strong>2017:</strong> First Form 4 graduates
+• <strong>2021:</strong> Notable academic improvements
+
+<strong>Founding Leadership:</strong>
+Brother Kiko Baeza served as first headmaster, supported by the Nyakato community and five Tanzanian staff members.
+
+<em>Our motto: "Education Key to Liberty"</em>`
+            },
+
+            'facilities': {
+                keywords: ['facility', 'building', 'lab', 'library', 'sports', 'dormitory'],
+                answer: `⚽ <strong>School Facilities:</strong>
+
+<strong>Academic Facilities:</strong>
+• Modern Science Laboratories (Physics, Chemistry, Biology)
+• Well-stocked Library with digital resources
+• Computer Labs with internet access
+• Spacious, well-ventilated classrooms
+
+<strong>Boarding Facilities:</strong>
+• Comfortable dormitories
+• Supervised accommodation
+• Clean dining facilities
+• 24/7 security
+
+<strong>Recreational Facilities:</strong>
+• Sports fields (Football, Basketball, Athletics)
+• Chapel for spiritual activities
+• Music and arts rooms
+• Assembly hall
+
+<strong>Additional Amenities:</strong>
+• Medical clinic
+• Counseling services
+• Career guidance center
+• Parent meeting areas`
+            },
+
+            'uniform': {
+                keywords: ['uniform', 'dress', 'attire', 'clothing'],
+                answer: `👔 <strong>School Uniform:</strong>
+
+<strong>Boys' Uniform:</strong>
+• White shirt with school badge
+• Navy blue trousers
+• School tie
+• Black shoes and socks
+• Navy blue sweater (optional)
+
+<strong>Girls' Uniform:</strong>  
+• White blouse with school badge
+• Navy blue skirt/trousers
+• School tie
+• Black shoes and socks
+• Navy blue sweater (optional)
+
+<strong>Sports Uniform:</strong>
+• School T-shirt
+• Navy blue shorts/tracksuit
+• Sports shoes
+
+<strong>Cost:</strong> Approximately TZS 150,000 for complete set
+<strong>Available at:</strong> School administration office
+
+<em>Proper uniform is mandatory for all students.</em>`
+            },
+
+            'transport': {
+                keywords: ['transport', 'bus', 'commute', 'travel'],
+                answer: `🚌 <strong>Transportation:</strong>
+
+<strong>School Bus Service:</strong>
+• Available for day students
+• Covers major routes in Zanzibar
+• Safe and reliable transportation
+• Professional drivers
+
+<strong>Public Transport:</strong>
+• Easily accessible by dalla-dalla
+• Multiple routes pass near school
+• Affordable options available
+
+<strong>Private Transport:</strong>
+• Ample parking space available
+• Safe drop-off/pick-up zones
+• Clear signage for visitors
+
+<strong>Boarding Students:</strong>
+• Transport provided for official trips
+• Airport/ferry pickup available (on request)
+
+<em>Contact administration for bus route details and fees.</em>`
+            },
+
+            'scholarship': {
+                keywords: ['scholarship', 'financial aid', 'bursary', 'sponsorship'],
+                answer: `🎗️ <strong>Scholarships & Financial Aid:</strong>
+
+<strong>Available Scholarships:</strong>
+• Academic Excellence Scholarships
+• Sports Talent Scholarships
+• Need-based Financial Aid
+• Diocesan Sponsorships
+
+<strong>Eligibility Criteria:</strong>
+✓ Outstanding academic performance
+✓ Demonstrated financial need
+✓ Exceptional talent in sports/arts
+✓ Active community involvement
+
+<strong>Application Process:</strong>
+1. Submit scholarship application form
+2. Provide supporting documents
+3. Attend interview (if required)
+4. Committee review and decision
+
+<strong>Renewal Requirements:</strong>
+• Maintain good academic standing
+• Positive behavior record
+• Active participation in school activities
+
+<em>Limited scholarships available. Apply early!</em>`
+            },
+
+            'staff': {
+                keywords: ['teacher', 'staff', 'faculty', 'principal', 'headmaster'],
+                answer: `👨‍🏫 <strong>Teaching Staff:</strong>
+
+<strong>Faculty Composition:</strong>
+• Qualified and experienced teachers
+• Subject specialists for all areas
+• Continuous professional development
+• Student-centered teaching approach
+
+<strong>Student-Teacher Ratio:</strong> 25:1
+<strong>Qualification:</strong> All teachers meet TIE requirements
+
+<strong>Leadership Team:</strong>
+• For current leadership details, please contact the school directly as leadership positions may change.
+
+<strong>Support Staff:</strong>
+• Administrative personnel
+• Laboratory technicians
+• Librarians
+• Sports coaches
+• Counselors
+
+<em>Our staff is committed to student success and holistic development.</em>`
+            },
+
+            'boarding': {
+                keywords: ['boarding', 'hostel', 'dorm', 'accommodation', 'residence'],
+                answer: `🏠 <strong>Boarding Facilities:</strong>
+
+<strong>Accommodation:</strong>
+• Separate dormitories for boys and girls
+• Comfortable beds and storage
+• Regular room maintenance
+• 24/7 security and supervision
+
+<strong>Meals & Nutrition:</strong>
+• Balanced, nutritious meals
+• Special dietary accommodations
+• Clean dining facilities
+• Regular health checks
+
+<strong>Study Support:</strong>
+• Supervised prep sessions
+• Library access
+• Quiet study areas
+• Academic support
+
+<strong>Activities & Recreation:</strong>
+• Evening sports
+• Cultural activities
+• Religious services
+• Weekend excursions
+
+<em>Boarding fosters independence and community living skills.</em>`
+            },
+
+            'contact': {
+                keywords: ['contact', 'phone', 'email', 'whatsapp', 'visit'],
+                answer: `📞 <strong>Contact Information:</strong>
+
+<strong>Phone Numbers:</strong>
+• +255 658 638 938
+• +255 713 616 049
+
+<strong>Email:</strong> fmlibermann@gmail.com
+<em>(Messages received as PDF attachments)</em>
+
+<strong>Social Media:</strong>
+• Instagram: <a href="https://www.instagram.com/fmlibermann/" target="_blank">@fmlibermann</a>
+
+<strong>WhatsApp:</strong>
+<a href="https://wa.me/255658638938" target="_blank">Chat with us on WhatsApp</a>
+
+<strong>School Hours:</strong>
+Monday - Friday: 7:00 AM - 4:00 PM
+Saturday: 8:00 AM - 1:00 PM
+
+<strong>Visiting Hours:</strong>
+Please call ahead to schedule appointments.`
+            }
+        };
+
+        this.init();
+    }
+
+    init() {
+        this.toggleBtn = document.getElementById('chatbotToggle');
+        this.closeBtn = document.getElementById('chatbotClose');
+        this.chatBox = document.getElementById('chatbotBox');
+        this.input = document.getElementById('chatbotInput');
+        this.sendBtn = document.getElementById('chatbotSend');
+        this.messagesContainer = document.getElementById('chatbotMessages');
+
+        if (this.toggleBtn && this.chatBox) {
+            this.toggleBtn.addEventListener('click', () => this.toggleChat());
+            this.closeBtn.addEventListener('click', () => this.closeChat());
+            this.sendBtn.addEventListener('click', () => this.sendMessage());
+            this.input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.sendMessage();
+            });
+
+        }
+    }
+
+    toggleChat() {
+        this.chatBox.classList.toggle('show');
+        if (this.chatBox.classList.contains('show')) {
+            this.input.focus();
+        }
+    }
+
+    closeChat() {
+        this.chatBox.classList.remove('show');
+    }
+
+    sendMessage() {
+        const message = this.input.value.trim();
+        if (!message) return;
+
+        this.addMessage(message, 'user');
+        this.input.value = '';
+
+        // Show typing indicator
+        this.showTypingIndicator();
+
+        setTimeout(() => {
+            this.hideTypingIndicator();
+            const response = this.getResponse(message);
+            this.addMessage(response, 'bot');
+            this.addQuickQuestions();
+        }, 1500);
+    }
+
+    addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${sender}-message`;
+        messageDiv.innerHTML = text;
+        this.messagesContainer.appendChild(messageDiv);
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+
+    showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chat-message bot-message typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.innerHTML = `
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p>FML Assistant is typing...</p>
+        `;
+        this.messagesContainer.appendChild(typingDiv);
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+
+    hideTypingIndicator() {
+        const typingIndicator = document.getElementById('typingIndicator');
+        if (typingIndicator) {
+            typingIndicator.remove();
+        }
+    }
+
+    getResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        
+        // Greetings
+        if (this.isGreeting(lowerMessage)) {
+            return `Hello! Welcome to Francis Maria Libermann School! 🎓<br><br>
+            I'm your FML School Assistant. I can help you with admissions, fees, programs, facilities, and much more. What specific information are you looking for today?`;
+        }
+
+        // Thanks
+        if (this.isThanks(lowerMessage)) {
+            return `You're welcome! 😊<br><br>
+            Is there anything else you'd like to know about Francis Maria Libermann School? I'm here to help with any questions about our programs, admissions, or school life.`;
+        }
+
+        // Search for topic matches
+        for (const [topic, data] of Object.entries(this.knowledgeBase)) {
+            for (const keyword of data.keywords) {
+                if (lowerMessage.includes(keyword)) {
+                    return data.answer;
+                }
+            }
+        }
+
+        // Default response for unknown questions
+        return `I'm here to help you learn about Francis Maria Libermann School! 🤖<br><br>
+        I can provide information about:
+        <ul>
+            <li>📚 Admissions process and requirements</li>
+            <li>💰 School fees and payment options</li>
+            <li>🏫 Academic programs and subjects</li>
+            <li>📍 School location and contact details</li>
+            <li>📅 Academic calendar and term dates</li>
+            <li>🎓 Examination results and performance</li>
+            <li>⚽ Facilities and extracurricular activities</li>
+            <li>🏛️ School history and background</li>
+        </ul>
+        What would you like to know more about?`;
+    }
+
+    isGreeting(message) {
+        const greetings = ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening'];
+        return greetings.some(greet => message.includes(greet));
+    }
+
+    isThanks(message) {
+        const thanks = ['thank', 'thanks', 'appreciate'];
+        return thanks.some(thank => message.includes(thank));
+    }
+
+    addQuickQuestions() {
+        // Remove existing quick questions
+        const existing = this.messagesContainer.querySelector('.quick-questions');
+        if (existing) existing.remove();
+
+        const quickQuestions = document.createElement('div');
+        quickQuestions.className = 'quick-questions';
+        quickQuestions.innerHTML = `
+            <button class="quick-question" data-question="How do I apply for admission?">How to apply?</button>
+            <button class="quick-question" data-question="What are the school fees?">School fees</button>
+            <button class="quick-question" data-question="What programs do you offer?">Academic programs</button>
+            <button class="quick-question" data-question="Where is the school located?">Location & contacts</button>
+        `;
+        
+        // Add event listeners to new quick questions
+        quickQuestions.querySelectorAll('.quick-question').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const question = e.target.getAttribute('data-question');
+                this.selectQuickQuestion(question);
+            });
+        });
+        
+        this.messagesContainer.appendChild(quickQuestions);
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+    }
+
+    selectQuickQuestion(question) {
+        this.addMessage(question, 'user');
+        this.input.value = '';
+
+        this.showTypingIndicator();
+        setTimeout(() => {
+            this.hideTypingIndicator();
+            const response = this.getResponse(question);
+            this.addMessage(response, 'bot');
+            this.addQuickQuestions();
+        }, 1000);
+    }
+}
+
+// Initialize chatbot when page loads
+let chatbot;
+document.addEventListener('DOMContentLoaded', function() {
+    chatbot = new SchoolChatbot();
+});
+

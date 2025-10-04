@@ -30,11 +30,15 @@
                         <div class="mb-3">
                             <label for="rating" class="form-label">Rating</label>
                             <div class="star-rating">
-                                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
-                                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-                                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                                <input type="radio" id="star1" name="rating" value="1" required><label for="star1">★</label>
                                 <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-                                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                                <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                            </div>
+                            <div class="rating-labels d-flex justify-content-between mt-1">
+                                <small>Poor</small>
+                                <small>Excellent</small>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -54,8 +58,8 @@
                         {% set average = total | sum / total | length %}
                         <p><strong>Average Rating:</strong> {{ average | round(1) }} / 5</p>
                         <div class="star-display">
-                            {% for i in range(5) %}
-                                <span class="star {% if i < average | round(0, 'floor') %}filled{% endif %}">★</span>
+                            {% for i in range(1, 6) %}
+                                <span class="star {% if i <= average %}filled{% endif %}">★</span>
                             {% endfor %}
                         </div>
                         <p><strong>Total Feedback:</strong> {{ feedback_list | length }}</p>
@@ -81,8 +85,8 @@
                                 <p>“{{ feedback.comment }}”</p>
                                 <h5>{{ feedback.name }} ({{ feedback.role | capitalize }})</h5>
                                 <div class="star-display">
-                                    {% for i in range(5) %}
-                                        <span class="star {% if i < feedback.rating %}filled{% endif %}">★</span>
+                                    {% for i in range(1, 6) %}
+                                        <span class="star {% if i <= feedback.rating %}filled{% endif %}">★</span>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -107,6 +111,12 @@
 
 {% block styles %}
 <style>
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+}
 .star-rating input[type="radio"] {
     display: none;
 }
@@ -114,11 +124,16 @@
     font-size: 2rem;
     color: #ccc;
     cursor: pointer;
+    transition: color 0.2s;
 }
 .star-rating input[type="radio"]:checked ~ label,
 .star-rating label:hover,
 .star-rating label:hover ~ label {
     color: #f5c518;
+}
+.star-display {
+    display: flex;
+    gap: 2px;
 }
 .star-display .star {
     font-size: 1.5rem;
@@ -126,6 +141,10 @@
 }
 .star-display .star.filled {
     color: #f5c518;
+}
+.rating-labels {
+    font-size: 0.8rem;
+    color: #666;
 }
 </style>
 {% endblock %}
