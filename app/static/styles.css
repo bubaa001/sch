@@ -1017,64 +1017,86 @@ p, a, li {
     box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
 }
 
-/* Footer */
+/* Footer - Redesigned Input Section */
 .chatbot-footer {
-    padding: 18px 20px;
+    padding: 20px;
     border-top: 1px solid #e8f0fe;
     background: white;
     flex-shrink: 0;
+    position: relative;
 }
 
 .input-prompt {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     font-size: 0.85rem;
     color: #1a73e8;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: 600;
+    text-align: center;
+    background: linear-gradient(135deg, #f0f7ff, #e8f0fe);
+    border-radius: 15px;
+    padding: 12px 20px;
+    border: 1px solid #d1e3ff;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-.prompt-icon {
-    font-size: 1rem;
+.input-prompt::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1a73e8, #34d399, #1a73e8);
+    background-size: 200% 100%;
+    animation: promptShimmer 3s infinite linear;
+}
+
+@keyframes promptShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
 .chat-input-container {
     display: flex;
     gap: 12px;
     align-items: center;
+    background: white;
+    border: 2px solid #e8f0fe;
+    border-radius: 20px;
+    padding: 8px 8px 8px 20px;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.chat-input-container:focus-within {
+    border-color: #1a73e8;
+    box-shadow: 0 6px 18px rgba(26, 115, 232, 0.15);
+    transform: translateY(-2px);
 }
 
 .input-wrapper {
     flex: 1;
     display: flex;
     align-items: center;
-    border: 1px solid #e1e8ff;
-    background: #f8faff;
-    border-radius: 25px;
-    padding: 0 18px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.input-wrapper:focus-within {
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
-    background: white;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
 
 .input-prefix {
     color: #1a73e8;
-    margin-right: 10px;
+    margin-right: 12px;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 #chatbotInput {
     flex: 1;
     border: none;
-    padding: 14px 0;
+    padding: 12px 0;
     outline: none;
     font-size: 0.9rem;
     background: transparent;
@@ -1084,12 +1106,13 @@ p, a, li {
 
 #chatbotInput::placeholder {
     color: #a0aec0;
+    font-style: italic;
 }
 
 #chatbotSend {
     border-radius: 50%;
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1100,6 +1123,7 @@ p, a, li {
     cursor: pointer;
     font-size: 1rem;
     box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+    flex-shrink: 0;
 }
 
 #chatbotSend:hover {
