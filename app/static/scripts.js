@@ -797,20 +797,22 @@ Please call ahead to schedule appointments.`
     }
 
     showTypingIndicator() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'chat-message bot-message typing-indicator';
-        typingDiv.id = 'typingIndicator';
-        typingDiv.innerHTML = `
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message bot-message typing-indicator';
+    typingDiv.id = 'typingIndicator';
+    typingDiv.innerHTML = `
+        <div class="typing-content">
             <div class="typing-dots">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <p>FML Assistant is typing...</p>
-        `;
-        this.messagesContainer.appendChild(typingDiv);
-        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-    }
+            <span class="typing-text">FML Assistant is typing...</span>
+        </div>
+    `;
+    this.messagesContainer.appendChild(typingDiv);
+    this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+}
 
     hideTypingIndicator() {
         const typingIndicator = document.getElementById('typingIndicator');
