@@ -1,4 +1,79 @@
+/* --- Modern Responsive Navbar & Dropdown --- */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 90vw;
+        max-width: 340px;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 6px rgba(26,115,232,0.08);
+        border-radius: 0 0 16px 16px;
+        z-index: 1050;
+        transition: opacity 0.3s cubic-bezier(.4,0,.2,1), transform 0.3s cubic-bezier(.4,0,.2,1);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-16px) scale(0.98);
+    }
+    .navbar-collapse.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+        animation: dropdownFadeIn 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes dropdownFadeIn {
+        0% { opacity: 0; transform: translateY(-16px) scale(0.98); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .navbar-nav {
+        flex-direction: column;
+        padding: 0.5rem 0.5rem 0.7rem 0.5rem;
+    }
+    .nav-item {
+        margin: 0.2rem 0;
+    }
+    .nav-link {
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+    .nav-link:active, .nav-link:focus, .nav-link:hover {
+        background: #f3f6fa;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-collapse {
+        left: 5vw;
+        right: 5vw;
+        width: 90vw;
+        max-width: 98vw;
+    }
+}
+
+/* Hide overlay/fullscreen menu if present */
+.navbar-collapse.collapse:not(.show) {
+    display: block !important;
+}
+
+/* Hide default collapse animation for custom one */
+.collapsing {
+    transition: none !important;
+    display: none !important;
+}
+/* Override container padding for edge-to-edge navbar */
+.navbar .container {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100%;
+}
 /* General Styles */
+:root {
+    --container-padding: 1.5rem;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     color: #333;
@@ -7,14 +82,23 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
     transition: overflow-y 0.3s ease;
+    line-height: 1.5;
 }
 
 body.loaded {
     overflow-y: auto;
 }
 
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
+    margin-bottom: 1rem;
 }
 
 p, a, li {
@@ -120,11 +204,16 @@ p, a, li {
     transition: color 0.3s ease;
     display: flex;
     align-items: center;
+    
 }
 
 .navbar-brand img {
-    height: 40px;
-    margin-right: 10px;
+    height: 65px;
+    margin-right: 12px;
+    margin-left: 0;
+    padding-left: 0;
+    display: inline-block;
+    vertical-align: middle;
     transition: height 0.3s ease;
 }
 
@@ -185,7 +274,7 @@ p, a, li {
 }
 
 #togglerIcon {
-    font-size: 32px;
+    font-size: 24px;
     color: #1a73e8;
     transition: color 0.3s ease, transform 0.2s ease;
 }
@@ -199,10 +288,63 @@ p, a, li {
     color: #1557b0;
 }
 
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        right: 1rem;
+        width: 280px;
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+        padding: 0.5rem;
+        transform-origin: top right;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        opacity: 0;
+        transform: scale(0.98) translateY(-0.5rem);
+        pointer-events: none;
+    }
+
+    .navbar-collapse.show {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        pointer-events: auto;
+    }
+
+    .navbar-nav {
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-item {
+        margin: 2px 0;
+    }
+
+    .nav-link {
+        padding: 0.6rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+        display: block;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+        background-color: #f6f8fa;
+    }
+
+    .nav-link.active {
+        background-color: #f0f4f8;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+}
+
 /* Hero Section */
 .hero {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     background: linear-gradient(45deg, #1a73e8, #4a90e2, #50e3c2, #1557b0);
     background-size: 200% 200%;
     animation: gradientAnimation 15s ease infinite;
@@ -211,6 +353,7 @@ p, a, li {
     align-items: center;
     text-align: center;
     color: #fff;
+    padding: 7rem 0;
 }
 
 .hero-overlay {
@@ -226,17 +369,25 @@ p, a, li {
 .hero-content {
     position: relative;
     z-index: 2;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    line-height: 1.2;
 }
 
 .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @keyframes gradientAnimation {
@@ -247,15 +398,36 @@ p, a, li {
 
 /* Sections */
 .section {
-    padding: 5rem 0;
+    padding: clamp(3rem, 8vw, 5rem) 0;
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 4vw, 2.5rem);
     font-weight: 700;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: clamp(2rem, 6vw, 3rem);
     color: #1a73e8;
+    line-height: 1.2;
+}
+
+/* Grid system for responsive layouts */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(var(--container-padding) * -1);
+}
+
+.col {
+    flex: 1;
+    padding: 0 var(--container-padding);
+    min-width: 0;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 767px) {
+    .col {
+        flex: 0 0 100%;
+    }
 }
 
 /* Cards */
@@ -264,6 +436,10 @@ p, a, li {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: clamp(1.5rem, 4vw, 2rem);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .glass-card:hover {
@@ -651,13 +827,14 @@ p, a, li {
 }
 
 /* Responsive Design */
+/* Tablet breakpoint */
 @media (max-width: 991px) {
-    .hero h1 {
-        font-size: 2.5rem;
+    :root {
+        --container-padding: 1.25rem;
     }
 
-    .hero p {
-        font-size: 1rem;
+    body {
+        font-size: 15px;
     }
 
     .navbar-brand {
@@ -665,7 +842,18 @@ p, a, li {
     }
 
     .navbar-brand img {
-        height: 30px;
+        height: clamp(25px, 4vw, 30px);
+    }
+
+    /* Form elements */
+    input, select, textarea {
+        font-size: 16px; /* Prevent zoom on iOS */
+        padding: 0.75rem;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 0.75rem 1.5rem;
     }
 
     .timeline::before {
@@ -704,13 +892,23 @@ p, a, li {
     }
 }
 
+/* Mobile breakpoint */
 @media (max-width: 767px) {
+    :root {
+        --container-padding: 1rem;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
     .section-title {
-        font-size: 2rem;
+        font-size: clamp(1.75rem, 5vw, 2rem);
+        margin-bottom: 2rem;
     }
 
     .counter {
-        font-size: 2rem;
+        font-size: clamp(1.75rem, 5vw, 2rem);
     }
 
     .navbar-brand {
@@ -718,7 +916,30 @@ p, a, li {
     }
 
     .navbar-brand img {
-        height: 25px;
+        height: clamp(20px, 3.5vw, 25px);
+    }
+
+    /* Stack grid columns on mobile */
+    .row {
+        margin: 0 calc(var(--container-padding) * -0.5);
+    }
+
+    .col {
+        padding: 0 calc(var(--container-padding) * 0.5);
+    }
+
+    /* Full-width buttons on mobile */
+    .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9375rem;
+    }
+
+    /* Adjust spacing */
+    .section {
+        padding: clamp(2.5rem, 6vw, 3rem) 0;
     }
 
     .preloader-animation {

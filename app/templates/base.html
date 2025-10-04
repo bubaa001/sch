@@ -46,14 +46,47 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('main.index') }}" data-translate="Francis Maria Libermann School">
-                    <img src="{{ url_for('static', filename='assets/logo.jpeg') }}" alt="FML Logo" style="height: 40px; display: inline-block; vertical-align: middle; margin-right: 10px;">
+                    <img src="{{ url_for('static', filename='assets/logo.jpeg') }}" alt="FML Logo">
                     Francis Maria Libermann School
                 </a>
-                <button id="navbarToggler" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button id="navbarToggler" class="navbar-toggler" type="button" aria-label="Toggle navigation">
                     <i class="material-icons" id="togglerIcon">dehaze</i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                <script>
+                // Modern toggler and dropdown close on outside click
+                document.addEventListener('DOMContentLoaded', function() {
+                    var toggler = document.getElementById('navbarToggler');
+                    var nav = document.getElementById('navbarNav');
+                    var expanded = false;
+                    function closeMenu() {
+                        nav.classList.remove('show');
+                        toggler.setAttribute('aria-expanded', 'false');
+                        expanded = false;
+                    }
+                    toggler.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        expanded = !expanded;
+                        if (expanded) {
+                            nav.classList.add('show');
+                            toggler.setAttribute('aria-expanded', 'true');
+                        } else {
+                            closeMenu();
+                        }
+                    });
+                    document.addEventListener('click', function(e) {
+                        if (expanded && !nav.contains(e.target) && e.target !== toggler) {
+                            closeMenu();
+                        }
+                    });
+                    nav.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('nav-link')) {
+                            closeMenu();
+                        }
+                    });
+                });
+                </script>
                         <li class="nav-item">
                             <a class="nav-link {% if current_page == 'index' %}active{% endif %}" href="{{ url_for('main.index') }}" data-translate="Home">Home</a>
                         </li>
@@ -119,7 +152,9 @@
                         <ul class="footer-links">
                             <li><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> <span data-translate="Shehia of Tomondo, in western district, in urban western Region.">Shehia of Tomondo, in western district, in urban western Region.</span></li>
                             <li><i class="fas fa-phone me-2" aria-hidden="true"></i> <span data-translate="+255 658 638 938, +255 713 616 049">+255 658 638 938, +255 713 616 049</span></li>
-                            <li><i class="fas fa-envelope me-2" aria-hidden="true"></i> <span data-translate="fmlibermann@gmail.com"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7ded9d1d8f7dad6c5dec4c3d5d8cec499d6d499c3cd">[email protected]</a></span></li>
+                            <li><i class="fas fa-envelope me-2" aria-hidden="true"></i> 
+                                <a href="{{ url_for('main.contact') }}" data-translate="Contact Us">fmlibermann@gmail.com</a>
+                            </li>
                             <li><i class="fab fa-whatsapp me-2" aria-hidden="true"></i> <a href="https://wa.me/255658638938?text=Hello,%20I%20need%20assistance%20with%20Francis%20Maria%20Libermann%20School!" target="_blank" data-translate="Chat on WhatsApp">Chat on WhatsApp</a></li>
                         </ul>
                     </div>
