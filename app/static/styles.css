@@ -236,6 +236,11 @@ p, a, li {
     display: inline-block;
 }
 
+.nav-link i {
+    color: #1a73e8;
+    transition: color 0.3s ease;
+}
+
 .nav-link::after {
     content: '';
     position: absolute;
@@ -253,6 +258,10 @@ p, a, li {
 
 .nav-link:hover, .nav-link.active {
     color: #1a73e8 !important;
+}
+
+.nav-link:hover i, .nav-link.active i {
+    color: #333;
 }
 
 /* Navbar Toggler with Material Icons */
@@ -1592,4 +1601,143 @@ p, a, li {
 @media (max-width: 480px) {
     #flash-messages-container { width: 98%; bottom: 10px; }
     .alert { font-size: 0.85rem; padding: 10px 12px; }
+}
+
+/* Enhanced Navbar Styling for Contact Positioning */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.contact-item {
+    margin-left: auto !important;
+}
+
+.contact-link {
+    background: linear-gradient(135deg, #1a73e8, #34d399);
+    color: white !important;
+    border-radius: 25px;
+    padding: 8px 20px !important;
+    margin: 0 5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.contact-link:hover::before {
+    left: 100%;
+}
+
+.contact-link:hover {
+    background: linear-gradient(135deg, #1557b0, #2da67c);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
+    color: white !important;
+}
+
+.contact-link.active {
+    background: linear-gradient(135deg, #1557b0, #2da67c);
+    box-shadow: 0 4px 15px rgba(26, 115, 232, 0.2);
+}
+
+.contact-link i {
+    font-size: 0.9em;
+}
+
+/* Mobile responsiveness for contact button */
+@media (max-width: 991px) {
+    .contact-item {
+        margin-left: 0 !important;
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    .contact-link {
+        text-align: center;
+        width: 100%;
+        margin: 5px 0;
+        border-radius: 12px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+    
+    .navbar-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Enhanced navbar brand styling */
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #1a73e8 !important;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.navbar-brand img {
+    height: 65px;
+    margin-right: 12px;
+    transition: height 0.3s ease;
+}
+
+/* Improved nav link spacing */
+.navbar-nav .nav-item {
+    margin: 0 0.3rem;
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 16px !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Desktop specific enhancements */
+@media (min-width: 992px) {
+    .navbar-nav {
+        justify-content: flex-end;
+    }
+    
+    .navbar-nav .nav-item:not(.contact-item) {
+        margin: 0 0.2rem;
+    }
+    
+    .contact-item {
+        margin-left: 2rem !important;
+    }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    
+    .navbar-brand img {
+        height: 55px;
+    }
+    
+    .nav-link {
+        font-size: 0.95rem;
+        padding: 8px 14px !important;
+    }
 }
