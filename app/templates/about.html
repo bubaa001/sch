@@ -1,167 +1,117 @@
 {% extends "base.html" %}
 
+{% block title %}About Us - Francis Maria Libermann School{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about Francis Maria Libermann School in Zanzibar - a Catholic boarding and day school for students offering holistic education from Nursery to Form 4.">
-    <meta name="keywords" content="Francis Maria Libermann School Education, Zanzibar, NECTA {Primary - ZP0372 } & {Secondary - S4202 }">
-    <meta name="author" content="Francis Maria Libermann School">
-    <title>About Us - Francis Maria Libermann School</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-
-    <!-- Favicon -->
-    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
-</head>
-<body>
-    <!-- Hero Section -->
-    <section id="about-hero" class="hero">
+    <!-- Hero Section with Background Image -->
+    <section id="about-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/schoolblock1.jpeg') }}'); background-size: cover; background-position: center;">
         <div class="hero-overlay"></div>
         <div class="hero-content container text-center">
-            <h1 class="animate__animated animate__fadeInDown">About Francis Maria Libermann School</h1>
-            <p class="lead animate__animated animate__fadeInUp">
-                Discover our legacy of holistic education in Zanzibar, where we empower students to aim higher through academic excellence, character formation, and community service.
+            <h1 data-translate="About Francis Maria Libermann School">About Francis Maria Libermann School</h1>
+            <p class="lead" data-translate="Discover our rich history, mission, and commitment to holistic education in Zanzibar.">
+                Discover our rich history, mission, and commitment to holistic education in Zanzibar.
             </p>
         </div>
     </section>
 
-    <!-- Our Story Section -->
-    <section id="our-story" class="section bg-light" data-aos="fade-up">
+    <!-- School History Section -->
+    <section id="history" class="section bg-light" data-aos="fade-up">
         <div class="container">
-            <h2 class="section-title">Our Story</h2>
+            <h2 class="section-title" data-translate="Our History">Our History</h2>
             <div class="row">
                 <div class="col-md-6 mb-4">
-                    <p>
-                        Welcome to Francis Maria Libermann School! Francis Maria Libermann School was founded in 1994. Since its establishment, the school has grown steadily, excelling both in academic performance and in the promotion of good morals. The school is located just 5 kilometers from Stone Town, making it accessible to families in and around the urban area.
-                    </p>
-                    <p>
-                        The school offers education from Nursery level up to Secondary level, ensuring a continuous learning journey for children of different ages.
-                    </p>
-                    <p>
-                        Francis Maria Libermann School is a Catholic institution owned by the Catholic Diocese of Zanzibar. It is situated in the Shehia of Tomondo, in the Western District of the Urban West Region. The school officially began in 1996 with the Nursery section, expanded to Primary education in 1998, and later introduced Secondary education in 2007.
-                    </p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <p>
-                        From its foundation, the school has welcomed learners from diverse backgrounds. While it is owned and run by the Catholic Church, it is not a place of conversion but a center of knowledge and wisdom. The mission of the school is to provide quality education, nurture discipline, and prepare students to become responsible members of society.
-                    </p>
-                    <p>
-                        The institution is guided by the Catholic tradition of service and integrity, while remaining open to all faiths. By emphasizing values such as respect, responsibility, and hard work, Francis Maria Libermann School continues to build a strong reputation as a place where both academic success and moral character are developed hand in hand.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Leadership Section -->
-    <section id="leadership" class="section bg-white" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Leadership</h2>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <p>
-                        At its founding in 1998, Francis Maria Libermann School was led by Brother Kiko Baeza, who served as the first headmaster. He was supported by the Nyakato community and a dedicated team of five Tanzanian staff members, who together laid the foundation for the school’s early success. Brother Kiko’s leadership was instrumental in establishing the school’s values-driven approach, emphasizing academic rigor, character formation, and community engagement.
-                    </p>
-                    <p>
-                        Unfortunately, current leadership details are not publicly available through online sources. Schools in Zanzibar often experience changes in leadership, and such information may not be updated regularly on public platforms. For the most accurate and up-to-date information on the school’s leadership, we recommend contacting the school directly at <strong>++255 658 638 938, +255 713 616 049</strong> or via email at <strong>fmlibermann@gmail.com</strong>. Messages sent to this email will be received as PDFs.
-                    </p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="glass-card p-4">
-                        <h3>Our Leadership Philosophy</h3>
-                        <p>
-                            The leadership at Francis Maria Libermann School is guided by the Catholic church’s principles of humility, simplicity, and modesty. Our leaders are committed to fostering a supportive environment where every student can thrive academically, morally, and spiritually. They work closely with parents, staff, and the community to ensure the school remains a nurturing space for growth and development.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Accreditation Section -->
-    <section id="accreditation" class="section bg-light" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Accreditation and Recognition</h2>
-            <p class="text-center mb-5">
-                Francis Maria Libermann School is proudly accredited by the Zanzibarn government, ensuring our students receive a recognized and high-quality education.
-            </p>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <p>
-                        The school is registered with the National Examinations Council of Tanzania (NECTA) under the code <strong>ZP0372</strong> & <strong>S4202</strong>. This accreditation confirms our compliance with national educational standards and authorizes us to conduct national examinations, including the Form Two National Assessment (FTNA), Certificate of Secondary Education Examination (CSEE, Form Four). Our NECTA registration ensures that our students’ academic achievements are recognized both nationally and internationally.
-                    </p>
-                    <p>
-                        Francis Maria Libermann School has a respectable rank among public schools in Zanzibar, with a history of strong academic performance. In 2024, our Form 2 and Form 4 students continued this tradition of excellence, as reflected in their NECTA exam results.
-                    </p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="glass-card p-4 text-center">
-                        <h3>2024 NECTA Exam Results</h3>
-                        <p>Check the latest examination results for our students:</p>
-                        <p><strong>Form 2 (FTNA):</strong> <a href="https://bmz.go.tz/exam_result/schools/STD7(2024)/ZP0372.html" target="_blank">View Results</a></p>
-                        <p><strong>Form 4 (CSEE):</strong> <a href="https://onlinesys.necta.go.tz/results/2024/csee/results/s4202.htm" target="_blank">View Results</a></p>
-                        <p>Use our school code <strong>ZP0372</strong> <strong>S4202</strong> to access additional results on the NECTA website.</p>
-                        <a href="https://matokeo.necta.go.tz/" target="_blank" class="btn btn-primary">Visit NECTA Portal</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Community Engagement Section -->
-    <section id="community-engagement" class="section bg-white" data-aos="fade-up">
-        <div class="container">
-            <h2 class="section-title">Community Engagement</h2>
-            <p class="text-center mb-5">
-                At Francis Maria Libermann School, we believe in the power of community. Our students engage in meaningful activities that foster creativity, teamwork, and a sense of service.
-            </p>
-            <div class="row">
-                <div class="col-md-4 mb-4">
                     <div class="card h-100 glass-card" data-tilt>
-                        <div class="card-body text-center">
-                            <i class="fas fa-music fa-2x mb-3" aria-hidden="true"></i>
-                            <h5 class="card-title">Cultural Activities</h5>
-                            <p class="card-text">
-                                Our students participate in singing and cultural performances, showcasing their talents and building community spirit, as seen in videos shared by Francisians, Zanzibar.
-                                Watch more about our vibrant school life on our instagram page. 
+                        <div class="card-body">
+                            <h3 data-translate="Foundation">Foundation</h3>
+                            <p data-translate="Welcome to Francis Maria Libermann School in which was founded in 1994. It is doing well academically arena as well as good morals. The school is located just 5km from Stone Town. Our School offers education to all, from nursery level to Secondary level. Francis Maria Libermann School is a Catholic School owned by the Catholic Diocese of Zanzibar. The School is situated in the Shehia of Tomondo, in western district, in urban western Region. The School started in 1996 with Nursery School followed by Primary School in 1998. Secondary School level followed in 2007. The School embraces all people who wish to fetch the suitable education offered.">
+                                Welcome to Francis Maria Libermann School in which was founded in 1994. It is doing well academically as well as good morals. The school is located just 5km from Stone Town. Our School offers education to all, from nursery level to Secondary level. Francis Maria Libermann School is a Catholic School owned by the Catholic Diocese of Zanzibar. The School is situated in the Shehia of Tomondo, in western district, in urban western Region. The School started in 1996 with Nursery School followed by Primary School in 1998. Secondary School level followed in 2007. The School embraces all people who wish to fetch the suitable education offered.
                             </p>
-                            <a href="https://www.instagram.com/fmlibermann/" target="_blank" class="btn btn-primary">Watch Video</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="card h-100 glass-card" data-tilt>
-                        <div class="card-body text-center">
-                            <i class="fas fa-hands-helping fa-2x mb-3" aria-hidden="true"></i>
-                            <h5 class="card-title">Educational Visits</h5>
-                            <p class="card-text">
-                                We organize visits to local companies, providing practical learning experiences and strengthening community ties.
+                        <div class="card-body">
+                            <h3 data-translate="Growth and Development">Growth and Development</h3>
+                            <p data-translate="Over the years, we have expanded our facilities and programs to meet the growing needs of our students and community. Our commitment to academic excellence and character formation has remained steadfast.">
+                                Over the years, we have expanded our facilities and programs to meet the growing needs of our students and community. Our commitment to academic excellence and character formation has remained steadfast.
                             </p>
-                            <a href="{{ url_for('main.community') }}" class="btn btn-primary">Learn More</a>
+                            <p data-translate="Today, we continue to uphold our motto 'Education Key to Liberty' while adapting to modern educational demands.">
+                                Today, we continue to uphold our motto 'Education Key to Liberty' while adapting to modern educational demands.
+                            </p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section id="mission-vision" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Mission and Vision">Our Mission and Vision</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-bullseye fa-3x mb-3" aria-hidden="true"></i>
+                            <h3 data-translate="Our Mission">Our Mission</h3>
+                            <p data-translate="To Provide Quality Education with Competitive Standards, to help the Students Become more Curious, Reflective and Critical Thinkers as Global citizens.">
+                                To Provide Quality Education with Competitive Standards, to help the Students Become more Curious, Reflective and Critical Thinkers as Global citizens.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-eye fa-3x mb-3" aria-hidden="true"></i>
+                            <h3 data-translate="Our Vision">Our Vision</h3>
+                            <p data-translate="To develop Learners who are: Confident in working with their information, ideas and those of others; Responsible for themselves, environment and respect of others; Reflective as learners, developing their ability to learn; Innovative and equipped for new and future challenges; Engaged intellectually, spiritually and socially and ready to make a difference.">
+                                To develop Learners who are: Confident in working with their information, ideas and those of others; Responsible for themselves, environment and respect of others; Reflective as learners, developing their ability to learn; Innovative and equipped for new and future challenges; Engaged intellectually, spiritually and socially and ready to make a difference.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="values" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Values">Our Values</h2>
+            <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 glass-card" data-tilt>
                         <div class="card-body text-center">
                             <i class="fas fa-heart fa-2x mb-3" aria-hidden="true"></i>
-                            <h5 class="card-title">Service-Oriented Learning</h5>
-                            <p class="card-text">
-                                Our programs encourage students to give back to the community through initiatives like tree planting, charity drives, and mentorship programs, fostering a sense of responsibility and empathy.
+                            <h4 data-translate="Compassion">Compassion</h4>
+                            <p data-translate="We foster a caring environment where students learn to respect and support one another.">
+                                We foster a caring environment where students learn to respect and support one another.
                             </p>
-                            <a href="{{ url_for('main.community') }}" class="btn btn-primary">Discover More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-shield-alt fa-2x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Integrity">Integrity</h4>
+                            <p data-translate="We uphold honesty and ethical behavior in all aspects of school life.">
+                                We uphold honesty and ethical behavior in all aspects of school life.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap fa-2x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Excellence">Excellence</h4>
+                            <p data-translate="We strive for the highest standards in academics, character, and service.">
+                                We strive for the highest standards in academics, character, and service.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -169,48 +119,124 @@
         </div>
     </section>
 
-    <!-- Facilities Section -->
-    <section id="facilities" class="section bg-light parallax-section" data-aos="fade-up">
+    <!-- Leadership Team Section -->
+    <section id="leadership" class="section bg-white" data-aos="fade-up">
         <div class="container">
-            <h2 class="section-title">Our Facilities</h2>
-            <p class="text-center mb-5">
-                Our state-of-the-art facilities are designed to support a comprehensive learning environment for our students.
-            </p>
+            <h2 class="section-title" data-translate="Our Leadership Team">Our Leadership Team</h2>
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <div class="facility-box">
-                        <h3>Science Laboratories</h3>
-                        <p>Equipped with modern tools to support hands-on learning in physics, chemistry, and biology, encouraging scientific inquiry and innovation.</p>
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <img src="{{ url_for('static', filename='assets/placeholder.jpg') }}" alt="Head Teacher" class="rounded-circle mb-3" width="120" height="120">
+                            <h4 data-translate="Head Teacher">Head Teacher</h4>
+                            <p data-translate="Leading our school with dedication and vision, ensuring quality education for all students.">
+                                Leading our school with dedication and vision, ensuring quality education for all students.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="facility-box">
-                        <h3>Libraries</h3>
-                        <p>A vast collection of books, journals, and digital resources to promote research, independent study, and a love for reading.</p>
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <img src="{{ url_for('static', filename='assets/placeholder.jpg') }}" alt="Academic Dean" class="rounded-circle mb-3" width="120" height="120">
+                            <h4 data-translate="Academic Dean">Academic Dean</h4>
+                            <p data-translate="Overseeing curriculum development and academic excellence across all levels.">
+                                Overseeing curriculum development and academic excellence across all levels.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="facility-box">
-                        <h3>Sports Fields</h3>
-                        <p>Outdoor fields for football, basketball, and athletics, fostering physical fitness, teamwork, and school spirit through inter-house competitions.</p>
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <img src="{{ url_for('static', filename='assets/placeholder.jpg') }}" alt="Student Affairs" class="rounded-circle mb-3" width="120" height="120">
+                            <h4 data-translate="Student Affairs">Student Affairs</h4>
+                            <p data-translate="Ensuring student welfare and coordinating extracurricular activities.">
+                                Ensuring student welfare and coordinating extracurricular activities.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="facility-box">
-                        <h3>Boarding Facilities</h3>
-                        <p>Comfortable dormitories with supervised care, providing a safe and supportive environment for boarders to grow and thrive.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- School Facilities Section -->
+    <section id="facilities" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Facilities">Our Facilities</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Classrooms">Classrooms</h4>
+                            <p data-translate="Spacious, well-ventilated classrooms equipped with modern teaching aids to enhance learning.">
+                                Spacious, well-ventilated classrooms equipped with modern teaching aids to enhance learning.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="facility-box">
-                        <h3>Chapel</h3>
-                        <p>A dedicated space for prayer, reflection, and spiritual growth, reflecting our Catholic ethos while welcoming students of all faiths.</p>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Science Laboratories">Science Laboratories</h4>
+                            <p data-translate="Fully-equipped labs for physics, chemistry, and biology to support practical learning.">
+                                Fully-equipped labs for physics, chemistry, and biology to support practical learning.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="facility-box">
-                        <h3>Computer Labs</h3>
-                        <p>Modern computer labs with internet access, enabling students to develop digital literacy and engage in technology-driven learning.</p>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Library">Library</h4>
+                            <p data-translate="A well-stocked library with a diverse collection of books and digital resources.">
+                                A well-stocked library with a diverse collection of books and digital resources.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Sports Facilities">Sports Facilities</h4>
+                            <p data-translate="Outdoor fields for football, athletics, and other sports to promote physical fitness.">
+                                Outdoor fields for football, athletics, and other sports to promote physical fitness.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accreditation and Partnerships Section -->
+    <section id="accreditation" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Accreditation and Partnerships">Accreditation and Partnerships</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-award fa-3x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="NECTA Accreditation">NECTA Accreditation</h4>
+                            <p data-translate="We are accredited by the National Examinations Council of Tanzania (NECTA) with codes ZP0372 for primary and S4202 for secondary levels.">
+                                We are accredited by the National Examinations Council of Tanzania (NECTA) with codes ZP0372 for primary and S4202 for secondary levels.
+                            </p>
+                            <a href="https://matokeo.necta.go.tz/" target="_blank" class="btn btn-primary" data-translate="View Results">View Results</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-handshake fa-3x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Community Partnerships">Community Partnerships</h4>
+                            <p data-translate="We collaborate with local organizations and businesses to provide real-world learning experiences for our students.">
+                                We collaborate with local organizations and businesses to provide real-world learning experiences for our students.
+                            </p>
+                            <a href="{{ url_for('main.community') }}" class="btn btn-primary" data-translate="Learn More">Learn More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -218,76 +244,14 @@
     </section>
 
     <!-- Call to Action Section -->
-    <section id="cta" class="section bg-white" data-aos="fade-up">
+    <section id="cta" class="section bg-primary text-white" data-aos="fade-up">
         <div class="container text-center">
-            <h2 class="section-title">Join Our Community</h2>
-            <p class="mb-5">
-                Discover the Francis Maria Libermann difference in Zanzibar. Contact us today to learn more, arrange a visit, or inquire about admissions.
+            <h2 class="section-title" data-translate="Join Our Community">Join Our Community</h2>
+            <p class="lead mb-4" data-translate="Become part of our tradition of excellence and holistic education at Francis Maria Libermann School.">
+                Become part of our tradition of excellence and holistic education at Francis Maria Libermann School.
             </p>
-            <p>
-                Reach out to us at <strong>+255 658 638 938, +255 713 616 049</strong> or email us at <strong>fmlibermann@gmail.com</strong>. Please note that messages sent to this email will be received as PDFs.
-            </p>
-            <a href="{{ url_for('main.contact') }}" class="btn btn-primary btn-lg">Contact Us</a>
-            <a href="{{ url_for('main.admissions') }}" class="btn btn-outline-primary btn-lg ms-2">Apply Now</a>
+            <a href="{{ url_for('main.admissions') }}" class="btn btn-light btn-lg me-2" data-translate="Apply Now">Apply Now</a>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-outline-light btn-lg" data-translate="Contact Us">Contact Us</a>
         </div>
     </section>
-    
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Initialize Vanilla Tilt for card hover effects
-        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-            max: 15,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.3
-        });
-
-        // Dark Mode Toggle
-        const body = document.body;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const icon = darkModeToggle.querySelector('i');
-            if (body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        });
-
-        // Navbar Scroll Effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Chatbot Toggle
-        const chatbotToggle = document.querySelector('.chatbot-toggle');
-        const chatbotBox = document.querySelector('.chatbot-box');
-        const chatbotClose = document.querySelector('.chatbot-close');
-        chatbotToggle.addEventListener('click', () => {
-            chatbotBox.classList.toggle('active');
-        });
-        chatbotClose.addEventListener('click', () => {
-            chatbotBox.classList.remove('active');
-        });
-    </script>
-</body>
-</html>
 {% endblock %}
