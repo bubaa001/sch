@@ -550,8 +550,12 @@ def submit_feedback():
         main.logger.warning("Feedback submission failed: Please fill out all fields.")
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
 
-@main.route('/arrange_visit', methods=['POST'])
+@main.route('/arrange_visit', methods=['GET', 'POST'])
 def arrange_visit():
+    if request.method == 'GET':
+        return render_template('visit_request.html', current_page='visit-request')
+    
+    # POST request handling
     main.logger.info("Submitting visit application...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
