@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="school-visit-hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container text-center">
+        <h1 class="animate__animated animate__fadeInDown">Schedule an Institutional Visit</h1>
+        <p class="lead animate__animated animate__fadeInUp">
+            Welcome educational partners! Experience our campus and explore collaboration opportunities with Francis Maria Libermann School.
+        </p>
+    </div>
+</section>
+
+<!-- School Visit Request Form Section -->
+<section id="school-visit-form" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Request an Institutional Visit</h2>
+        <p class="text-center mb-5">
+            Fill out the form below to schedule your institutional visit. We'll contact you to discuss collaboration opportunities and confirm the details.
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="glass-card p-4">
+                    <form action="{{ url_for('main.school_visit') }}" method="POST" data-ajax="true">
+                        <input type="hidden" name="visit_type" value="school">
+                        <div class="mb-3">
+                            <label for="organization" class="form-label">School/Organization Name *</label>
+                            <input type="text" class="form-control" id="organization" name="organization" required placeholder="Enter your school or organization name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Contact Person Full Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="position" class="form-label">Position/Title *</label>
+                            <input type="text" class="form-control" id="position" name="position" required placeholder="e.g., Principal, Head Teacher, Director">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="visit_purpose" class="form-label">Purpose of Visit *</label>
+                            <select class="form-control" id="visit_purpose" name="visit_purpose" required>
+                                <option value="">Select purpose of visit</option>
+                                <option value="benchmarking">Benchmarking & Best Practices</option>
+                                <option value="collaboration">Collaboration Opportunities</option>
+                                <option value="curriculum">Curriculum Development</option>
+                                <option value="facilities">Facilities & Infrastructure</option>
+                                <option value="boarding">Boarding Program Review</option>
+                                <option value="other">Other (please specify in message)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Preferred Visit Date *</label>
+                            <input type="date" class="form-control" id="date" name="date" min="{{ today }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="participants" class="form-label">Number of Participants</label>
+                            <input type="number" class="form-control" id="participants" name="participants" min="1" placeholder="Approximate number of people">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Areas of Interest & Objectives</label>
+                            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your institution, specific areas of interest, objectives for the visit, and any collaboration opportunities you'd like to explore..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Institutional Visit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- School Visit Information Section -->
+<section id="school-visit-info" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">What to Expect During Your Institutional Visit</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-handshake me-2"></i>Partnership Meetings</h4>
+                        <p>Meet with our leadership team to discuss potential collaborations, partnerships, and knowledge sharing.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-chalkboard-teacher me-2"></i>Academic Program Review</h4>
+                        <p>Explore our curriculum, teaching methodologies, and academic support systems in detail.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-building me-2"></i>Facilities Tour</h4>
+                        <p>Comprehensive tour of classrooms, laboratories, boarding facilities, and administrative areas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-users me-2"></i>Departmental Meetings</h4>
+                        <p>Opportunity to meet with relevant department heads and subject specialists.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partnership Opportunities Section -->
+<section id="partnership-opportunities" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Partnership Opportunities</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="glass-card p-4">
+                    <h4 class="mb-3">Areas for Collaboration</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Teacher Exchange Programs</strong> - Share best practices and teaching methodologies</li>
+                                <li><strong>Student Exchange Programs</strong> - Cultural and academic exchange opportunities</li>
+                                <li><strong>Curriculum Development</strong> - Joint development of educational materials</li>
+                                <li><strong>Professional Development</strong> - Joint training and workshops for staff</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Research Collaboration</strong> - Joint educational research projects</li>
+                                <li><strong>Sports & Cultural Events</strong> - Inter-school competitions and events</li>
+                                <li><strong>Resource Sharing</strong> - Sharing of educational resources and facilities</li>
+                                <li><strong>Community Outreach</strong> - Joint community service projects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section id="contact-info" class="section bg-light" data-aos="fade-up">
+    <div class="container text-center">
+        <h2 class="section-title">Partnership Inquiries</h2>
+        <p class="mb-4">Our Partnerships & Institutional Relations Team is here to assist with your institutional visit and collaboration inquiries.</p>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <i class="fas fa-phone fa-2x mb-3 text-primary"></i>
+                    <h5>Call Us</h5>
+                    <p>+255 658 638 938<br>+255 713 616 049</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <i class="fas fa-envelope fa-2x mb-3 text-primary"></i>
+                    <h5>Email Us</h5>
+                    <p>fmlibermann@gmail.com</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <i class="fas fa-map-marker-alt fa-2x mb-3 text-primary"></i>
+                    <h5>Visit Us</h5>
+                    <p>Shehia of Tomondo<br>Zanzibar</p>
+                </div>
+            </div>
+        </div>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-outline-primary mt-3">Contact Partnerships Team</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').min = today;
+    });
+
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const requiredFields = [
+            { id: 'organization', name: 'School/Organization Name' },
+            { id: 'name', name: 'Contact Person Full Name' },
+            { id: 'position', name: 'Position/Title' },
+            { id: 'email', name: 'Email Address' },
+            { id: 'phone', name: 'Phone Number' },
+            { id: 'visit_purpose', name: 'Purpose of Visit' },
+            { id: 'date', name: 'Preferred Visit Date' }
+        ];
+
+        for (let field of requiredFields) {
+            const value = document.getElementById(field.id).value.trim();
+            if (!value) {
+                e.preventDefault();
+                alert(`${field.name} is required.`);
+                document.getElementById(field.id).focus();
+                return;
+            }
+        }
+
+        // Validate email format
+        const email = document.getElementById('email').value.trim();
+        if (!email.includes('@') || !email.includes('.')) {
+            e.preventDefault();
+            alert('Please provide a valid email address.');
+            document.getElementById('email').focus();
+            return;
+        }
+
+        // Validate phone number (basic check)
+        const phone = document.getElementById('phone').value.trim();
+        if (!phone.match(/^[0-9+\-\s()]+$/)) {
+            e.preventDefault();
+            alert('Please provide a valid phone number.');
+            document.getElementById('phone').focus();
+            return;
+        }
+    });
+</script>
+{% endblock %}

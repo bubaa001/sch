@@ -526,6 +526,94 @@ def admissions():
             return jsonify({'success': False, 'message': f'Application saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
 
     return render_template('admissions.html', current_page='admissions')
+
+@main.route('/family-visit', methods=['GET', 'POST'])
+def family_visit():
+    if request.method == 'GET':
+        return render_template('family_visit.html', current_page='family-visit')
+    
+    # POST request handling for family visits
+    main.logger.info("Submitting family visit application...")
+    name = request.form.get('name', '').strip()
+    email = request.form.get('email', '').strip()
+    phone = request.form.get('phone', '').strip()
+    student_name = request.form.get('student_name', '').strip()
+    grade_level = request.form.get('grade_level', '').strip()
+    date = request.form.get('date', '').strip()
+    message = request.form.get('message', '')
+    main.logger.info(f"Family visit application received: Name: {name}, Email: {email}, Phone: {phone}, Student: {student_name}, Grade: {grade_level}, Date: {date}, Message: {message}")
+
+    if name and email and phone and date:
+        subject = f"New Family Visit Request from {name}"
+        body = f"FAMILY VISIT REQUEST\n\nParent/Guardian Name: {name}\nEmail: {email}\nPhone: {phone}\nStudent Name: {student_name}\nGrade Level: {grade_level}\nPreferred Visit Date: {date}\nQuestions/Special Requests: {message}\n\nThis is a family visit request for prospective student admission."
+        applicant_subject = "Campus Visit Confirmation - Francis Maria Libermann School"
+        applicant_body = f"Dear {name},\n\nThank you for scheduling a campus visit to Francis Maria Libermann School on {date}. We have received your application and will confirm your visit details shortly.\n\nDuring your visit, you'll have the opportunity to tour our facilities, meet our staff, and learn more about our academic programs and boarding facilities.\n\nWe look forward to welcoming you to our campus and showing you the Libermann difference!\n\nBest regards,\nFrancis Maria Libermann School\nAdmissions Team"
+
+        msg_to_school = Message(subject=subject,
+                                recipients=['fmlibermann@gmail.com'],
+                                body=body)
+        msg_to_applicant = Message(subject=applicant_subject,
+                                   recipients=[email],
+                                   body=applicant_body)
+
+        try:
+            main.logger.info(f"Sending family visit application emails to school and applicant ({email})")
+            mail.send(msg_to_school)
+            mail.send(msg_to_applicant)
+            main.logger.info(f"Family visit application emails sent successfully to school and applicant ({email})")
+            flash('Your family visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'success')
+            return jsonify({'success': True, 'message': 'Your family visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success', 'flash': 'Your family visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'flash_category': 'success'})
+        except Exception as e:
+            flash(f'Failed to submit your family visit request. Error: {str(e)}', 'danger')
+            return jsonify({'success': False, 'message': f'Failed to submit your family visit request. Error: {str(e)}', 'category': 'danger', 'flash': f'Failed to submit your family visit request. Error: {str(e)}', 'flash_category': 'danger'})
+    else:
+        flash('Please fill out all required fields.', 'danger')
+        return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger', 'flash': 'Please fill out all required fields.', 'flash_category': 'danger'})
+
+@main.route('/school-visit', methods=['GET', 'POST'])
+def school_visit():
+    if request.method == 'GET':
+        return render_template('school_visit.html', current_page='school-visit')
+    
+    # POST request handling for school visits
+    main.logger.info("Submitting school visit application...")
+    organization = request.form.get('organization', '').strip()
+    name = request.form.get('name', '').strip()
+    position = request.form.get('position', '').strip()
+    email = request.form.get('email', '').strip()
+    phone = request.form.get('phone', '').strip()
+    visit_purpose = request.form.get('visit_purpose', '').strip()
+    date = request.form.get('date', '').strip()
+    participants = request.form.get('participants', '').strip()
+    message = request.form.get('message', '')
+    main.logger.info(f"School visit application received: Organization: {organization}, Contact: {name}, Position: {position}, Email: {email}, Phone: {phone}, Purpose: {visit_purpose}, Date: {date}, Participants: {participants}, Message: {message}")
+
+    if organization and name and position and email and phone and visit_purpose and date:
+        subject = f"Institutional Visit Request: {organization}"
+        body = f"INSTITUTIONAL VISIT REQUEST\n\nOrganization: {organization}\nContact Person: {name}\nPosition: {position}\nEmail: {email}\nPhone: {phone}\nPurpose of Visit: {visit_purpose}\nPreferred Visit Date: {date}\nNumber of Participants: {participants}\nAreas of Interest & Objectives: {message}\n\nThis is an institutional visit request for benchmarking, collaboration, or educational partnership purposes."
+        applicant_subject = "Institutional Visit Request Confirmation - Francis Maria Libermann School"
+        applicant_body = f"Dear {name},\n\nThank you for your institutional visit request on behalf of {organization}. We have received your application to visit Francis Maria Libermann School on {date}.\n\nOur Partnerships & Institutional Relations Team will review your request and contact you shortly to discuss the visit details, potential collaboration opportunities, and confirm the schedule.\n\nWe look forward to welcoming your institution and exploring ways we can work together to advance education.\n\nBest regards,\nFrancis Maria Libermann School\nPartnerships & Institutional Relations Team"
+
+        msg_to_school = Message(subject=subject,
+                                recipients=['fmlibermann@gmail.com'],
+                                body=body)
+        msg_to_applicant = Message(subject=applicant_subject,
+                                   recipients=[email],
+                                   body=applicant_body)
+
+        try:
+            main.logger.info(f"Sending school visit application emails to school and applicant ({email})")
+            mail.send(msg_to_school)
+            mail.send(msg_to_applicant)
+            main.logger.info(f"School visit application emails sent successfully to school and applicant ({email})")
+            flash('Your institutional visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'success')
+            return jsonify({'success': True, 'message': 'Your institutional visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success', 'flash': 'Your institutional visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'flash_category': 'success'})
+        except Exception as e:
+            flash(f'Failed to submit your institutional visit request. Error: {str(e)}', 'danger')
+            return jsonify({'success': False, 'message': f'Failed to submit your institutional visit request. Error: {str(e)}', 'category': 'danger', 'flash': f'Failed to submit your institutional visit request. Error: {str(e)}', 'flash_category': 'danger'})
+    else:
+        flash('Please fill out all required fields.', 'danger')
+        return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger', 'flash': 'Please fill out all required fields.', 'flash_category': 'danger'})
 @main.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
     main.logger.info("Submitting feedback...")
@@ -550,41 +638,6 @@ def submit_feedback():
         main.logger.warning("Feedback submission failed: Please fill out all fields.")
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
 
-@main.route('/arrange_visit', methods=['GET', 'POST'])
-def arrange_visit():
-    if request.method == 'GET':
-        return render_template('visit_request.html', current_page='visit-request')
-    
-    # POST request handling
-    main.logger.info("Submitting visit application...")
-    name = request.form.get('name', '').strip()
-    email = request.form.get('email', '').strip()
-    phone = request.form.get('phone', '').strip()
-    date = request.form.get('date', '').strip()
-    message = request.form.get('message', '')
-    main.logger.info(f"Visit application received: Name: {name}, Email: {email}, Phone: {phone}, Date: {date}, Message: {message}")
-
-    if name and email and phone and date:
-        msg_to_school = Message(subject=f"New Visit Application from {name}",
-                                recipients=['fmlibermann@gmail.com'],
-                                body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nPreferred Date: {date}\nMessage: {message}")
-        msg_to_applicant = Message(subject="Visit Application Confirmation - Francis Maria Libermann School",
-                                   recipients=[email],
-                                   body=f"Dear {name},\n\nThank you for scheduling a visit to Francis Maria Libermann School on {date}. We have received your application and will confirm your visit soon.\n\nBest regards,\nFrancis Maria Libermann School Team")
-
-        try:
-            main.logger.info(f"Sending visit application emails to school and applicant ({email})")
-            mail.send(msg_to_school)
-            mail.send(msg_to_applicant)
-            main.logger.info(f"Visit application emails sent successfully to school and applicant ({email})")
-            flash('Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'success')
-            return jsonify({'success': True, 'message': 'Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success', 'flash': 'Your visit application has been submitted successfully! A confirmation email has been sent to your inbox.', 'flash_category': 'success'})
-        except Exception as e:
-            flash(f'Failed to submit your visit application. Error: {str(e)}', 'danger')
-            return jsonify({'success': False, 'message': f'Failed to submit your visit application. Error: {str(e)}', 'category': 'danger', 'flash': f'Failed to submit your visit application. Error: {str(e)}', 'flash_category': 'danger'})
-    else:
-        flash('Please fill out all required fields.', 'danger')
-        return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger', 'flash': 'Please fill out all required fields.', 'flash_category': 'danger'})
 @main.route('/submit_contact', methods=['POST'])
 def submit_contact():
     main.logger.info("Checking if main.logger is available")

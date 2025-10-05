@@ -18,22 +18,31 @@
     <div class="container">
         <h2 class="section-title">Arrange a Visit</h2>
         <p class="text-center mb-5">
-            We warmly invite prospective students and families to visit our campus and experience the Libermann difference firsthand.
+            We warmly invite prospective students, families, and educational partners to visit our campus and experience the Libermann difference firsthand.
         </p>
         <div class="row">
             <div class="col-md-6 mb-4">
+                <h4>For Families & Students</h4>
                 <p>
                     To arrange a visit, please contact our Admissions Office at <strong>+255 658 638 938, +255 713 616 049</strong> or email us at <strong>fmlibermann@gmail.com</strong>. Visits are available Monday to Friday from 9:00 AM to 3:00 PM, and on Saturdays from 10:00 AM to 1:00 PM. We recommend scheduling at least a week in advance to ensure availability.
                 </p>
                 <p>
-                    During your visit, you’ll have the opportunity to tour our facilities, meet our staff, and learn more about our academic and extracurricular programs. We also offer virtual tours for families unable to visit in person—simply request a virtual tour link when you contact us.
+                    During your visit, you'll have the opportunity to tour our facilities, meet our staff, and learn more about our academic and extracurricular programs. We also offer virtual tours for families unable to visit in person—simply request a virtual tour link when you contact us.
                 </p>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('main.family_visit') }}" class="btn btn-primary">Request a Family Visit</a>
+                </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="glass-card p-4 text-center">
-                    <h3>Ready to Visit?</h3>
-                    <p>Fill out our online visit request form to schedule your tour.</p>
-                    <a href="{{ url_for('main.arrange_visit') }}" class="btn btn-primary">Request a Visit</a>
+                <h4>For Schools & Educational Partners</h4>
+                <p>
+                    We welcome visits from other educational institutions, partner schools, and educational organizations. Whether you're interested in collaboration opportunities, benchmarking, or learning about our educational approach, we'd be delighted to host you.
+                </p>
+                <p>
+                    School visits can be customized to focus on specific areas of interest such as curriculum development, boarding facilities, extracurricular programs, or administrative systems. We can arrange meetings with relevant department heads and provide detailed insights into our operations.
+                </p>
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('main.school_visit') }}" class="btn btn-outline-primary">Request a School Visit</a>
                 </div>
             </div>
         </div>
@@ -265,8 +274,8 @@
             <div class="col-md-6 mb-4">
                 <div class="glass-card p-4 text-center">
                     <h3>Book Your Tour</h3>
-                    <p>Contact us to schedule a guided tour and see our campus in action.</p>
-                    <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Schedule Now</a>
+                    <p>Schedule a guided tour to experience our campus firsthand and meet our community.</p>
+                    <a href="{{ url_for('main.family_visit') }}" class="btn btn-primary">Schedule a Guided Tour</a>
                 </div>
             </div>
         </div>

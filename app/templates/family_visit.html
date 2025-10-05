@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="family-visit-hero" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container text-center">
+        <h1 class="animate__animated animate__fadeInDown">Schedule a Family Visit</h1>
+        <p class="lead animate__animated animate__fadeInUp">
+            Experience Francis Maria Libermann School firsthand. Schedule a personalized tour for your family and discover our vibrant community.
+        </p>
+    </div>
+</section>
+
+<!-- Family Visit Request Form Section -->
+<section id="family-visit-form" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Request a Family Campus Visit</h2>
+        <p class="text-center mb-5">
+            Fill out the form below to schedule your family visit. We'll contact you to confirm the details and prepare a personalized tour.
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="glass-card p-4">
+                    <form action="{{ url_for('main.family_visit') }}" method="POST" data-ajax="true">
+                        <input type="hidden" name="visit_type" value="family">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Parent/Guardian Full Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="student_name" class="form-label">Student Name (if applicable)</label>
+                            <input type="text" class="form-control" id="student_name" name="student_name" placeholder="Name of prospective student">
+                        </div>
+                        <div class="mb-3">
+                            <label for="grade_level" class="form-label">Interested Grade Level</label>
+                            <select class="form-control" id="grade_level" name="grade_level">
+                                <option value="">Select grade level</option>
+                                <option value="Nursery">Nursery</option>
+                                <option value="Kindergarten">Kindergarten</option>
+                                <option value="Primary">Primary (Class 1-7)</option>
+                                <option value="Secondary">Secondary (Form 1-4)</option>
+                                <option value="Not sure">Not sure yet</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Preferred Visit Date *</label>
+                            <input type="date" class="form-control" id="date" name="date" min="{{ today }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Questions or Special Requests</label>
+                            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your interests, specific areas you'd like to see, or any questions you have..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Family Visit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Family Visit Information Section -->
+<section id="family-visit-info" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">What to Expect During Your Family Visit</h2>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-home me-2"></i>Family-Focused Tour</h4>
+                        <p>Our tours are designed specifically for families, focusing on areas that matter most to parents and students.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-graduation-cap me-2"></i>Academic Overview</h4>
+                        <p>Learn about our curriculum, teaching methods, and academic support systems for students.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-bed me-2"></i>Boarding Facilities</h4>
+                        <p>See our boarding houses, dining facilities, and recreational areas for boarding students.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 glass-card">
+                    <div class="card-body">
+                        <h4><i class="fas fa-users me-2"></i>Meet Key Staff</h4>
+                        <p>Opportunity to meet with admissions staff, house masters, and academic department heads.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section id="contact-info" class="section bg-white" data-aos="fade-up">
+    <div class="container text-center">
+        <h2 class="section-title">Need Immediate Assistance?</h2>
+        <p class="mb-4">Our Admissions Team is here to help you with any questions about scheduling your family visit.</p>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <i class="fas fa-phone fa-2x mb-3 text-primary"></i>
+                    <h5>Call Us</h5>
+                    <p>+255 658 638 938<br>+255 713 616 049</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <i class="fas fa-envelope fa-2x mb-3 text-primary"></i>
+                    <h5>Email Us</h5>
+                    <p>fmlibermann@gmail.com</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="glass-card p-4">
+                    <i class="fas fa-map-marker-alt fa-2x mb-3 text-primary"></i>
+                    <h5>Visit Us</h5>
+                    <p>Shehia of Tomondo<br>Zanzibar</p>
+                </div>
+            </div>
+        </div>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-outline-primary mt-3">Contact Admissions Team</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').min = today;
+    });
+
+    // Form validation
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const requiredFields = [
+            { id: 'name', name: 'Parent/Guardian Full Name' },
+            { id: 'email', name: 'Email Address' },
+            { id: 'phone', name: 'Phone Number' },
+            { id: 'date', name: 'Preferred Visit Date' }
+        ];
+
+        for (let field of requiredFields) {
+            const value = document.getElementById(field.id).value.trim();
+            if (!value) {
+                e.preventDefault();
+                alert(`${field.name} is required.`);
+                document.getElementById(field.id).focus();
+                return;
+            }
+        }
+
+        // Validate email format
+        const email = document.getElementById('email').value.trim();
+        if (!email.includes('@') || !email.includes('.')) {
+            e.preventDefault();
+            alert('Please provide a valid email address.');
+            document.getElementById('email').focus();
+            return;
+        }
+
+        // Validate phone number (basic check)
+        const phone = document.getElementById('phone').value.trim();
+        if (!phone.match(/^[0-9+\-\s()]+$/)) {
+            e.preventDefault();
+            alert('Please provide a valid phone number.');
+            document.getElementById('phone').focus();
+            return;
+        }
+    });
+</script>
+{% endblock %}
