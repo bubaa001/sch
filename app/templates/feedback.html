@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Feedback Section -->
+<section id="feedback" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">We Value Your Feedback</h2>
+        <p class="text-center mb-5">
+            Your input helps us improve and grow as a school. Share your thoughts to help us better serve our students and community.
+        </p>
+        <div class="row">
+            <!-- Why Feedback Matters -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h3>Why Your Voice Matters</h3>
+                    <p>
+                        Feedback from our community drives positive change at Francis Maria Libermann School. For example, based on parent suggestions in 2024, we added more weekend sports activities, which our students love!
+                    </p>
+                    <blockquote class="blockquote mt-3">
+                        <p>“I shared my feedback about meal options, and the school made improvements. It feels great to be heard!”</p>
+                        <footer class="blockquote-footer">Joseph M., Parent</footer>
+                    </blockquote>
+                    <div class="mt-3">
+                        <h5>Feedback Impact</h5>
+                        <p>We’ve implemented 75% of community suggestions in the past year!</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Feedback Form -->
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4">
+                    <h3>Share Your Feedback</h3>
+                    <form action="{{ url_for('main.submit_feedback') }}" method="POST" data-ajax="true">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rate Your Experience</label>
+                            <select class="form-control" id="rating" name="rating" required>
+                                <option value="5">5 - Excellent</option>
+                                <option value="4">4 - Very Good</option>
+                                <option value="3">3 - Good</option>
+                                <option value="2">2 - Fair</option>
+                                <option value="1">1 - Poor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="feedback" class="form-label">Your Feedback</label>
+                            <textarea class="form-control" id="feedback" name="feedback" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Thank You Section -->
+        <div class="text-center mt-5">
+            <h3>Thank You for Your Input!</h3>
+            <p>We review all feedback to ensure we’re meeting the needs of our community. Check out some of the changes we’ve made based on your suggestions.</p>
+            <a href="{{ url_for('main.community') }}" class="btn btn-primary">See Community Updates</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

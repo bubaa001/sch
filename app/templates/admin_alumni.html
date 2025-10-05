@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="section-title">Manage Alumni Registrations</h2>
+        <p class="text-center mb-5">View alumni registrations.</p>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <a href="{{ url_for('main.admin_dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+                <a href="{{ url_for('main.admin_logout') }}" class="btn btn-danger float-end">Logout</a>
+            </div>
+        </div>
+        <!-- Search Form -->
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Graduation Year</th>
+                            <th>Profession</th>
+                            <th>Mentorship Interest</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alum in alumni %}
+                        <tr>
+                            <td>{{ alum.id }}</td>
+                            <td>{{ alum.name }}</td>
+                            <td>{{ alum.email }}</td>
+                            <td>{{ alum.graduation_year }}</td>
+                            <td>{{ alum.profession }}</td>
+                            <td>{{ 'Yes' if alum.mentorship_interest else 'No' }}</td>
+                            <td>{{ alum.created_at }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('main.delete_alumni', alumni_id=alum.id) }}" 
+                                    onsubmit="return confirm('Are you sure you want to delete this alumni registration?');" 
+                                    class="display: inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}

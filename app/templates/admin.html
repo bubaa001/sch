@@ -1,0 +1,228 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script>```html
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Content Management</h1>
+    
+    <!-- Seed Content Button -->
+    <div class="mb-4">
+        <h3>Initialize Content</h3>
+        <p>Click the button below to populate the database with initial content for all sections, contact info, academic programs, and fees. This will add new records or update existing ones.</p>
+        <form id="seed-content-form" action="{{ url_for('main.admin_seed_content') }}" method="POST">
+            <button type="submit" class="btn btn-primary" id="seed-content-btn">Seed Content</button>
+        </form>
+        <div id="seed-feedback" class="mt-2"></div>
+    </div>
+
+    <!-- Existing Content Management Sections -->
+    <h3>Update Story</h3>
+    <form action="{{ url_for('main.update_story') }}" method="POST">
+        <textarea name="story" class="form-control" rows="5">{{ story }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Story</button>
+    </form>
+
+    <h3 class="mt-4">Update Leadership</h3>
+    <form action="{{ url_for('main.update_leadership') }}" method="POST">
+        <textarea name="leadership" class="form-control" rows="5">{{ leadership }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Leadership</button>
+    </form>
+
+    <h3 class="mt-4">Update Accreditation</h3>
+    <form action="{{ url_for('main.update_accreditation') }}" method="POST">
+        <textarea name="accreditation" class="form-control" rows="5">{{ accreditation }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Accreditation</button>
+    </form>
+
+    <h3 class="mt-4">Update Achievements</h3>
+    <form action="{{ url_for('main.update_achievements') }}" method="POST">
+        <textarea name="achievements" class="form-control" rows="5">{{ achievements }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Achievements</button>
+    </form>
+
+    <h3 class="mt-4">Update Enrollment Conditions</h3>
+    <form action="{{ url_for('main.update_enrollment') }}" method="POST">
+        <textarea name="enrollment" class="form-control" rows="5">{{ enrollment }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Enrollment</button>
+    </form>
+
+    <h3 class="mt-4">Update Open Days</h3>
+    <form action="{{ url_for('main.update_open_days') }}" method="POST">
+        <textarea name="open_days" class="form-control" rows="5">{{ open_days }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Open Days</button>
+    </form>
+
+    <h3 class="mt-4">Update Admission Team</h3>
+    <form action="{{ url_for('main.update_admission_team') }}" method="POST">
+        <textarea name="admission_team" class="form-control" rows="5">{{ admission_team }}</textarea>
+        <button type="submit" class="btn btn-primary mt-2">Update Admission Team</button>
+    </form>
+
+    <h3 class="mt-4">Update Contact Information</h3>
+    <form action="{{ url_for('main.update_contacts') }}" method="POST">
+        <div class="mb-3">
+            <label for="contact_email" class="form-label">Email</label>
+            <input type="email" name="contact_email" class="form-control" value="{{ contact_info.email }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="active_hours" class="form-label">Active Hours</label>
+            <input type="text" name="active_hours" class="form-control" value="{{ contact_info.active_hours }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Contacts</button>
+    </form>
+
+    <h3 class="mt-4">Manage Academic Programs</h3>
+    <form action="{{ url_for('main.add_program') }}" method="POST" class="mb-4">
+        <div class="mb-3">
+            <label for="program_name" class="form-label">Program Name</label>
+            <input type="text" name="program_name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="program_desc" class="form-label">Description</label>
+            <textarea name="program_desc" class="form-control" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="program_level" class="form-label">Level</label>
+            <input type="text" name="program_level" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Program</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for program in programs %}
+            <tr>
+                <td>{{ program.name }}</td>
+                <td>{{ program.level }}</td>
+                <td>
+                    <form action="{{ url_for('main.delete_program', id=program.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3 class="mt-4">Manage Fees</h3>
+    <form action="{{ url_for('main.add_fee') }}" method="POST" class="mb-4">
+        <div class="mb-3">
+            <label for="form_level" class="form-label">Form Level</label>
+            <input type="text" name="form_level" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="fee_amount" class="form-label">Fee Amount (TZS)</label>
+            <input type="number" name="fee_amount" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="fee_notes" class="form-label">Notes</label>
+            <textarea name="fee_notes" class="form-control" rows="4"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Fee</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Form Level</th>
+                <th>Fee Amount (TZS)</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in fees %}
+            <tr>
+                <td>{{ fee.form_level }}</td>
+                <td>{{ fee.fee_amount }}</td>
+                <td>{{ fee.notes }}</td>
+                <td>
+                    <form action="{{ url_for('main.delete_fee', id=fee.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // JavaScript to handle seed content button click
+    document.getElementById('seed-content-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!confirm('Are you sure you want to seed the database? This will update existing content.')) {
+            return;
+        }
+        const btn = document.getElementById('seed-content-btn');
+        btn.disabled = true;
+        btn.textContent = 'Seeding...';
+        const feedbackDiv = document.getElementById('seed-feedback');
+
+        try {
+            const response = await fetch('{{ url_for('main.admin_seed_content') }}', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            if (response.redirected) {
+                // Handle redirect by reloading the page to show Flash messages
+                window.location.reload();
+            } else {
+                const result = await response.json();
+                feedbackDiv.innerHTML = `<div class="alert alert-${result.category}">${result.message}</div>`;
+            }
+        } catch (error) {
+            feedbackDiv.innerHTML = '<div class="alert alert-danger">Error: Failed to seed content.</div>';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Seed Content';
+        }
+    });
+</script>
+{% endblock %}
+```

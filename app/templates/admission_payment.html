@@ -1,0 +1,29 @@
+<!-- templates/admission_payment.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="section-title">Admission Fee Payment</h2>
+        <p class="text-center mb-5">Please pay the admission fee for {{ application.student_name }}.</p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Admission Details</h5>
+                        <p><strong>Student Name:</strong> {{ application.student_name }}</p>
+                        <p><strong>Parent Name:</strong> {{ application.parent_name }}</p>
+                        <p><strong>Form Level:</strong> {{ application.form_level }}</p>
+                        <p><strong>Admission Fee:</strong> TZS 100,000</p>
+
+                        <form method="POST">
+                            <button type="submit" class="btn btn-primary w-100">Pay Now with Stripe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
