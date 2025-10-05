@@ -3,13 +3,20 @@
 {% block title %}FML School - Contact{% endblock %}
 
 {% block content %}
+<!-- Hero Section -->
+<section id="contact-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/frontal.JPG') }}'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container text-center">
+        <h1 class="animate__animated animate__fadeInDown" data-translate="Get in Touch">Get in Touch with Francis Maria Libermann School</h1>
+        <p class="lead animate__animated animate__fadeInUp" data-translate="We’d love to hear from you! Reach out with any questions or inquiries.">
+            We’d love to hear from you! Whether you have questions about admissions, school programs, or events, feel free to reach out.
+        </p>
+    </div>
+</section>
+
 <!-- Contact Section -->
 <section id="contact" class="section bg-light" data-aos="fade-up">
     <div class="container">
-        <h2 class="section-title" data-translate="Get in Touch">Get in Touch with Francis Maria Libermann School</h2>
-        <p class="text-center mb-5" data-translate="We’d love to hear from you! Reach out with any questions or inquiries.">
-            We’d love to hear from you! Whether you have questions about admissions, school programs, or events, feel free to reach out.
-        </p>
         <div class="row">
             <!-- Contact Information -->
             <div class="col-lg-6 mb-4">

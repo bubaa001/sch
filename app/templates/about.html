@@ -3,12 +3,12 @@
 {% block title %}About Us - Francis Maria Libermann School{% endblock %}
 
 {% block content %}
-    <!-- Hero Section with Background Image -->
-    <section id="about-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/schoolblock3.jpeg') }}'); background-size: cover; background-position: center;">
+    <!-- Hero Section with Background Image and Animations -->
+    <section id="about-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/schoolblock1.jpeg') }}'); background-size: cover; background-position: center; background-attachment: fixed;">
         <div class="hero-overlay"></div>
         <div class="hero-content container text-center">
-            <h1 data-translate="About Francis Maria Libermann School">About Francis Maria Libermann School</h1>
-            <p class="lead" data-translate="Discover our rich history, mission, and commitment to holistic education in Zanzibar.">
+            <h1 class="animate__animated animate__fadeInDown" data-translate="About Francis Maria Libermann School">About Francis Maria Libermann School</h1>
+            <p class="lead animate__animated animate__fadeInUp" data-translate="Discover our rich history, mission, and commitment to holistic education in Zanzibar.">
                 Discover our rich history, mission, and commitment to holistic education in Zanzibar.
             </p>
         </div>
