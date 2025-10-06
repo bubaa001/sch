@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="fees-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/primary_graduation.jpeg') }}'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container text-center">
+        <h1 class="animate__animated animate__fadeInDown">School Fee Structure</h1>
+        <p class="lead animate__animated animate__fadeInUp">
+            Clear and transparent fee information for all educational levels at Francis Maria Libermann School
+        </p>
+    </div>
+</section>
+
+<!-- Registration Fees Section -->
+<section id="registration-fees" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Registration Fees</h2>
+        <p class="text-center mb-5">
+            One-time registration fees payable before student admission
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="glass-card p-4">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student Category</th>
+                                    <th>Registration Fee (TZS)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Students transferring from other schools</td>
+                                    <td>80,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Kindergarten students continuing from FMLS</td>
+                                    <td>55,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Kindergarten Registration Fee</td>
+                                    <td>50,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-info mt-4">
+                        <strong>Note:</strong> Registration fees must be paid before the student is accepted into the school.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Primary School Fees Section -->
+<section id="primary-fees" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Primary School Fees</h2>
+        <p class="text-center mb-5">
+            Annual fee structure for primary education for day scholars
+        </p>
+        
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Grades</th>
+                                <th>1st Semester (TZS)</th>
+                                <th>2nd Semester (TZS)</th>
+                                <th>Total (TZS)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nursery</td>
+                                <td>400,000</td>
+                                <td>250,000</td>
+                                <td><strong>650,000</strong></td>
+                            </tr>
+                            <tr>
+                                <td>classes I - II</td>
+                                <td>500,000</td>
+                                <td>250,000</td>
+                                <td><strong>750,000</strong></td>
+                            </tr>
+                            <tr>
+                                <td>classes III - VII</td>
+                                <td>500,000</td>
+                                <td>350,000</td>
+                                <td><strong>850,000</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+<!-- Secondary School Fees Section -->
+<section id="secondary-fees" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Secondary School Fees (Form I - IV)</h2>
+        <p class="text-center mb-5">
+            Annual fee structure for secondary education (Ordinary Level)
+        </p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Form</th>
+                                <th>Tuition Fee (TZS)</th>
+                                <th>Boarding Fee (TZS)</th>
+                                <th>Other Fees (TZS)</th>
+                                <th>Total Annual Fee (TZS)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Form I</td>
+                                <td>1,300,000</td>
+                                <td>850,000</td>
+                                <td>150,000 (Books, Activities)</td>
+                                <td>2,300,000</td>
+                            </tr>
+                            <tr>
+                                <td>Form II</td>
+                                <td>1,350,000</td>
+                                <td>850,000</td>
+                                <td>200,000 (Exam Fees, Books)</td>
+                                <td>2,400,000</td>
+                            </tr>
+                            <tr>
+                                <td>Form III</td>
+                                <td>1,400,000</td>
+                                <td>900,000</td>
+                                <td>200,000 (Books, Activities)</td>
+                                <td>2,500,000</td>
+                            </tr>
+                            <tr>
+                                <td>Form IV</td>
+                                <td>1,450,000</td>
+                                <td>900,000</td>
+                                <td>250,000 (Exam Fees, Books)</td>
+                                <td>2,600,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="boarding-fees" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Boarding Fees</h2>
+        <p class="text-center mb-5">
+            Annual boarding fees for students residing at the school
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>1st Semester</th>
+                                    <th>2nd Semester</th>
+                                    <th>Total Annual Boarding Fee</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,000,000</td>
+                                    <td>750,000</td>
+                                    <td><strong>1,750,000</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+<!-- Additional Boarding Requirements -->
+<section id="boarding-requirements" class="section bg-white" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Boarding Requirements & Additional Costs</h2>
+        <p class="text-center mb-5">
+            Essential items needed for boarding students
+        </p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <h3>Required Boarding Items</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Boarding Uniform - 45,000 TZS</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Bed Sheets (1 set) - 23,000 TZS</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Mattress - 80,000 TZS</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Cups and Plates Set - 5,000 TZS</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Shaving - 5,000 TZS</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Health Insurance - 51,000 TZS</li>
+                    </ul>
+                    <div class="mt-3 p-3 bg-light rounded">
+                        <strong>Total Estimated Cost: 209,000 TZS</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="glass-card p-4 h-100">
+                    <h3>School Meetings</h3>
+                    <p>The school, Parents meetings are very important for communication between teachers and parents. It helps track academic progress, assignments, and school activities throughout the year.</p>
+                    <p>Students and parents will be informed by the administration on the exact day the meetings are due.</p>
+                    <div class="alert alert-warning mt-3">
+                        <strong>Note:</strong> The school meetings must be attended by parents or guardians as when the date is made public.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Information Section -->
+<section id="payment-info" class="section bg-light" data-aos="fade-up">
+    <div class="container">
+        <h2 class="section-title">Payment Information</h2>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="glass-card p-4">
+                    <h3 class="text-center mb-4">Payment Guidelines</h3>
+                    
+                    <div class="alert alert-warning">
+                        <h5><i class="fas fa-exclamation-triangle me-2"></i> Important Notes:</h5>
+                        <ul class="mb-0">
+                            <li>School fees once paid are <strong>non-refundable</strong>. Make the right decision before paying</li>
+                            <li>All payments should be made in full before school opens in the first month and seventh month</li>
+                            <li>All payments should be made through bank using the student's full name</li>
+                            <li>After payment, bring the bank receipt to the school office</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-primary text-white rounded">
+                        <h4 class="text-center"><i class="fas fa-university me-2"></i> Bank Account Details</h4>
+                        <div class="text-center mt-3">
+                            <h5>Account Name: FRANCIS MARIA LIBERMANN SCHOOL</h5>
+                            <h5>Bank: NMB Bank</h5>
+                            <h5>Account Number: 22910002851</h5>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5>Payment Schedule:</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Installment</th>
+                                        <th>Due Date</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>First Installment</td>
+                                        <td>January 15, 2025</td>
+                                        <td>Required to secure admission</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Second Installment</td>
+                                        <td>May 1, 2025</td>
+                                        <td>Before start of Term 2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section id="fee-contact" class="section bg-white" data-aos="fade-up">
+    <div class="container text-center">
+        <h2 class="section-title">Need More Information?</h2>
+        <p class="mb-4">
+            Contact our accounts office for any questions regarding fees and payments
+        </p>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="glass-card p-4">
+                    <p><strong>Phone:</strong> +255 658 638 938, +255 713 616 049</p>
+                    <p><strong>Email:</strong> fmlibermann@gmail.com</p>
+                    <p><strong>Office Hours:</strong> Monday to Friday, 8:00 AM - 4:00 PM</p>
+                    <a href="{{ url_for('main.contact') }}" class="btn btn-primary mt-3">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Simple animation for table rows
+    document.addEventListener('DOMContentLoaded', function() {
+        const tables = document.querySelectorAll('table');
+        
+        tables.forEach(table => {
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach((row, index) => {
+                row.style.opacity = '0';
+                row.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    row.style.transition = 'all 0.5s ease';
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -49,6 +49,36 @@
     </div>
 </section>
 
+    <!-- Fees Information Section -->
+    <section id="fees-info" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">School Fees Information</h2>
+            <p class="text-center mb-5">
+                We believe in providing quality education that is accessible and affordable for all families.
+            </p>
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="glass-card p-4 text-center">
+                        <i class="fas fa-money-bill-wave fa-3x mb-4 text-primary" aria-hidden="true"></i>
+                        <h3>Transparent Fee Structure</h3>
+                        <p class="mb-4">
+                            Our fee structure is designed to be clear and comprehensive, covering all aspects of your child's education. We offer both day school and boarding options with flexible payment plans to accommodate different family needs.
+                        </p>
+                        <p class="mb-4">
+                            Fees include tuition, development levy, boarding (where applicable), meals, and essential educational materials. We also provide detailed information about registration fees, payment schedules, and banking details for your convenience.
+                        </p>
+                        <div class="alert alert-info mt-4">
+                            <strong>Note:</strong> All payments should be made through bank transfer to our official school account. School fees once paid are non-refundable.
+                        </div>
+                        <a href="{{ url_for('main.fees') }}" class="btn btn-primary btn-lg mt-3">
+                            <i class="fas fa-file-invoice-dollar me-2"></i>View Complete Fee Structure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 <!-- Online Registration Form Section -->
 <section id="application-form" class="section bg-white" data-aos="fade-up">
     <div class="container">
@@ -370,173 +400,6 @@
                     <li>Extracurricular activities, including sports and cultural events</li>
                 </ul>
                 <p>Admission to these classes is based on the entrance exam, interview, and previous academic performance.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Fees Section -->
-<section id="fees" class="section bg-white" data-aos="fade-up">
-    <div class="container">
-        <h2 class="section-title">Fees Overview</h2>
-        <p class="text-center mb-5">
-            Below is the fee structure for the 2025 academic year, including tuition, boarding, and other costs. Fees are payable in installments.
-        </p>
-        <div class="row">
-            <div class="col-md-12 mb-4">
-                <h3>Annual Fee Structure</h3>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Form</th>
-                            <th>Tuition Fee (TZS)</th>
-                            <th>Boarding Fee (TZS)</th>
-                            <th>Other Fees (TZS)</th>
-                            <th>Total Annual Fee (TZS)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Nursery</td>
-                            <td>300,000</td>
-                            <td>300,000</td>
-                            <td>100,000 (Uniforms, Books)</td>
-                            <td>700,000</td>
-                        </tr>
-                        <tr>
-                            <td>Kindergarten 1</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000 (Books, Activities)</td>
-                            <td>850,000</td>
-                        </tr>
-                        <tr>
-                            <td>Kindergarten 2</td>
-                            <td>350,000,</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>850,000</td>
-                        </tr>
-                        <tr>
-                            <td>Kindergarten 3</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 1</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 2</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 3</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 4</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 5</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 6</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>class 7</td>
-                            <td>350,000</td>
-                            <td>350,000</td>
-                            <td>150,000</td>
-                            <td>800,000</td>
-                        </tr>
-                        <tr>
-                            <td>Form 1</td>
-                            <td>1,300,000</td>
-                            <td>850,000</td>
-                            <td>150,000 (Books, Activities)</td>
-                            <td>2,300,000</td>
-                        </tr>
-                        <tr>
-                            <td>Form 2</td>
-                            <td>1,350,000</td>
-                            <td>850,000</td>
-                            <td>200,000 (Exam Fees, Books)</td>
-                            <td>2,400,000</td>
-                        </tr>
-                        <tr>
-                            <td>Form 3</td>
-                            <td>1,400,000</td>
-                            <td>900,000</td>
-                            <td>200,000 (Books, Activities)</td>
-                            <td>2,500,000</td>
-                        </tr>
-                        <tr>
-                            <td>Form 4</td>
-                            <td>1,450,000</td>
-                            <td>900,000</td>
-                            <td>250,000 (Exam Fees, Books)</td>
-                            <td>2,600,000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-12 mb-4">
-                <h3>Installment Payment Schedule</h3>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Installment</th>
-                            <th>Percentage of Total Fee</th>
-                            <th>Due Date</th>
-                            <th>Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>First Installment</td>
-                            <td>40%</td>
-                            <td>January 15, 2025</td>
-                            <td>Required to secure admission</td>
-                        </tr>
-                        <tr>
-                            <td>Second Installment</td>
-                            <td>30%</td>
-                            <td>May 1, 2025</td>
-                            <td>Before the start of Term 2</td>
-                        </tr>
-                        <tr>
-                            <td>Third Installment</td>
-                            <td>30%</td>
-                            <td>September 1, 2025</td>
-                            <td>Before the start of Term 3</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p><strong>Payment Methods:</strong> Fees can be paid via bank transfer to Francis Maria Libermann School (Account details provided upon acceptance) or in person at the Finance Office. Late payments may incur a 5% penalty.</p>
             </div>
         </div>
     </div>

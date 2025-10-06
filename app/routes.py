@@ -298,6 +298,12 @@ def contact():
     
     return render_template('contact.html', current_page='contact')
 
+# In your main routes file (usually app.py or routes.py)
+
+@main.route('/fees')
+def fees():
+    return render_template('fees.html')
+
 @main.route('/community', methods=['GET', 'POST'])
 def community():
     if request.method == 'POST':
