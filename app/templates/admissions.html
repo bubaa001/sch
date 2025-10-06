@@ -52,10 +52,12 @@
 <!-- Online Registration Form Section -->
 <section id="application-form" class="section bg-white" data-aos="fade-up">
     <div class="container">
-        <h2 class="section-title">Online Registration Form</h2>
-        <p class="text-center mb-5">
-            Begin your journey at Francis Maria Libermann School by completing our online registration form. <br>
-            <small>(Please fill out all required fields. Instructions are available in English and Swahili.)</small>
+        <h2 class="section-title" data-i18n="Online Registration Form">Online Registration Form</h2>
+        <p class="text-center mb-5" data-i18n="Begin your journey at Francis Maria Libermann School by completing our online registration form.">
+            Begin your journey at Francis Maria Libermann School by completing our online registration form.
+        </p>
+        <p class="text-center mb-4">
+            <small data-i18n="(Please fill out all required fields. Instructions are available in English and Swahili.)">(Please fill out all required fields. Instructions are available in English and Swahili.)</small>
         </p>
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -64,13 +66,13 @@
                         <!-- Language Toggle -->
                         <div class="mb-3 text-end">
                             <select id="language-toggle" onchange="toggleLanguage()">
-                                <option value="en">English</option>
-                                <option value="sw">Swahili</option>
+                                <option value="en" data-i18n="English">English</option>
+                                <option value="sw" data-i18n="Swahili">Swahili</option>
                             </select>
                         </div>
 
                         <!-- Student Information -->
-                        <h4 class="mb-3">Student Information</h4>
+                        <h4 class="mb-3" data-i18n="Student Information">Student Information</h4>
                         <div class="mb-3">
                             <label for="student_name" class="form-label" data-en="Student Full Name" data-sw="Jina Kamili la Mwanafunzi">Student Full Name</label>
                             <input type="text" class="form-control" id="student_name" name="student_name" required>
@@ -82,8 +84,8 @@
                         <div class="mb-3">
                             <label for="gender" class="form-label" data-en="Gender" data-sw="Jinsia">Gender</label>
                             <select class="form-control" id="gender" name="gender" required>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="male" data-i18n="Male">Male</option>
+                                <option value="female" data-i18n="Female">Female</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -106,7 +108,7 @@
                         </div>
 
                         <!-- Parent/Guardian Information -->
-                        <h4 class="mb-3">Parent/Guardian Information</h4>
+                        <h4 class="mb-3" data-i18n="Parent/Guardian Information">Parent/Guardian Information</h4>
                         <div class="mb-3">
                             <label for="parent_name" class="form-label" data-en="Parent/Guardian Full Name" data-sw="Jina Kamili la Mzazi/Mlezi">Parent/Guardian Full Name</label>
                             <input type="text" class="form-control" id="parent_name" name="parent_name" required>
@@ -121,7 +123,7 @@
                         </div>
 
                         <!-- Academic Information -->
-                        <h4 class="mb-3">Academic Information</h4>
+                        <h4 class="mb-3" data-i18n="Academic Information">Academic Information</h4>
                         <div class="mb-3">
                             <label for="previous_school" class="form-label" data-en="Previous School Name" data-sw="Jina la Shule ya Awali">Previous School Name</label>
                             <input type="text" class="form-control" id="previous_school" name="previous_school" required>
@@ -132,8 +134,8 @@
                         </div>
 
                         <!-- Document Uploads -->
-                        <h4 class="mb-3">Required Documents</h4>
-                        <p data-en="Please upload the following documents (PDF or image format, max 5MB each):" data-sw="Tafadhali pakia hati zifuatazo (umbile la PDF au picha, max 5MB kila moja):">
+                        <h4 class="mb-3" data-i18n="Required Documents">Required Documents</h4>
+                        <p data-i18n="Please upload the following documents (PDF or image format, max 5MB each):">
                             Please upload the following documents (PDF or image format, max 5MB each):
                         </p>
                         <div class="mb-3">
@@ -164,11 +166,11 @@
                         </div>
 
                         <!-- Registration Fee Note -->
-                        <p class="mb-3" data-en="A non-refundable registration fee of TZS 50,000 is required to complete your application. After submission, you will receive payment instructions via email." data-sw="Ada ya usajili isiyoweza kurejeshwa ya TZS 50,000 inahitajika ili kukamilisha maombi yako. Baada ya kuwasilisha, utapokea maelekezo ya malipo kupitia barua pepe.">
+                        <p class="mb-3" data-i18n="A non-refundable registration fee of TZS 50,000 is required to complete your application. After submission, you will receive payment instructions via email.">
                             A non-refundable registration fee of TZS 50,000 is required to complete your application. After submission, you will receive payment instructions via email.
                         </p>
 
-                        <button type="submit" class="btn btn-primary">Submit Application</button>
+                        <button type="submit" class="btn btn-primary" data-i18n="Submit Application">Submit Application</button>
                     </form>
                 </div>
             </div>
@@ -186,12 +188,12 @@
         <div class="row">
             <div class="col-md-12 mb-4">
                 <ul>
-                    <li><strong>Age Requirement:</strong> Applicants for Nursery must be at least 3 years old by September 30 of the admission year. For higher classes, age is assessed based on the student’s previous academic level.</li>
+                    <li><strong>Age Requirement:</strong> Applicants for Nursery must be at least 3 years old by September 30 of the admission year. For higher classes, age is assessed based on the student's previous academic level.</li>
                     <li><strong>Academic Performance:</strong> Applicants must demonstrate satisfactory performance in their previous school, as evidenced by report cards, and pass our entrance exam.</li>
                     <li><strong>Entrance Exam and Interview:</strong> All applicants are required to take an entrance exam covering English, Mathematics, and General Knowledge, followed by an interview with the Admissions Team.</li>
-                    <li><strong>Character and Discipline:</strong> Applicants must exhibit good behavior and a willingness to adhere to the school’s Catholic values and code of conduct, though students of all faiths are welcome.</li>
+                    <li><strong>Character and Discipline:</strong> Applicants must exhibit good behavior and a willingness to adhere to the school's Catholic values and code of conduct, though students of all faiths are welcome.</li>
                     <li><strong>Boarding Requirement:</strong> Students willing to board are encouraged to apply, as Francis Maria Libermann School operates as both a day and boarding school, fostering a disciplined and supportive environment.</li>
-                    <li><strong>Health Requirements:</strong> A medical report confirming the student’s fitness and up-to-date vaccinations is mandatory.</li>
+                    <li><strong>Health Requirements:</strong> A medical report confirming the student's fitness and up-to-date vaccinations is mandatory.</li>
                 </ul>
             </div>
         </div>
@@ -219,7 +221,7 @@
             </div>
             <div class="col-md-6 mb-4">
                 <p>
-                    Our Open Days are the perfect opportunity to see our school in action. You’ll have the chance to tour our facilities, attend sample classes, watch student performances, and interact with current students and parents. We’ll also host Q&A sessions with our faculty and leadership team to answer all your questions about academics, boarding life, and extracurricular activities.
+                    Our Open Days are the perfect opportunity to see our school in action. You'll have the chance to tour our facilities, attend sample classes, watch student performances, and interact with current students and parents. We'll also host Q&A sessions with our faculty and leadership team to answer all your questions about academics, boarding life, and extracurricular activities.
                 </p>
             </div>
         </div>
@@ -231,16 +233,16 @@
     <div class="container">
         <h2 class="section-title">What to Expect</h2>
         <p class="text-center mb-5">
-            Here’s a step-by-step guide to what happens after you apply to Francis Maria Libermann School.
+            Here's a step-by-step guide to what happens after you apply to Francis Maria Libermann School.
         </p>
         <div class="row">
             <div class="col-md-12 mb-4">
                 <ol>
                     <li><strong>Application Review:</strong> Our Admissions Team reviews your application and documents within two weeks of submission.</li>
                     <li><strong>Entrance Exam and Interview:</strong> Applicants are scheduled for an entrance exam and interview, typically within a month of applying.</li>
-                    <li><strong>Admission Decision:</strong> You’ll receive an admission decision via email within one week of the interview. Successful candidates will receive an acceptance letter and enrollment package.</li>
+                    <li><strong>Admission Decision:</strong> You'll receive an admission decision via email within one week of the interview. Successful candidates will receive an acceptance letter and enrollment package.</li>
                     <li><strong>Fee Payment:</strong> Pay the initial tuition fee installment (see Fees section below) to secure your spot.</li>
-                    <li><strong>Orientation:</strong> Attend our New Student Orientation in January, where students and parents will learn about the school’s expectations, meet the house masters, and prepare for the academic year.</li>
+                    <li><strong>Orientation:</strong> Attend our New Student Orientation in January, where students and parents will learn about the school's expectations, meet the house masters, and prepare for the academic year.</li>
                     <li><strong>First Day:</strong> The academic year begins in January, and your child will officially join the Francis Maria Libermann community as either a day scholar or boarder.</li>
                 </ol>
             </div>
@@ -258,7 +260,7 @@
         <div class="row">
             <div class="col-md-6 mb-4">
                 <p>
-                    Our guided tours offer a comprehensive look into life at Francis Maria Libermann School. You’ll visit key areas of our campus, including:
+                    Our guided tours offer a comprehensive look into life at Francis Maria Libermann School. You'll visit key areas of our campus, including:
                 </p>
                 <ul>
                     <li>Classrooms and science laboratories</li>
@@ -268,7 +270,7 @@
                     <li>Chapel and spiritual spaces</li>
                 </ul>
                 <p>
-                    The tour lasts approximately one hour and is led by current students who will share their experiences and answer your questions. You’ll also have the chance to meet with a member of our Admissions Team to discuss the application process.
+                    The tour lasts approximately one hour and is led by current students who will share their experiences and answer your questions. You'll also have the chance to meet with a member of our Admissions Team to discuss the application process.
                 </p>
             </div>
             <div class="col-md-6 mb-4">
@@ -329,7 +331,7 @@
     <div class="container text-center">
         <h2 class="section-title">Connect with Us</h2>
         <p class="mb-5">
-            Have questions about admissions? We’re here to help! Reach out to us through the following channels:
+            Have questions about admissions? We're here to help! Reach out to us through the following channels:
         </p>
         <p><strong>Phone:</strong> +255 658 638 938, +255 713 616 049</p>
         <p><strong>Email:</strong> fmlibermann@gmail.com (Messages will be received as PDFs)</p>
@@ -543,62 +545,7 @@
 
 {% block scripts %}
 <script>
-    // Language toggle function
-    function toggleLanguage() {
-        const lang = document.getElementById('language-toggle').value;
-        document.querySelectorAll('[data-en]').forEach(element => {
-            element.textContent = element.getAttribute(`data-${lang}`);
-        });
-    }
-
-    // Client-side form validation
-    document.querySelector('form').addEventListener('submit', function(e) {
-        const requiredFields = [
-            { id: 'student_name', name: 'Student Name' },
-            { id: 'date_of_birth', name: 'Date of Birth' },
-            { id: 'gender', name: 'Gender' },
-            { id: 'parent_name', name: 'Parent/Guardian Full Name' },
-            { id: 'email', name: 'Email Address' },
-            { id: 'phone', name: 'Phone Number' },
-            { id: 'form_level', name: 'Form Level' },
-            { id: 'previous_school', name: 'Previous School Name' },
-            { id: 'last_grade', name: 'Last Grade/Form Completed' }
-        ];
-
-        for (let field of requiredFields) {
-            const value = document.getElementById(field.id).value.trim();
-            if (!value) {
-                e.preventDefault();
-                alert(`${field.name} is required.`);
-                document.getElementById(field.id).focus();
-                return;
-            }
-        }
-
-        // Validate file uploads
-        const requiredFiles = [
-            { id: 'birth_certificate', name: 'Birth Certificate' },
-            { id: 'report_cards', name: 'Recent Report Cards' },
-            { id: 'medical_report', name: 'Medical Report' },
-            { id: 'parent_id', name: 'Parent/Guardian ID' }
-        ];
-
-        for (let file of requiredFiles) {
-            const input = document.getElementById(file.id);
-            if (!input.files || input.files.length === 0) {
-                e.preventDefault();
-                alert(`Please upload a ${file.name}.`);
-                input.focus();
-                return;
-            }
-            // Check file size (max 5MB)
-            if (input.files[0].size > 5 * 1024 * 1024) {
-                e.preventDefault();
-                alert(`${file.name} must be less than 5MB.`);
-                input.focus();
-                return;
-            }
-        }
-    });
+    // Remove the custom toggleLanguage function since we're using the one from translations.js
+    // The translations.js file will handle all the translation functionality
 </script>
 {% endblock %}
