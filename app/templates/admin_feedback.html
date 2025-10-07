@@ -18,7 +18,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Role</th>
                             <th>Comment</th>
@@ -30,7 +30,7 @@
                     <tbody>
                         {% for feedback in feedbacks %}
                         <tr>
-                            <td>{{ feedback.id }}</td>
+                            <td>{{ loop.index }}</td>
                             <td>{{ feedback.name }}</td>
                             <td>{{ feedback.role }}</td>
                             <td>{{ feedback.comment }}</td>

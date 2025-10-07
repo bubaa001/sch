@@ -1,3 +1,4 @@
+
 // Enhanced Flash Message System for Bottom Position
 function showFlashMessage(message, category = 'info') {
     // Create or get flash container
@@ -162,7 +163,10 @@ function handleFormSubmission(form) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Enhanced preloader with robust error handling
+function initializePreloader() {
+    console.log('Initializing preloader');
+    
     const preloader = document.querySelector('.preloader');
     const content = document.getElementById('content');
     const body = document.body;
@@ -177,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Handle page load completion with a fixed minimum display time
         const minDisplayTime = 500; // 0.5s minimum for all pages
         const handleLoadComplete = () => {
+            console.log('Page load complete, hiding preloader');
             const loadTime = performance.now();
             const remainingTime = Math.max(0, minDisplayTime - loadTime);
             
@@ -190,21 +195,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         content.classList.add('visible');
                     }
                     body.classList.add('loaded'); // Enable scrolling
-                    initializePageFeatures();
+                    try {
+                        initializePageFeatures();
+                    } catch (error) {
+                        console.error('Error initializing page features:', error);
+                    }
                 }, 500);
             }, remainingTime);
         };
         
         // Check if page is already loaded or handle load event
         if (document.readyState === 'complete') {
+            console.log('Document already complete, calling handleLoadComplete');
             handleLoadComplete();
         } else {
+            console.log('Adding load event listener');
             window.addEventListener('load', handleLoadComplete);
         }
         
-        // Fallback to show content after 5 seconds if load event fails
+        // Fallback to show content after 3 seconds if load event fails
         setTimeout(() => {
-            if (preloader.style.display !== 'none' && content) {
+            if (preloader && preloader.style.display !== 'none' && content) {
                 console.warn('Preloader timeout reached, forcing content display');
                 preloader.classList.add('hidden');
                 setTimeout(() => {
@@ -212,83 +223,115 @@ document.addEventListener('DOMContentLoaded', function() {
                     content.style.display = 'block';
                     content.classList.add('visible');
                     body.classList.add('loaded'); // Enable scrolling
-                    initializePageFeatures();
+                    try {
+                        initializePageFeatures();
+                    } catch (error) {
+                        console.error('Error initializing page features:', error);
+                    }
                 }, 500);
             }
-        }, 5000);
+        }, 3000);
     } else {
+        console.log('No preloader found, showing content immediately');
         // If no preloader, show content immediately and initialize features
         if (content) {
             content.style.display = 'block';
             content.classList.add('visible');
         }
         body.classList.add('loaded'); // Enable scrolling
-        initializePageFeatures();
+        try {
+            initializePageFeatures();
+        } catch (error) {
+            console.error('Error initializing page features:', error);
+        }
+    }
+}
+
+// Function to initialize all page features (AOS, counters, chatbot, etc.)
+function initializePageFeatures() {
+    console.log('Initializing page features');
+    
+    // Initialize AOS animations
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    } else {
+        console.warn('AOS library not loaded');
     }
     
-    // Function to initialize all page features (AOS, counters, chatbot, etc.)
-    function initializePageFeatures() {
-        // Initialize AOS animations
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 1000,
-                once: true
-            });
-        } else {
-            console.warn('AOS library not loaded');
-        }
-        
-        // Initialize Vanilla Tilt for card hover effects
-        if (typeof VanillaTilt !== 'undefined') {
-            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-                max: 15,
-                speed: 400,
-                glare: true,
-                "max-glare": 0.3
-            });
-        } else {
-            console.warn('VanillaTilt library not loaded');
-        }
-        
-        // Close navbar on link click (mobile)
-        const navbarToggler = document.querySelector('.navbar-toggler');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        if (navbarToggler && navbarCollapse) {
-            document.addEventListener('click', function(event) {
-                if (navbarCollapse.classList.contains('show') && !navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
-                    navbarToggler.click();
-                }
-            });
-        }
-        
-        // Animated Counter
-        const counters = document.querySelectorAll('.counter');
-        counters.forEach(counter => {
-            const updateCounter = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText.replace('%', '');
-                const increment = target / 200;
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '');
-                    setTimeout(updateCounter, 20);
-                } else {
-                    counter.innerText = target + (counter.innerText.includes('%') ? '%' : '');
-                }
-            };
-            const observer = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    updateCounter();
-                    observer.disconnect();
-                }
-            }, { threshold: 0.5 });
-            observer.observe(counter);
+    // Initialize Vanilla Tilt for card hover effects
+    if (typeof VanillaTilt !== 'undefined') {
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3
         });
+    } else {
+        console.warn('VanillaTilt library not loaded');
+    }
+    
+    // Close navbar on link click (mobile)
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarToggler && navbarCollapse) {
+        document.addEventListener('click', function(event) {
+            if (navbarCollapse.classList.contains('show') && !navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
+                navbarToggler.click();
+            }
+        });
+    }
+    
+    // Animated Counter
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const updateCounter = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText.replace('%', '');
+            const increment = target / 200;
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment) + (counter.innerText.includes('%') ? '%' : '');
+                setTimeout(updateCounter, 20);
+            } else {
+                counter.innerText = target + (counter.innerText.includes('%') ? '%' : '');
+            }
+        };
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                updateCounter();
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 });
+        observer.observe(counter);
+    });
 
-        // Initialize AJAX forms
-        const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
-        ajaxForms.forEach(form => {
-            handleFormSubmission(form);
-        });
+    // Initialize AJAX forms
+    const ajaxForms = document.querySelectorAll('form[data-ajax="true"]');
+    ajaxForms.forEach(form => {
+        handleFormSubmission(form);
+    });
+    
+    console.log('Page features initialized successfully');
+}
+
+// Main initialization with comprehensive error handling
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired');
+    
+    try {
+        initializePreloader();
+    } catch (error) {
+        console.error('Critical error in preloader initialization:', error);
+        // Emergency fallback: show content immediately
+        const preloader = document.querySelector('.preloader');
+        const content = document.getElementById('content');
+        const body = document.body;
+        
+        if (preloader) preloader.style.display = 'none';
+        if (content) content.style.display = 'block';
+        if (body) body.classList.add('loaded');
     }
 });
 
@@ -376,88 +419,309 @@ document.addEventListener('DOMContentLoaded', () => {
     ensureFlashAnimations();
 });
 
-// Comprehensive AI Chatbot for FML School
+// COMPREHENSIVE ENHANCED AI CHATBOT FOR FML SCHOOL
 class SchoolChatbot {
     constructor() {
         this.knowledgeBase = {
-            // Admissions Information
+            // Enhanced Admissions Information
             'admission': {
-                keywords: ['admission', 'apply', 'enroll', 'application', 'register', 'join'],
-                answer: `📚 <strong>Admission Process:</strong>
+                keywords: ['admission', 'apply', 'enroll', 'application', 'register', 'join', 'admissions'],
+                answer: `📚 <strong>Complete Admission Process:</strong>
 
-1. <strong>Online Application:</strong> Submit through our website
-2. <strong>Required Documents:</strong>
-   - Birth certificate
-   - Previous school reports
-   - Medical certificate
-   - Parent/guardian ID
-   - Transfer certificate (if applicable)
-3. <strong>Application Fee:</strong> TZS 50,000
-4. <strong>Assessment:</strong> Academic evaluation
-5. <strong>Interview:</strong> Student and parent meeting
-6. <strong>Registration:</strong> Final enrollment
+<strong>1. Online Application:</strong> Submit through our website
+<strong>2. Required Documents:</strong>
+   • Birth certificate
+   • Previous school reports (last two years)
+   • Medical certificate with vaccinations
+   • Parent/guardian ID
+   • Transfer certificate (if applicable)
 
-<em>We accept students from Nursery to Form 6 levels.</em>`
+<strong>3. Application Fee:</strong> TZS 50,000 (non-refundable)
+<strong>4. Entrance Exam:</strong> Academic evaluation in English, Mathematics, General Knowledge
+<strong>5. Interview:</strong> Student and parent meeting with Admissions Team
+<strong>6. Registration:</strong> Final enrollment and fee payment
+
+<strong>Educational Levels Available:</strong>
+• Nursery (Age 3+)
+• Kindergarten
+• Primary (Class 1-7)
+• Secondary (Form 1-4)
+• Pre-Form 1 Preparatory Program
+
+<em>We accept students from Nursery to Form 4 levels.</em>`
             },
 
+            // Enhanced Fees Information
             'fees': {
-                keywords: ['fee', 'fees', 'cost', 'price', 'payment', 'tuition'],
-                answer: `💰 <strong>Fee Structure 2025:</strong>
+                keywords: ['fee', 'fees', 'cost', 'price', 'payment', 'tuition', 'school fees'],
+                answer: `💰 <strong>Complete Fee Structure 2025:</strong>
 
-• <strong>Form 1-2:</strong> TZS 1,200,000 per term
-• <strong>Form 3-4:</strong> TZS 1,400,000 per term  
-• <strong>Form 5-6:</strong> TZS 1,600,000 per term
+<strong>Registration Fees (One-time):</strong>
+• Kindergarten: TZS 50,000
+• Kindergarten to Primary (FMLS students): TZS 55,000
+• Transfer to Primary: TZS 80,000
+• Transfer to Secondary: TZS 120,000
+• FMLS Primary to Secondary: FREE
 
-<strong>What's Included:</strong>
-✓ Tuition fees
-✓ Meals and boarding
-✓ Basic learning materials
-✓ Sports facilities
-✓ Library access
+<strong>Primary School Fees (Annual):</strong>
+• Nursery: TZS 650,000 (400,000 + 250,000 per term)
+• Classes I-II: TZS 750,000 (500,000 + 250,000 per term)
+• Classes III-VII: TZS 850,000 (500,000 + 350,000 per term)
+
+<strong>Secondary School Fees (Annual):</strong>
+• Form I: TZS 2,000,000 (1,000,000 + 1,000,000 per term)
+• Form II: TZS 2,303,000 (1,303,000 + 1,000,000 per term)
+• Form III: TZS 2,140,000 (1,140,000 + 1,000,000 per term)
+• Form IV: TZS 2,363,000 (1,363,000 + 1,000,000 per term)
+
+<strong>Boarding Fees (Primary IV-VII):</strong>
+• Annual: TZS 1,750,000 (1,000,000 + 750,000 per term)
 
 <strong>Additional Costs:</strong>
-- Uniforms: TZS 150,000
-- Textbooks: TZS 200,000 (annual)
-- Examination fees: As per NECTA rates
+• New students: TZS 405,000 for uniforms and dormitory needs
+• Boarding items: TZS 209,000 (uniform, mattress, sheets, etc.)
+• Health Insurance: TZS 51,000
 
-<em>Payment plans and scholarships available for qualifying students.</em>`
+<strong>Payment Information:</strong>
+• Bank: NMB Bank
+• Account: 22910002851
+• Name: FRANCIS MARIA LIBERMANN SCHOOL
+
+<em>All fees are non-refundable. Payment plans available for qualifying families.</em>`
             },
 
+            // Enhanced Academic Programs
             'programs': {
-                keywords: ['program', 'course', 'subject', 'curriculum', 'study'],
-                answer: `🏫 <strong>Academic Programs:</strong>
+                keywords: ['program', 'course', 'subject', 'curriculum', 'study', 'academic', 'education'],
+                answer: `🏫 <strong>Complete Academic Programs:</strong>
 
-<strong>Science Stream:</strong>
-• Physics, Chemistry, Biology
-• Advanced Mathematics
-• Computer Studies
+<strong>Primary Level (Class 1-7):</strong>
+• Mathematics • English • Kiswahili • Science
+• Social Studies • Religious Education • Creative Arts
 
-<strong>Arts Stream:</strong>
-• History, Geography, Commerce
-• English Language & Literature
-• Kiswahili
+<strong>Secondary Level (Form 1-4):</strong>
+<strong>Core Subjects:</strong>
+• Mathematics • English • Kiswahili • Biology
+• Chemistry • Physics • History • Geography
+• Civics • Religious Studies
 
-<strong>Technical Subjects:</strong>
-• Engineering Science
-• Technical Drawing
-• Information Technology
+<strong>Elective Subjects:</strong>
+• Commerce • Book Keeping
 
-<strong>Extracurricular Activities:</strong>
-🎵 Music & Choir
-⚽ Sports (Football, Basketball, Athletics)
-🎭 Drama & Cultural Activities
-🔬 Science Club
-💻 Computer Club
-📚 Debate Society
+<strong>Examinations:</strong>
+• Class 7: PSLE (Primary School Leaving Examination)
+• Form 2: FTNA (Form Two National Assessment)
+• Form 4: CSEE (Certificate of Secondary Education Examination)
+
+<strong>NECTA Registration Codes:</strong>
+• Primary: ZP0372
+• Secondary: S4202
+
+<strong>Pre-Form 1 Preparatory Program:</strong>
+One-year program for students needing foundational skills before Form 1
 
 <em>All programs follow Tanzanian National Curriculum with practical enhancements.</em>`
             },
 
-            'location': {
-                keywords: ['location', 'address', 'where', 'map', 'directions'],
-                answer: `📍 <strong>School Location:</strong>
+            // Enhanced School Life
+            'school_life': {
+                keywords: ['school life', 'daily life', 'routine', 'timetable', 'schedule', 'activities'],
+                answer: `🎒 <strong>School Life at FML:</strong>
 
-<strong>Francis Maria Libermann School</strong>
+<strong>Daily Timetable (Form 3 Example):</strong>
+• 6:00 AM: Wake Up & Morning Routine
+• 6:30 AM: Morning Prayers in Chapel
+• 7:00 AM: Breakfast
+• 7:30 AM - 3:00 PM: Academic Classes
+• 3:30 PM - 5:00 PM: Club Activities/Sports
+• 6:00 PM - 8:00 PM: Supervised Study (Boarders)
+• 9:00 PM: Lights Out
+
+<strong>Meals & Nutrition:</strong>
+• Breakfast: Porridge, bread, tea
+• Lunch: Balanced meals with ugali/rice, beans, vegetables
+• Dinner: Rice, stew, greens
+• Special dietary accommodations available
+
+<strong>Boarding Facilities:</strong>
+• Separate dormitories for boys and girls
+• Comfortable beds and storage
+• 24/7 security and supervision
+• Regular health checks
+
+<strong>Health Services:</strong>
+• Full-time nurse (Sr. Marry)
+• School clinic with basic medical care
+• Partnership with local clinics
+• Health education sessions
+
+<em>Our boarding environment fosters independence and community living skills.</em>`
+            },
+
+            // Enhanced Facilities
+            'facilities': {
+                keywords: ['facility', 'building', 'lab', 'library', 'sports', 'dormitory', 'campus'],
+                answer: `⚽ <strong>Complete Campus Facilities:</strong>
+
+<strong>Academic Facilities:</strong>
+• Modern Science Laboratories (Physics, Chemistry, Biology)
+• Well-stocked Library with digital resources
+• Computer Labs with internet access
+• Spacious, well-ventilated classrooms
+• Staff offices and common room
+
+<strong>Boarding Facilities:</strong>
+• Comfortable dormitories (up to 60 boarders per dorm)
+• Personal lockers and study areas
+• Supervised by house masters
+• 24/7 security
+
+<strong>Recreational Facilities:</strong>
+• Sports fields (Football, Basketball, Athletics)
+• Chapel for spiritual activities
+• Music and arts rooms
+• Assembly hall
+• Dining hall
+
+<strong>Additional Amenities:</strong>
+• School clinic with full-time nurse
+• Counseling services
+• Career guidance center
+• School shop (stationery, toiletries)
+• Parent meeting areas
+
+<strong>Campus Environment:</strong>
+• 5 hectares of green space
+• Peaceful atmosphere near Tomondo area
+• Sustainability initiatives (rainwater harvesting, solar power)
+• Well-maintained gardens by Environmental Club
+
+<em>Our facilities support holistic development and academic excellence.</em>`
+            },
+
+            // Enhanced Extracurricular Activities
+            'activities': {
+                keywords: ['activity', 'club', 'sports', 'music', 'drama', 'extracurricular', 'hobby'],
+                answer: `🎭 <strong>Extracurricular Activities & Clubs:</strong>
+
+<strong>Sports Programs:</strong>
+• Football (regional tournament participation)
+• Basketball (weekly training, inter-house competitions)
+• Athletics (annual sports days, national meets)
+• Physical education classes
+
+<strong>Clubs & Societies:</strong>
+• Environmental Club (tree planting, campus cleanups)
+• Debate Club (public speaking, regional competitions)
+• Music and Drama Club (performances, festivals)
+• Science Club
+• Computer Club
+• Cultural Activities Club
+
+<strong>Leadership Opportunities:</strong>
+• Prefects and house captains
+• Club leadership positions
+• Peer Mentorship Program
+• Leadership Training Program (annual workshops)
+
+<strong>Community Engagement:</strong>
+• Community outreach programs
+• Local business visits
+• Charity drives and environmental cleanups
+• Participation in community festivals
+
+<strong>Spiritual Activities:</strong>
+• Daily morning and evening prayers
+• Sunday Mass for boarders
+• Marian devotions (Rosary in October)
+• Annual retreats for Forms 3 and 4
+
+<em>Activities foster teamwork, creativity, and community spirit.</em>`
+            },
+
+            // Enhanced Community Information
+            'community': {
+                keywords: ['community', 'parent', 'alumni', 'volunteer', 'pta', 'partnership'],
+                answer: `👥 <strong>School Community & Engagement:</strong>
+
+<strong>Parent-Teacher Association (PTA):</strong>
+• Monthly meetings for school improvements
+• Event planning and student welfare support
+• Recent initiatives: library books, Family Day
+• Parent volunteers welcome
+
+<strong>Alumni Network:</strong>
+• 200+ alumni connected
+• Mentorship opportunities for current students
+• Professional networking
+• Graduation year reunions
+
+<strong>Parent Involvement:</strong>
+• Family Day events
+• Parent meetings (first Saturday monthly)
+• Volunteer opportunities
+• Communication via school office
+
+<strong>Community Partnerships:</strong>
+• Collaboration with local churches and schools
+• Business partnerships for practical learning
+• Health awareness campaigns
+• Environmental initiatives
+
+<strong>Career Opportunities:</strong>
+• Current openings: Mathematics Teacher, Boarding House Master, School Counselor
+• Application: Email CV to fmlibermann@gmail.com
+• Background checks required for all positions
+
+<em>We welcome parents, alumni, and community members to join our Libermann family.</em>`
+            },
+
+            // Enhanced Health & Safety
+            'health_safety': {
+                keywords: ['health', 'safety', 'medical', 'nurse', 'medication', 'security', 'wellbeing'],
+                answer: `🏥 <strong>Health, Safety & Wellbeing:</strong>
+
+<strong>Health Services:</strong>
+• Full-time school nurse (Sr. Marry)
+• School clinic open 8:00 AM - 5:00 PM
+• Basic medical care and first aid
+• Annual health check-ups
+• Partnership with local clinics
+
+<strong>Medication Management:</strong>
+• All medications registered with school nurse
+• Stored securely in clinic
+• Administered by nurse during designated times
+• Emergency items (asthma inhalers) with prior approval
+
+<strong>Safety Protocols:</strong>
+• Fully fenced campus with 24/7 security guards
+• Visitor sign-in and badge system
+• Strict anti-bullying policy
+• Child protection training for staff
+• Emergency response procedures
+
+<strong>Wellbeing Support:</strong>
+• Guidance Counselor for personal issues
+• Peer support program (senior mentors)
+• Monthly "Circle Time" sessions
+• PSHE classes (Personal, Social, Health, Economic education)
+
+<strong>Environmental Safety:</strong>
+• Clean, well-maintained facilities
+• Regular health and safety inspections
+• Sustainable campus practices
+
+<em>Student safety and wellbeing are our top priorities.</em>`
+            },
+
+            // Enhanced Location & Contact
+            'location': {
+                keywords: ['location', 'address', 'where', 'map', 'directions', 'contact', 'phone', 'email'],
+                answer: `📍 <strong>Location & Contact Information:</strong>
+
+<strong>School Address:</strong>
+Francis Maria Libermann School
 Shehia of Tomondo, Western District
 Urban Western Region, Zanzibar
 Tanzania
@@ -467,24 +731,37 @@ Tanzania
 
 <strong>Contact Information:</strong>
 📞 Phone: +255 658 638 938 / +255 713 616 049
+📱 WhatsApp: +255 753 638 938
 📧 Email: fmlibermann@gmail.com
-📱 WhatsApp: <a href="https://wa.me/255658638938" target="_blank">Chat with us</a>
+🌐 Instagram: @fmlibermann
 
-<em>We welcome visitors during school hours (7:00 AM - 4:00 PM).</em>`
+<strong>Office Hours:</strong>
+Monday - Friday: 8:00 AM - 4:00 PM
+Saturday: 9:00 AM - 1:00 PM
+
+<strong>Visiting Hours:</strong>
+Please call ahead to schedule appointments
+Parent visits: First Saturday monthly (9:00 AM - 1:00 PM)
+
+<strong>Bank Details:</strong>
+NMB Bank - Account: 22910002851
+Name: FRANCIS MARIA LIBERMANN SCHOOL
+
+<em>We welcome visitors during school hours. Contact us for campus tours!</em>`
             },
 
+            // Enhanced Calendar & Events
             'calendar': {
-                keywords: ['calendar', 'term', 'holiday', 'schedule', 'dates'],
-                answer: `📅 <strong>2025 Academic Calendar:</strong>
+                keywords: ['calendar', 'term', 'holiday', 'schedule', 'dates', 'event', 'open day'],
+                answer: `📅 <strong>2025 Academic Calendar & Events:</strong>
 
-<strong>Term 1:</strong> January 15th - April 5th
-• Mid-term break: February 20th-25th
-
-<strong>Term 2:</strong> May 6th - August 15th  
-• Mid-term break: June 20th-25th
-
-<strong>Term 3:</strong> September 9th - November 29th
-• Mid-term break: October 15th-20th
+<strong>Term Dates:</strong>
+• <strong>Term 1:</strong> January 15th - April 5th
+  (Mid-term break: February 20th-25th)
+• <strong>Term 2:</strong> May 6th - August 15th
+  (Mid-term break: June 20th-25th)
+• <strong>Term 3:</strong> September 9th - November 29th
+  (Mid-term break: October 15th-20th)
 
 <strong>Major Holidays:</strong>
 • April Break: April 6th - May 5th (1 month)
@@ -493,37 +770,53 @@ Tanzania
 
 <strong>Examination Periods:</strong>
 • Form 2 (FTNA): October
-• Form 4 (CSEE): October-November`
+• Form 4 (CSEE): October-November
+
+<strong>Open Days & Events:</strong>
+• May 10, 2025: Discover FML Day (9:00 AM - 2:00 PM)
+• August 15, 2025: Family Open House (10:00 AM - 3:00 PM)
+• November 8, 2025: Academic Showcase Day (9:00 AM - 1:00 PM)
+
+<strong>Parent Meetings:</strong>
+First Saturday of each month (dates announced by administration)
+
+<em>Check our website or contact office for updated event information.</em>`
             },
 
+            // Enhanced Results & Performance
             'results': {
-                keywords: ['result', 'exam', 'necta', 'performance', 'grades'],
-                answer: `🎓 <strong>Academic Performance:</strong>
+                keywords: ['result', 'exam', 'necta', 'performance', 'grades', 'achievement'],
+                answer: `🎓 <strong>Academic Performance & Results:</strong>
 
 <strong>NECTA Registration Codes:</strong>
 • Primary: ZP0372
 • Secondary: S4202
 
 <strong>2024 Examination Results:</strong>
-• <strong>Form 2 (FTNA):</strong> <a href="https://bmz.go.tz/exam_result/schools/STD7(2024)/ZP0372.html" target="_blank">View Results</a>
-• <strong>Form 4 (CSEE):</strong> <a href="https://onlinesys.necta.go.tz/results/2024/csee/results/s4202.htm" target="_blank">View Results</a>
+• <strong>Form 2 (FTNA):</strong> 88% pass rate
+  <a href="https://bmz.go.tz/exam_result/schools/STD7(2024)/ZP0372.html" target="_blank">View Results</a>
+• <strong>Form 4 (CSEE):</strong> 92% pass rate (15% Division I)
+  <a href="https://onlinesys.necta.go.tz/results/2024/csee/results/s4202.htm" target="_blank">View Results</a>
 
 <strong>Performance Highlights:</strong>
 ✓ Consistent improvement in pass rates
-✓ Strong performance in Sciences
-✓ Excellent results in Mathematics
-✓ Notable achievements in Languages
+✓ Strong performance in Sciences and Mathematics
+✓ Excellent results in Languages
+✓ Notable academic improvements since 2021
 
-<em>Check our detailed results on the official NECTA portal.</em>`
+<strong>Student Achievements:</strong>
+• Regional sports tournament participation
+• Cultural festival performances
+• Community service recognition
+• Leadership development
+
+<em>Our students consistently achieve strong results in national examinations.</em>`
             },
 
+            // Enhanced History & Mission
             'history': {
-                keywords: ['history', 'founded', 'established', 'background', 'story'],
-                answer: `🏛️ <strong>School History:</strong>
-
-<strong>Foundation:</strong> 1994
-<strong>Ownership:</strong> Catholic Diocese of Zanzibar
-<strong>Religious Affiliation:</strong> Catholic (welcoming all faiths)
+                keywords: ['history', 'founded', 'established', 'background', 'story', 'mission', 'vision', 'values'],
+                answer: `🏛️ <strong>School History, Mission & Values:</strong>
 
 <strong>Historical Timeline:</strong>
 • <strong>1994:</strong> School founded
@@ -533,213 +826,47 @@ Tanzania
 • <strong>2017:</strong> First Form 4 graduates
 • <strong>2021:</strong> Notable academic improvements
 
-<strong>Founding Leadership:</strong>
-Brother Kiko Baeza served as first headmaster, supported by the Nyakato community and five Tanzanian staff members.
+<strong>Ownership:</strong> Catholic Diocese of Zanzibar
+<strong>Religious Affiliation:</strong> Catholic (welcoming all faiths)
+<strong>Motto:</strong> "Education Key to Liberty"
 
-<em>Our motto: "Education Key to Liberty"</em>`
-            },
+<strong>Our Mission:</strong>
+"To Provide Quality Education with Competitive Standards, to help the Students Become more Curious, Reflective and Critical Thinkers as Global citizens."
 
-            'facilities': {
-                keywords: ['facility', 'building', 'lab', 'library', 'sports', 'dormitory'],
-                answer: `⚽ <strong>School Facilities:</strong>
+<strong>Our Vision:</strong>
+To develop Learners who are:
+• Confident in working with information and ideas
+• Responsible for themselves, environment and respect of others
+• Reflective as learners, developing their ability to learn
+• Innovative and equipped for new challenges
+• Engaged intellectually, spiritually and socially
 
-<strong>Academic Facilities:</strong>
-• Modern Science Laboratories (Physics, Chemistry, Biology)
-• Well-stocked Library with digital resources
-• Computer Labs with internet access
-• Spacious, well-ventilated classrooms
+<strong>Core Values:</strong>
+• Compassion: Caring environment with mutual respect
+• Integrity: Honesty and ethical behavior
+• Excellence: Highest standards in academics and character
+• Service: Commitment to community and others
 
-<strong>Boarding Facilities:</strong>
-• Comfortable dormitories
-• Supervised accommodation
-• Clean dining facilities
-• 24/7 security
-
-<strong>Recreational Facilities:</strong>
-• Sports fields (Football, Basketball, Athletics)
-• Chapel for spiritual activities
-• Music and arts rooms
-• Assembly hall
-
-<strong>Additional Amenities:</strong>
-• Medical clinic
-• Counseling services
-• Career guidance center
-• Parent meeting areas`
-            },
-
-            'uniform': {
-                keywords: ['uniform', 'dress', 'attire', 'clothing'],
-                answer: `👔 <strong>School Uniform:</strong>
-
-<strong>Boys' Uniform:</strong>
-• White shirt with school badge
-• Navy blue trousers
-• School tie
-• Black shoes and socks
-• Navy blue sweater (optional)
-
-<strong>Girls' Uniform:</strong>  
-• White blouse with school badge
-• Navy blue skirt/trousers
-• School tie
-• Black shoes and socks
-• Navy blue sweater (optional)
-
-<strong>Sports Uniform:</strong>
-• School T-shirt
-• Navy blue shorts/tracksuit
-• Sports shoes
-
-<strong>Cost:</strong> Approximately TZS 150,000 for complete set
-<strong>Available at:</strong> School administration office
-
-<em>Proper uniform is mandatory for all students.</em>`
-            },
-
-            'transport': {
-                keywords: ['transport', 'bus', 'commute', 'travel'],
-                answer: `🚌 <strong>Transportation:</strong>
-
-<strong>School Bus Service:</strong>
-• Available for day students
-• Covers major routes in Zanzibar
-• Safe and reliable transportation
-• Professional drivers
-
-<strong>Public Transport:</strong>
-• Easily accessible by dalla-dalla
-• Multiple routes pass near school
-• Affordable options available
-
-<strong>Private Transport:</strong>
-• Ample parking space available
-• Safe drop-off/pick-up zones
-• Clear signage for visitors
-
-<strong>Boarding Students:</strong>
-• Transport provided for official trips
-• Airport/ferry pickup available (on request)
-
-<em>Contact administration for bus route details and fees.</em>`
-            },
-
-            'scholarship': {
-                keywords: ['scholarship', 'financial aid', 'bursary', 'sponsorship'],
-                answer: `🎗️ <strong>Scholarships & Financial Aid:</strong>
-
-<strong>Available Scholarships:</strong>
-• Academic Excellence Scholarships
-• Sports Talent Scholarships
-• Need-based Financial Aid
-• Diocesan Sponsorships
-
-<strong>Eligibility Criteria:</strong>
-✓ Outstanding academic performance
-✓ Demonstrated financial need
-✓ Exceptional talent in sports/arts
-✓ Active community involvement
-
-<strong>Application Process:</strong>
-1. Submit scholarship application form
-2. Provide supporting documents
-3. Attend interview (if required)
-4. Committee review and decision
-
-<strong>Renewal Requirements:</strong>
-• Maintain good academic standing
-• Positive behavior record
-• Active participation in school activities
-
-<em>Limited scholarships available. Apply early!</em>`
-            },
-
-            'staff': {
-                keywords: ['teacher', 'staff', 'faculty', 'principal', 'headmaster'],
-                answer: `👨‍🏫 <strong>Teaching Staff:</strong>
-
-<strong>Faculty Composition:</strong>
-• Qualified and experienced teachers
-• Subject specialists for all areas
-• Continuous professional development
-• Student-centered teaching approach
-
-<strong>Student-Teacher Ratio:</strong> 25:1
-<strong>Qualification:</strong> All teachers meet TIE requirements
-
-<strong>Leadership Team:</strong>
-• For current leadership details, please contact the school directly as leadership positions may change.
-
-<strong>Support Staff:</strong>
-• Administrative personnel
-• Laboratory technicians
-• Librarians
-• Sports coaches
-• Counselors
-
-<em>Our staff is committed to student success and holistic development.</em>`
-            },
-
-            'boarding': {
-                keywords: ['boarding', 'hostel', 'dorm', 'accommodation', 'residence'],
-                answer: `🏠 <strong>Boarding Facilities:</strong>
-
-<strong>Accommodation:</strong>
-• Separate dormitories for boys and girls
-• Comfortable beds and storage
-• Regular room maintenance
-• 24/7 security and supervision
-
-<strong>Meals & Nutrition:</strong>
-• Balanced, nutritious meals
-• Special dietary accommodations
-• Clean dining facilities
-• Regular health checks
-
-<strong>Study Support:</strong>
-• Supervised prep sessions
-• Library access
-• Quiet study areas
-• Academic support
-
-<strong>Activities & Recreation:</strong>
-• Evening sports
-• Cultural activities
-• Religious services
-• Weekend excursions
-
-<em>Boarding fosters independence and community living skills.</em>`
-            },
-
-            'contact': {
-                keywords: ['contact', 'phone', 'email', 'whatsapp', 'visit'],
-                answer: `📞 <strong>Contact Information:</strong>
-
-<strong>Phone Numbers:</strong>
-• +255 658 638 938
-• +255 713 616 049
-
-<strong>Email:</strong> fmlibermann@gmail.com
-<em>(Messages received as PDF attachments)</em>
-
-<strong>Social Media:</strong>
-• Instagram: <a href="https://www.instagram.com/fmlibermann/" target="_blank">@fmlibermann</a>
-
-<strong>WhatsApp:</strong>
-<a href="https://wa.me/255658638938" target="_blank">Chat with us on WhatsApp</a>
-
-<strong>School Hours:</strong>
-Monday - Friday: 7:00 AM - 4:00 PM
-Saturday: 8:00 AM - 1:00 PM
-
-<strong>Visiting Hours:</strong>
-Please call ahead to schedule appointments.`
+<em>Our values guide everything we do at Francis Maria Libermann School.</em>`
             }
         };
 
         this.init();
     }
 
+    // Enhanced off-topic question handling
+    handleOffTopic(message) {
+        const offTopicResponses = [
+            "I'm here to help you learn about Francis Maria Libermann School. Try asking about admissions, fees, programs, or school life!",
+            "That's an interesting question! I specialize in school information. You might want to ask about our academic programs, admission process, or campus facilities.",
+            "I focus on providing information about our school. Would you like to know about our admission requirements, fee structure, or extracurricular activities?",
+            "For questions about our school, I'm your best resource! Try asking about our history, facilities, or academic performance.",
+            "I'm designed to help with school-related inquiries. You can ask me about admissions, fees, programs, or any other aspect of Francis Maria Libermann School."
+        ];
+        return offTopicResponses[Math.floor(Math.random() * offTopicResponses.length)];
+    }
+
+    // Enhanced initialization
     init() {
         this.toggleBtn = document.getElementById('chatbotToggle');
         this.closeBtn = document.getElementById('chatbotClose');
@@ -747,6 +874,7 @@ Please call ahead to schedule appointments.`
         this.input = document.getElementById('chatbotInput');
         this.sendBtn = document.getElementById('chatbotSend');
         this.messagesContainer = document.getElementById('chatbotMessages');
+        this.quickQuestions = document.getElementById('quick-questions');
 
         if (this.toggleBtn && this.chatBox) {
             this.toggleBtn.addEventListener('click', () => this.toggleChat());
@@ -755,7 +883,9 @@ Please call ahead to schedule appointments.`
             this.input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') this.sendMessage();
             });
-
+            
+            // Enhanced quick questions
+            this.setupQuickQuestions();
         }
     }
 
@@ -770,6 +900,33 @@ Please call ahead to schedule appointments.`
         this.chatBox.classList.remove('show');
     }
 
+    // Enhanced quick questions setup
+    setupQuickQuestions() {
+        const questions = [
+            "What are the admission requirements?",
+            "How much are school fees?",
+            "What subjects do you offer?",
+            "Tell me about boarding facilities",
+            "What extracurricular activities are available?",
+            "How do I contact the school?",
+            "What are the term dates?",
+            "Tell me about school history"
+        ];
+
+        if (this.quickQuestions) {
+            this.quickQuestions.innerHTML = questions.map(question =>
+                `<button class="quick-question" onclick="chatbot.handleQuickQuestion('${question}')">${question}</button>`
+            ).join('');
+        }
+    }
+
+    // Enhanced quick question handler
+    handleQuickQuestion(question) {
+        this.input.value = question;
+        this.sendMessage();
+    }
+
+    // Enhanced message sending
     sendMessage() {
         const message = this.input.value.trim();
         if (!message) return;
@@ -782,37 +939,29 @@ Please call ahead to schedule appointments.`
 
         setTimeout(() => {
             this.hideTypingIndicator();
-            const response = this.getResponse(message);
+            const response = this.generateResponse(message);
             this.addMessage(response, 'bot');
-            this.addQuickQuestions();
-        }, 1500);
-    }
-
-    addMessage(text, sender) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `chat-message ${sender}-message`;
-        messageDiv.innerHTML = text;
-        this.messagesContainer.appendChild(messageDiv);
-        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+            this.scrollToBottom();
+        }, 500);
     }
 
     showTypingIndicator() {
-    const typingDiv = document.createElement('div');
-    typingDiv.className = 'chat-message bot-message typing-indicator';
-    typingDiv.id = 'typingIndicator';
-    typingDiv.innerHTML = `
-        <div class="typing-content">
-            <div class="typing-dots">
-                <span></span>
-                <span></span>
-                <span></span>
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chat-message bot-message typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        typingDiv.innerHTML = `
+            <div class="typing-content">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="typing-text">FML Assistant is typing...</span>
             </div>
-            <span class="typing-text">FML Assistant is typing...</span>
-        </div>
-    `;
-    this.messagesContainer.appendChild(typingDiv);
-    this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-}
+        `;
+        this.messagesContainer.appendChild(typingDiv);
+        this.scrollToBottom();
+    }
 
     hideTypingIndicator() {
         const typingIndicator = document.getElementById('typingIndicator');
@@ -821,99 +970,64 @@ Please call ahead to schedule appointments.`
         }
     }
 
-    getResponse(message) {
+    // Enhanced response generation
+    generateResponse(message) {
         const lowerMessage = message.toLowerCase();
         
-        // Greetings
-        if (this.isGreeting(lowerMessage)) {
-            return `Hello! Welcome to Francis Maria Libermann School! 🎓<br><br>
-            I'm your FML School Assistant. I can help you with admissions, fees, programs, facilities, and much more. What specific information are you looking for today?`;
-        }
-
-        // Thanks
-        if (this.isThanks(lowerMessage)) {
-            return `You're welcome! 😊<br><br>
-            Is there anything else you'd like to know about Francis Maria Libermann School? I'm here to help with any questions about our programs, admissions, or school life.`;
-        }
-
-        // Search for topic matches
-        for (const [topic, data] of Object.entries(this.knowledgeBase)) {
-            for (const keyword of data.keywords) {
-                if (lowerMessage.includes(keyword)) {
-                    return data.answer;
-                }
+        // Check for exact matches first
+        for (const [key, data] of Object.entries(this.knowledgeBase)) {
+            if (data.keywords.some(keyword => lowerMessage.includes(keyword))) {
+                return data.answer;
             }
         }
 
-        // Default response for unknown questions
-        return `I'm here to help you learn about Francis Maria Libermann School! 🤖<br><br>
-        I can provide information about:
-        <ul>
-            <li>📚 Admissions process and requirements</li>
-            <li>💰 School fees and payment options</li>
-            <li>🏫 Academic programs and subjects</li>
-            <li>📍 School location and contact details</li>
-            <li>📅 Academic calendar and term dates</li>
-            <li>🎓 Examination results and performance</li>
-            <li>⚽ Facilities and extracurricular activities</li>
-            <li>🏛️ School history and background</li>
-        </ul>
-        What would you like to know more about?`;
-    }
+        // Check for partial matches with higher threshold
+        for (const [key, data] of Object.entries(this.knowledgeBase)) {
+            const matchCount = data.keywords.filter(keyword =>
+                lowerMessage.includes(keyword)
+            ).length;
+            
+            if (matchCount >= 2) {
+                return data.answer;
+            }
+        }
 
-    isGreeting(message) {
-        const greetings = ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening'];
-        return greetings.some(greet => message.includes(greet));
-    }
+        // Enhanced fallback responses
+        const fallbackResponses = [
+            "I'm not sure I understand. Could you rephrase your question about our school?",
+            "I'd love to help! Could you be more specific about what you'd like to know about Francis Maria Libermann School?",
+            "That's an interesting question! I specialize in school information like admissions, fees, programs, and facilities.",
+            "I'm here to provide information about our school. Try asking about specific topics like admission requirements or academic programs."
+        ];
 
-    isThanks(message) {
-        const thanks = ['thank', 'thanks', 'appreciate'];
-        return thanks.some(thank => message.includes(thank));
-    }
-
-    addQuickQuestions() {
-        // Remove existing quick questions
-        const existing = this.messagesContainer.querySelector('.quick-questions');
-        if (existing) existing.remove();
-
-        const quickQuestions = document.createElement('div');
-        quickQuestions.className = 'quick-questions';
-        quickQuestions.innerHTML = `
-            <button class="quick-question" data-question="How do I apply for admission?">How to apply?</button>
-            <button class="quick-question" data-question="What are the school fees?">School fees</button>
-            <button class="quick-question" data-question="What programs do you offer?">Academic programs</button>
-            <button class="quick-question" data-question="Where is the school located?">Location & contacts</button>
-        `;
+        // Check if message seems completely off-topic
+        const schoolKeywords = ['school', 'admission', 'fee', 'program', 'student', 'teacher', 'class', 'exam'];
+        const isSchoolRelated = schoolKeywords.some(keyword => lowerMessage.includes(keyword));
         
-        // Add event listeners to new quick questions
-        quickQuestions.querySelectorAll('.quick-question').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const question = e.target.getAttribute('data-question');
-                this.selectQuickQuestion(question);
-            });
-        });
-        
-        this.messagesContainer.appendChild(quickQuestions);
+        if (!isSchoolRelated) {
+            return this.handleOffTopic(message);
+        }
+
+        return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+    }
+
+    // Enhanced message display
+    addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${sender}-message`;
+        messageDiv.innerHTML = text;
+        this.messagesContainer.appendChild(messageDiv);
+        this.scrollToBottom();
+    }
+
+
+    // Utility function
+    scrollToBottom() {
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
-    }
-
-    selectQuickQuestion(question) {
-        this.addMessage(question, 'user');
-        this.input.value = '';
-
-        this.showTypingIndicator();
-        setTimeout(() => {
-            this.hideTypingIndicator();
-            const response = this.getResponse(question);
-            this.addMessage(response, 'bot');
-            this.addQuickQuestions();
-        }, 1000);
     }
 }
 
-// Initialize chatbot when page loads
-let chatbot;
+// Initialize chatbot when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    chatbot = new SchoolChatbot();
+    window.chatbot = new SchoolChatbot();
 });
-

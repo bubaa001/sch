@@ -17,7 +17,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Graduation Year</th>
@@ -30,7 +30,7 @@
                     <tbody>
                         {% for alum in alumni %}
                         <tr>
-                            <td>{{ alum.id }}</td>
+                            <td>{{ loop.index }}</td>
                             <td>{{ alum.name }}</td>
                             <td>{{ alum.email }}</td>
                             <td>{{ alum.graduation_year }}</td>

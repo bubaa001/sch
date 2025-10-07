@@ -67,7 +67,7 @@
                         <p class="mb-4">
                             Fees include tuition, development levy, boarding (where applicable), meals, and essential educational materials. We also provide detailed information about registration fees, payment schedules, and banking details for your convenience.
                         </p>
-                        <div class="alert alert-info mt-4">
+                        <div class="alert alert-warning mt-3 static-note">
                             <strong>Note:</strong> All payments should be made through bank transfer to our official school account. School fees once paid are non-refundable.
                         </div>
                         <a href="{{ url_for('main.fees') }}" class="btn btn-primary btn-lg mt-3">
@@ -404,11 +404,35 @@
         </div>
     </div>
 </section>
-{% endblock %}
-
 {% block scripts %}
 <script>
     // Remove the custom toggleLanguage function since we're using the one from translations.js
     // The translations.js file will handle all the translation functionality
 </script>
+
+
+<style>
+    /* Fix for static note alerts - prevent movement on hover */
+    .static-note {
+        position: relative !important;
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+        left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .static-note:hover {
+        transform: none !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    /* Remove any transform animations for static notes */
+    .static-note::before {
+        display: none !important;
+    }
+</style>
+
+{% endblock %}
+
 {% endblock %}

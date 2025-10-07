@@ -35,7 +35,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Student Name</th>
                             <th>Parent Name</th>
                             <th>Email</th>
@@ -49,7 +49,7 @@
                     <tbody>
                         {% for app in applications %}
                         <tr>
-                            <td>{{ app.id }}</td>
+                            <td>{{ loop.index }}</td>
                             <td>{{ app.student_name }}</td>
                             <td>{{ app.parent_name }}</td>
                             <td>{{ app.email }}</td>
