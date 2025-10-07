@@ -42,10 +42,10 @@ def generate_admission_pdf(student_name, parent_name, form_level, system_code):
     c.drawString(100, 580, "Payment Instructions:")
     c.drawString(100, 560, "Please make a bank transfer to the following account:")
     c.drawString(100, 540, "Bank: NMB")
-    c.drawString(100, 520, "Account Number: 444444444444")
-    c.drawString(100, 500, "Amount: TZS 150,000 (Application Fee: TZS 50,000 + Admission Fee: TZS 100,000)")
-    c.drawString(100, 480, f"Reference: Include the System Code ({system_code}) in the payment reference.")
-    c.drawString(100, 460, "After payment, please email a payment confirmation to fmlibermann@gmail.com.")
+    c.drawString(100, 520, "Account Number: 22910002851")
+    c.drawString(100, 500, "Amount: Pay the Admission Fee as instructed in the fee structure")
+    c.drawString(100, 480, f"Reference: Use the student's name on the payer details.")
+    c.drawString(100, 460, "After payment, please send the payment confirmation to +255 655 853 836.")
     c.showPage()
     c.save()
     buffer.seek(0)
@@ -272,6 +272,10 @@ def about():
 def school_life():
     return render_template('school-life.html', current_page='school-life')
 
+@main.route('/fees')
+def fees():
+    return render_template('fees.html', current_page='fees')
+
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -297,12 +301,6 @@ def contact():
             return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
     
     return render_template('contact.html', current_page='contact')
-
-# In your main routes file (usually app.py or routes.py)
-
-@main.route('/fees')
-def fees():
-    return render_template('fees.html')
 
 @main.route('/community', methods=['GET', 'POST'])
 def community():
