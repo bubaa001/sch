@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}feedback - Francis Maria Libermann School Zanzibar{% endblock %}
+
 {% block content %}
 <!-- Feedback Section -->
 <section id="feedback" class="section bg-light" data-aos="fade-up">
     <div class="container">
         <h2 class="section-title">We Value Your Feedback</h2>
         <p class="text-center mb-5">
-            Your input helps us improve and grow as a school. Share your thoughts to help us better serve our students and community.
+            Your input helps us improve and grow as a school. Share your thoughts to help us better serve our students
+            and community.
         </p>
         <div class="row">
             <!-- Why Feedback Matters -->
@@ -14,17 +17,21 @@
                 <div class="glass-card p-4">
                     <h3>Why Your Voice Matters</h3>
                     <p>
-                        Feedback from our community drives positive change at Francis Maria Libermann School. For example, based on parent suggestions in 2024, we added more weekend sports activities, which our students love!
+                        Feedback from our community drives positive change at Francis Maria Libermann School. For
+                        example, based on parent suggestions in 2024, we added more weekend sports activities, which our
+                        students love!
                     </p>
                     <blockquote class="blockquote mt-3">
-                        <p>“I shared my feedback about meal options, and the school made improvements. It feels great to be heard!”</p>
+                        <p>“I shared my feedback about meal options, and the school made improvements. It feels great to
+                            be heard!”</p>
                         <footer class="blockquote-footer">Joseph M., Parent</footer>
                     </blockquote>
                     <div class="mt-3">
                         <h5>Feedback Impact</h5>
                         <p>We’ve implemented 75% of community suggestions in the past year!</p>
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 75%"
+                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +71,8 @@
         <!-- Thank You Section -->
         <div class="text-center mt-5">
             <h3>Thank You for Your Input!</h3>
-            <p>We review all feedback to ensure we’re meeting the needs of our community. Check out some of the changes we’ve made based on your suggestions.</p>
+            <p>We review all feedback to ensure we’re meeting the needs of our community. Check out some of the changes
+                we’ve made based on your suggestions.</p>
             <a href="{{ url_for('main.community') }}" class="btn btn-primary">See Community Updates</a>
         </div>
     </div>

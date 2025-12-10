@@ -3,7 +3,7 @@ import uuid
 from datetime import datetime
 from io import BytesIO
 from werkzeug.utils import secure_filename
-from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file, jsonify
+from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file, jsonify, Response
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
 from reportlab.lib.pagesizes import letter
@@ -22,10 +22,13 @@ ALLOWED_EXTENSIONS = {'pdf', 'jpg', 'jpeg', 'png'}
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Helper function to generate Admission PDF with NMB payment instructions
+
+
 def generate_admission_pdf(student_name, parent_name, form_level, system_code):
     buffer = BytesIO()
     c = canvas.Canvas(buffer, pagesize=letter)
@@ -38,38 +41,46 @@ def generate_admission_pdf(student_name, parent_name, form_level, system_code):
     c.drawString(100, 660, f"Form Level: {form_level}")
     c.drawString(100, 640, f"System Code: {system_code}")
     c.drawString(100, 620, f"Status: Pending Payment")
-    c.drawString(100, 600, f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    c.drawString(
+        100, 600, f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     c.drawString(100, 580, "Payment Instructions:")
-    c.drawString(100, 560, "Please make a bank transfer to the following account:")
+    c.drawString(
+        100, 560, "Please make a bank transfer to the following account:")
     c.drawString(100, 540, "Bank: NMB")
     c.drawString(100, 520, "Account Number: 22910002851")
-    c.drawString(100, 500, "Amount: Pay the Admission Fee as instructed in the fee structure")
-    c.drawString(100, 480, f"Reference: Use the student's name on the payer details.")
-    c.drawString(100, 460, "After payment, please send the payment confirmation to +255 655 853 836.")
+    c.drawString(
+        100, 500, "Amount: Pay the Admission Fee as instructed in the fee structure")
+    c.drawString(
+        100, 480, f"Reference: Use the student's name on the payer details.")
+    c.drawString(
+        100, 460, "After payment, please send the payment confirmation to +255 655 853 836.")
     c.showPage()
     c.save()
     buffer.seek(0)
     return buffer
 
 # ======== Admin Routes ========
+
+
 @main.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
     if current_user.is_authenticated:
         return redirect(url_for('main.admin_dashboard'))
-    
+
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
         admin = Admin.query.filter_by(username=username).first()
-        
+
         if admin and admin.check_password(password):
             login_user(admin)
             return redirect(url_for('main.admin_dashboard'))
         else:
             flash('Invalid username or password.', 'danger')
             return redirect(url_for('main.admin_login'))
-    
+
     return render_template('admin_login.html')
+
 
 @main.route('/admin/logout')
 @login_required
@@ -77,6 +88,7 @@ def admin_logout():
     logout_user()
     flash('You have been logged out.', 'success')
     return redirect(url_for('main.index'))
+
 
 @main.route('/admin/dashboard')
 @login_required
@@ -89,17 +101,19 @@ def admin_dashboard():
     total_alumni = Alumni.query.count()
 
     return render_template('admin_dashboard.html',
-                          total_admissions=total_admissions,
-                          total_feedback=total_feedback,
-                          pending_feedback=pending_feedback,
-                          total_contacts=total_contacts,
-                          total_parents=total_parents,
-                          total_alumni=total_alumni)
+                           total_admissions=total_admissions,
+                           total_feedback=total_feedback,
+                           pending_feedback=pending_feedback,
+                           total_contacts=total_contacts,
+                           total_parents=total_parents,
+                           total_alumni=total_alumni)
+
 
 @main.route('/admin/admissions', methods=['GET', 'POST'])
 @login_required
 def admin_admissions():
-    search_query = request.form.get('search', '') if request.method == 'POST' else ''
+    search_query = request.form.get(
+        'search', '') if request.method == 'POST' else ''
     if search_query:
         applications = AdmissionInquiry.query.filter(
             (AdmissionInquiry.student_name.ilike(f'%{search_query}%')) |
@@ -147,6 +161,7 @@ def admin_admissions():
 
     return render_template('admin_admissions.html', applications=applications, search_query=search_query)
 
+
 @main.route('/admin/feedback', methods=['GET', 'POST'])
 @login_required
 def admin_feedback():
@@ -169,10 +184,12 @@ def admin_feedback():
     feedbacks = Feedback.query.all()
     return render_template('admin_feedback.html', feedbacks=feedbacks)
 
+
 @main.route('/admin/contacts', methods=['GET', 'POST'])
 @login_required
 def admin_contacts():
-    search_query = request.form.get('search', '') if request.method == 'POST' else ''
+    search_query = request.form.get(
+        'search', '') if request.method == 'POST' else ''
     if search_query:
         contacts = Contact.query.filter(
             (Contact.name.ilike(f'%{search_query}%')) |
@@ -181,7 +198,7 @@ def admin_contacts():
         ).all()
     else:
         contacts = Contact.query.all()
-    
+
     if request.form.get('export'):
         columns = [
             ('ID', 'id'),
@@ -194,10 +211,12 @@ def admin_contacts():
 
     return render_template('admin_contacts.html', contacts=contacts, search_query=search_query)
 
+
 @main.route('/admin/parents', methods=['GET', 'POST'])
 @login_required
 def admin_parents():
-    search_query = request.form.get('search', '') if request.method == 'POST' else ''
+    search_query = request.form.get(
+        'search', '') if request.method == 'POST' else ''
     if search_query:
         parents = Parent.query.filter(
             (Parent.name.ilike(f'%{search_query}%')) |
@@ -206,7 +225,7 @@ def admin_parents():
         ).all()
     else:
         parents = Parent.query.all()
-    
+
     if request.form.get('export'):
         columns = [
             ('ID', 'id'),
@@ -221,10 +240,12 @@ def admin_parents():
 
     return render_template('admin_parents.html', parents=parents, search_query=search_query)
 
+
 @main.route('/admin/alumni', methods=['GET', 'POST'])
 @login_required
 def admin_alumni():
-    search_query = request.form.get('search', '') if request.method == 'POST' else ''
+    search_query = request.form.get(
+        'search', '') if request.method == 'POST' else ''
     if search_query:
         alumni = Alumni.query.filter(
             (Alumni.name.ilike(f'%{search_query}%')) |
@@ -233,7 +254,7 @@ def admin_alumni():
         ).all()
     else:
         alumni = Alumni.query.all()
-    
+
     if request.form.get('export'):
         columns = [
             ('ID', 'id'),
@@ -248,6 +269,7 @@ def admin_alumni():
 
     return render_template('admin_alumni.html', alumni=alumni, search_query=search_query)
 
+
 @main.route('/admin/download/<path:filename>')
 @login_required
 def download_file(filename):
@@ -259,22 +281,28 @@ def download_file(filename):
         return redirect(url_for('main.admin_admissions'))
 
 # ======== Core Application Routes ========
+
+
 @main.route('/')
 def index():
     feedback_list = Feedback.query.filter_by(approved=True).all()
     return render_template('index.html', feedback_list=feedback_list, current_page='index')
 
+
 @main.route('/about')
 def about():
     return render_template('about.html', current_page='about')
+
 
 @main.route('/school-life')
 def school_life():
     return render_template('school-life.html', current_page='school-life')
 
+
 @main.route('/fees')
 def fees():
     return render_template('fees.html', current_page='fees')
+
 
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -292,26 +320,31 @@ def contact():
                           body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
             try:
                 mail.send(msg)
-                main.logger.info(f"Contact form email sent successfully from {name} ({email})")
+                main.logger.info(
+                    f"Contact form email sent successfully from {name} ({email})")
                 return jsonify({'success': True, 'message': 'Message sent successfully! We will get back to you soon.', 'category': 'success'})
             except Exception as e:
-                main.logger.error(f"Failed to send contact form email from {name} ({email}): {str(e)}")
+                main.logger.error(
+                    f"Failed to send contact form email from {name} ({email}): {str(e)}")
                 return jsonify({'success': False, 'message': f'Message saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
         else:
             return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
-    
+
     return render_template('contact.html', current_page='contact')
+
 
 @main.route('/community', methods=['GET', 'POST'])
 def community():
     if request.method == 'POST':
         # Diagnostic logging for debugging form submissions
         try:
-            main.logger.info('Received community POST from %s', request.remote_addr)
+            main.logger.info('Received community POST from %s',
+                             request.remote_addr)
             main.logger.info('Form keys: %s', list(request.form.keys()))
             # Truncate long values for safety
             try:
-                truncated = {k: (v[:100] + '...' if len(v) > 100 else v) for k, v in request.form.items()}
+                truncated = {k: (v[:100] + '...' if len(v) > 100 else v)
+                             for k, v in request.form.items()}
                 main.logger.info('Form data (truncated): %s', truncated)
             except Exception:
                 main.logger.info('Unable to truncate form data')
@@ -343,10 +376,12 @@ def community():
                                   body=f"Name: {name}\nEmail: {email}\nStudent Name: {student_name}\nPhone: {phone}\nVolunteer Interest: {volunteer}")
                     try:
                         mail.send(msg)
-                        main.logger.info("Parent registration email sent successfully from %s (%s)", name, email)
+                        main.logger.info(
+                            "Parent registration email sent successfully from %s (%s)", name, email)
                         return jsonify({'success': True, 'message': 'Thank you for registering! We’ll be in touch soon.', 'category': 'success'})
                     except Exception as e:
-                        main.logger.error("Failed to send parent registration email from %s (%s): %s", name, email, str(e))
+                        main.logger.error(
+                            "Failed to send parent registration email from %s (%s): %s", name, email, str(e))
                         return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
                 else:
                     return jsonify({'success': False, 'message': 'Please provide name and email.', 'category': 'danger'})
@@ -355,7 +390,8 @@ def community():
             elif 'alumni_submit' in request.form:
                 name = request.form.get('name', '').strip()
                 email = request.form.get('email', '').strip()
-                graduation_year = request.form.get('graduation_year', '').strip()
+                graduation_year = request.form.get(
+                    'graduation_year', '').strip()
                 profession = request.form.get('profession', '').strip()
                 mentor = 'mentor' in request.form
 
@@ -379,20 +415,24 @@ def community():
                                   body=f"Name: {name}\nEmail: {email}\nGraduation Year: {graduation_year}\nProfession: {profession}\nMentorship Interest: {mentor}")
                     try:
                         mail.send(msg)
-                        main.logger.info("Alumni registration email sent successfully from %s (%s)", name, email)
+                        main.logger.info(
+                            "Alumni registration email sent successfully from %s (%s)", name, email)
                         return jsonify({'success': True, 'message': 'Thank you for joining the alumni network!', 'category': 'success'})
                     except Exception as e:
-                        main.logger.error("Failed to send alumni registration email from %s (%s): %s", name, email, str(e))
+                        main.logger.error(
+                            "Failed to send alumni registration email from %s (%s): %s", name, email, str(e))
                         return jsonify({'success': False, 'message': f'Registration saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
                 else:
                     return jsonify({'success': False, 'message': 'Please provide name, email, and graduation year.', 'category': 'danger'})
 
         except Exception as e:
             # Catch-all to ensure JSON is returned on unexpected server errors
-            main.logger.exception('Unhandled error in community POST handler: %s', str(e))
+            main.logger.exception(
+                'Unhandled error in community POST handler: %s', str(e))
             return jsonify({'success': False, 'message': 'Internal server error. Please try again later.', 'category': 'danger'}), 500
 
     return render_template('community.html', current_page='community')
+
 
 @main.route('/admissions', methods=['GET', 'POST'])
 def admissions():
@@ -440,22 +480,27 @@ def admissions():
         file_paths = {}
         total_attachment_size = 0
         for field, file in files.items():
-            main.logger.info(f"Processing file: {field} for student: {student_name}")
+            main.logger.info(
+                f"Processing file: {field} for student: {student_name}")
             if file and allowed_file(file.filename):
                 try:
                     filename = secure_filename(file.filename)
-                    file_path = os.path.join(UPLOAD_FOLDER, f"{field}_{student_name}_{filename}")
+                    file_path = os.path.join(
+                        UPLOAD_FOLDER, f"{field}_{student_name}_{filename}")
                     main.logger.info(f"Saving file: {filename} to {file_path}")
                     file.save(file_path)
                     file_paths[field + '_path'] = file_path
                     file_size = os.path.getsize(file_path)
                     total_attachment_size += file_size
-                    main.logger.info(f"File {filename} saved successfully. Size: {file_size} bytes")
+                    main.logger.info(
+                        f"File {filename} saved successfully. Size: {file_size} bytes")
                 except Exception as e:
-                    main.logger.error(f"Error saving file {file.filename} for student: {student_name}. Error: {str(e)}")
+                    main.logger.error(
+                        f"Error saving file {file.filename} for student: {student_name}. Error: {str(e)}")
                     return jsonify({'success': False, 'message': f'Error saving {field.replace("_", " ")}. Error: {str(e)}', 'category': 'danger'})
             elif field in ['birth_certificate', 'report_cards', 'medical_report', 'parent_id'] and not file:
-                main.logger.warning(f"Missing required file: {field} for student: {student_name}")
+                main.logger.warning(
+                    f"Missing required file: {field} for student: {student_name}")
                 return jsonify({'success': False, 'message': f'Please upload a valid {field.replace("_", " ")}.', 'category': 'danger'})
 
         if total_attachment_size > 25 * 1024 * 1024:
@@ -472,9 +517,11 @@ def admissions():
             form_level=form_level,
             previous_school=previous_school,
             last_grade=last_grade,
-            birth_certificate_path=file_paths.get('birth_certificate_path', ''),
+            birth_certificate_path=file_paths.get(
+                'birth_certificate_path', ''),
             report_cards_path=file_paths.get('report_cards_path', ''),
-            transfer_certificate_path=file_paths.get('transfer_certificate_path', ''),
+            transfer_certificate_path=file_paths.get(
+                'transfer_certificate_path', ''),
             medical_report_path=file_paths.get('medical_report_path', ''),
             parent_id_path=file_paths.get('parent_id_path', ''),
             message=message,
@@ -487,7 +534,8 @@ def admissions():
         system_code = str(uuid.uuid4())
 
         # Generate the admission PDF with payment instructions
-        admission_pdf = generate_admission_pdf(student_name, parent_name, form_level, system_code)
+        admission_pdf = generate_admission_pdf(
+            student_name, parent_name, form_level, system_code)
 
         # Send email to parent with the PDF
         msg_to_parent = Message(
@@ -511,7 +559,8 @@ def admissions():
             file_path = file_paths.get(field)
             if file_path:
                 file_extension = file_path.rsplit('.', 1)[1].lower()
-                content_type = 'application/pdf' if file_extension == 'pdf' else 'image/jpeg' if file_extension in ['jpg', 'jpeg'] else 'image/png'
+                content_type = 'application/pdf' if file_extension == 'pdf' else 'image/jpeg' if file_extension in [
+                    'jpg', 'jpeg'] else 'image/png'
                 with open(file_path, 'rb') as f:
                     msg_to_school.attach(
                         filename=f"{field}_{student_name}_{os.path.basename(file_path)}",
@@ -522,20 +571,24 @@ def admissions():
         try:
             mail.send(msg_to_parent)
             mail.send(msg_to_school)
-            main.logger.info(f"Admission application emails sent successfully to {email} and school")
-            main.logger.info("Admissions route: Application submitted successfully!")
+            main.logger.info(
+                f"Admission application emails sent successfully to {email} and school")
+            main.logger.info(
+                "Admissions route: Application submitted successfully!")
             return jsonify({'success': True, 'message': 'Application submitted successfully! Please check your email for payment instructions.', 'category': 'success'})
         except Exception as e:
-            main.logger.error(f"Failed to send admission application emails to {email} and school: {str(e)}")
+            main.logger.error(
+                f"Failed to send admission application emails to {email} and school: {str(e)}")
             return jsonify({'success': False, 'message': f'Application saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
 
     return render_template('admissions.html', current_page='admissions')
+
 
 @main.route('/family-visit', methods=['GET', 'POST'])
 def family_visit():
     if request.method == 'GET':
         return render_template('family_visit.html', current_page='family-visit')
-    
+
     # POST request handling for family visits
     main.logger.info("Submitting family visit application...")
     name = request.form.get('name', '').strip()
@@ -545,7 +598,8 @@ def family_visit():
     grade_level = request.form.get('grade_level', '').strip()
     date = request.form.get('date', '').strip()
     message = request.form.get('message', '')
-    main.logger.info(f"Family visit application received: Name: {name}, Email: {email}, Phone: {phone}, Student: {student_name}, Grade: {grade_level}, Date: {date}, Message: {message}")
+    main.logger.info(
+        f"Family visit application received: Name: {name}, Email: {email}, Phone: {phone}, Student: {student_name}, Grade: {grade_level}, Date: {date}, Message: {message}")
 
     if name and email and phone and date:
         subject = f"New Family Visit Request from {name}"
@@ -561,24 +615,28 @@ def family_visit():
                                    body=applicant_body)
 
         try:
-            main.logger.info(f"Sending family visit application emails to school and applicant ({email})")
+            main.logger.info(
+                f"Sending family visit application emails to school and applicant ({email})")
             mail.send(msg_to_school)
             mail.send(msg_to_applicant)
-            main.logger.info(f"Family visit application emails sent successfully to school and applicant ({email})")
+            main.logger.info(
+                f"Family visit application emails sent successfully to school and applicant ({email})")
             flash('Your family visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'success')
             return jsonify({'success': True, 'message': 'Your family visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success', 'flash': 'Your family visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'flash_category': 'success'})
         except Exception as e:
-            flash(f'Failed to submit your family visit request. Error: {str(e)}', 'danger')
+            flash(
+                f'Failed to submit your family visit request. Error: {str(e)}', 'danger')
             return jsonify({'success': False, 'message': f'Failed to submit your family visit request. Error: {str(e)}', 'category': 'danger', 'flash': f'Failed to submit your family visit request. Error: {str(e)}', 'flash_category': 'danger'})
     else:
         flash('Please fill out all required fields.', 'danger')
         return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger', 'flash': 'Please fill out all required fields.', 'flash_category': 'danger'})
 
+
 @main.route('/school-visit', methods=['GET', 'POST'])
 def school_visit():
     if request.method == 'GET':
         return render_template('school_visit.html', current_page='school-visit')
-    
+
     # POST request handling for school visits
     main.logger.info("Submitting school visit application...")
     organization = request.form.get('organization', '').strip()
@@ -590,7 +648,8 @@ def school_visit():
     date = request.form.get('date', '').strip()
     participants = request.form.get('participants', '').strip()
     message = request.form.get('message', '')
-    main.logger.info(f"School visit application received: Organization: {organization}, Contact: {name}, Position: {position}, Email: {email}, Phone: {phone}, Purpose: {visit_purpose}, Date: {date}, Participants: {participants}, Message: {message}")
+    main.logger.info(
+        f"School visit application received: Organization: {organization}, Contact: {name}, Position: {position}, Email: {email}, Phone: {phone}, Purpose: {visit_purpose}, Date: {date}, Participants: {participants}, Message: {message}")
 
     if organization and name and position and email and phone and visit_purpose and date:
         subject = f"Institutional Visit Request: {organization}"
@@ -606,26 +665,31 @@ def school_visit():
                                    body=applicant_body)
 
         try:
-            main.logger.info(f"Sending school visit application emails to school and applicant ({email})")
+            main.logger.info(
+                f"Sending school visit application emails to school and applicant ({email})")
             mail.send(msg_to_school)
             mail.send(msg_to_applicant)
-            main.logger.info(f"School visit application emails sent successfully to school and applicant ({email})")
+            main.logger.info(
+                f"School visit application emails sent successfully to school and applicant ({email})")
             flash('Your institutional visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'success')
             return jsonify({'success': True, 'message': 'Your institutional visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'category': 'success', 'flash': 'Your institutional visit request has been submitted successfully! A confirmation email has been sent to your inbox.', 'flash_category': 'success'})
         except Exception as e:
-            flash(f'Failed to submit your institutional visit request. Error: {str(e)}', 'danger')
+            flash(
+                f'Failed to submit your institutional visit request. Error: {str(e)}', 'danger')
             return jsonify({'success': False, 'message': f'Failed to submit your institutional visit request. Error: {str(e)}', 'category': 'danger', 'flash': f'Failed to submit your institutional visit request. Error: {str(e)}', 'flash_category': 'danger'})
     else:
         flash('Please fill out all required fields.', 'danger')
         return jsonify({'success': False, 'message': 'Please fill out all required fields.', 'category': 'danger', 'flash': 'Please fill out all required fields.', 'flash_category': 'danger'})
+
+
 @main.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
     main.logger.info("Submitting feedback...")
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     feedback = request.form.get('feedback', '').strip()
-    main.logger.info(f"Feedback received: Name: {name}, Email: {email}, Feedback: {feedback}")
-
+    main.logger.info(
+        f"Feedback received: Name: {name}, Email: {email}, Feedback: {feedback}")
 
     if name and email and feedback:
         msg = Message(subject=f"New Feedback from {name}",
@@ -633,14 +697,18 @@ def submit_feedback():
                       body=f"Name: {name}\nEmail: {email}\nFeedback: {feedback}")
         try:
             mail.send(msg)
-            main.logger.info(f"Feedback email sent successfully from {name} ({email})")
+            main.logger.info(
+                f"Feedback email sent successfully from {name} ({email})")
             return jsonify({'success': True, 'message': 'Thank you for your feedback!', 'category': 'success'})
         except Exception as e:
-            main.logger.error(f"Failed to send feedback email from {name} ({email}). Error: {str(e)}")
+            main.logger.error(
+                f"Failed to send feedback email from {name} ({email}). Error: {str(e)}")
             return jsonify({'success': False, 'message': f'Failed to send your feedback. Error: {str(e)}', 'category': 'danger'})
     else:
-        main.logger.warning("Feedback submission failed: Please fill out all fields.")
+        main.logger.warning(
+            "Feedback submission failed: Please fill out all fields.")
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
+
 
 @main.route('/submit_contact', methods=['POST'])
 def submit_contact():
@@ -649,8 +717,8 @@ def submit_contact():
     name = request.form.get('name', '').strip()
     email = request.form.get('email', '').strip()
     message = request.form.get('message', '').strip()
-    main.logger.info(f"Contact form received: Name: {name}, Email: {email}, Message: {message}")
-
+    main.logger.info(
+        f"Contact form received: Name: {name}, Email: {email}, Message: {message}")
 
     if name and email and message:
         new_contact = Contact(name=name, email=email, message=message)
@@ -660,38 +728,44 @@ def submit_contact():
                       recipients=['fmlibermann@gmail.com'],
                       body=f"Name: {name}\nEmail: {email}\nMessage: {message}")
         try:
-            main.logger.info(f"Sending contact form email from {name} ({email})")
+            main.logger.info(
+                f"Sending contact form email from {name} ({email})")
             mail.send(msg)
-            main.logger.info(f"Contact form email sent successfully from {name} ({email})")
+            main.logger.info(
+                f"Contact form email sent successfully from {name} ({email})")
             msg_str = 'Your message has been sent successfully! We will get back to you soon.'
             flash(msg_str, 'success')
             return jsonify({
-                'success': True, 
-                'message': msg_str, 
+                'success': True,
+                'message': msg_str,
                 'category': 'success'
             })
         except Exception as e:
-            main.logger.error(f"Failed to send contact form email from {name} ({email}). Error: {str(e)}")
+            main.logger.error(
+                f"Failed to send contact form email from {name} ({email}). Error: {str(e)}")
             msg_str = f'Failed to send your message. Error: {str(e)}'
             flash(msg_str, 'danger')
             return jsonify({
-                'success': False, 
-                'message': msg_str, 
+                'success': False,
+                'message': msg_str,
                 'category': 'danger'
             })
     else:
-        main.logger.warning("Contact form submission failed: Please fill out all fields.")
+        main.logger.warning(
+            "Contact form submission failed: Please fill out all fields.")
         msg_str = 'Please fill out all fields.'
         flash(msg_str, 'danger')
         return jsonify({
-            'success': False, 
-            'message': msg_str, 
+            'success': False,
+            'message': msg_str,
             'category': 'danger'
         })
+
 
 @main.route('/events')
 def events():
     return render_template('events.html', current_page='events')
+
 
 @main.route('/submit_volunteer', methods=['POST'])
 def submit_volunteer():
@@ -706,13 +780,16 @@ def submit_volunteer():
                       body=f"Name: {name}\nEmail: {email}\nPhone: {phone}\nArea of Interest: {interest}")
         try:
             mail.send(msg)
-            main.logger.info(f"Volunteer sign-up email sent successfully from {name} ({email})")
+            main.logger.info(
+                f"Volunteer sign-up email sent successfully from {name} ({email})")
             return jsonify({'success': True, 'message': 'Thank you for signing up to volunteer! We’ll be in touch soon.', 'category': 'success'})
         except Exception as e:
-            main.logger.error(f"Failed to send volunteer sign-up email from {name} ({email}): {str(e)}")
+            main.logger.error(
+                f"Failed to send volunteer sign-up email from {name} ({email}): {str(e)}")
             return jsonify({'success': False, 'message': f'Failed to send your volunteer sign-up. Error: {str(e)}', 'category': 'danger'})
     else:
         return jsonify({'success': False, 'message': 'Please fill out all fields.', 'category': 'danger'})
+
 
 @main.route('/feedback', methods=['GET', 'POST'])
 def feedback():
@@ -740,13 +817,15 @@ def feedback():
                 if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                     return jsonify({'success': True, 'message': 'Feedback submitted for moderation. Thank you for your input!', 'category': 'success'})
                 else:
-                    flash('Feedback submitted for moderation. Thank you for your input!', 'success')
+                    flash(
+                        'Feedback submitted for moderation. Thank you for your input!', 'success')
                     return redirect(url_for('main.feedback'))
             except Exception as e:
                 if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                     return jsonify({'success': False, 'message': f'Feedback saved, but failed to send email. Error: {str(e)}', 'category': 'warning'})
                 else:
-                    flash(f'Feedback saved, but failed to send email. Error: {str(e)}', 'warning')
+                    flash(
+                        f'Feedback saved, but failed to send email. Error: {str(e)}', 'warning')
                     return redirect(url_for('main.feedback'))
         else:
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -759,6 +838,7 @@ def feedback():
     return render_template('student-feedback.html',
                            feedback_list=approved_feedback,
                            current_page='feedback')
+
 
 @main.route('/subscribe', methods=['POST'])
 def subscribe():
@@ -799,16 +879,19 @@ def subscribe():
             body=f"A new user has subscribed to the newsletter.\nEmail: {email}"
         )
         mail.send(msg_to_school)
-        main.logger.info(f"Newsletter subscription email sent successfully to {email} and school")
+        main.logger.info(
+            f"Newsletter subscription email sent successfully to {email} and school")
 
         return jsonify({'success': True, 'category': 'success', 'message': 'Thank you for subscribing! A confirmation email has been sent.'})
     except Exception as e:
         db.session.rollback()
-        main.logger.error(f"Failed to send newsletter subscription emails to {email} and school: {str(e)}")
+        main.logger.error(
+            f"Failed to send newsletter subscription emails to {email} and school: {str(e)}")
         return jsonify({'success': False, 'category': 'danger', 'message': f'An error occurred: {str(e)}'}), 500
-    
 
     # ======== Delete Routes ========
+
+
 @main.route('/admin/parents/delete/<int:parent_id>', methods=['POST'])
 @login_required
 def delete_parent(parent_id):
@@ -817,6 +900,7 @@ def delete_parent(parent_id):
     db.session.commit()
     flash('Parent registration deleted successfully!', 'success')
     return redirect(url_for('main.admin_parents'))
+
 
 @main.route('/admin/alumni/delete/<int:alumni_id>', methods=['POST'])
 @login_required
@@ -827,11 +911,12 @@ def delete_alumni(alumni_id):
     flash('Alumni registration deleted successfully!', 'success')
     return redirect(url_for('main.admin_alumni'))
 
+
 @main.route('/admin/admissions/delete/<int:app_id>', methods=['POST'])
 @login_required
 def delete_admission(app_id):
     application = AdmissionInquiry.query.get_or_404(app_id)
-    
+
     # Delete associated files
     files_to_delete = [
         application.birth_certificate_path,
@@ -840,18 +925,19 @@ def delete_admission(app_id):
         application.medical_report_path,
         application.parent_id_path
     ]
-    
+
     for file_path in files_to_delete:
         if file_path and os.path.exists(file_path):
             try:
                 os.remove(file_path)
             except Exception as e:
                 main.logger.error(f"Error deleting file {file_path}: {str(e)}")
-    
+
     db.session.delete(application)
     db.session.commit()
     flash('Admission application deleted successfully!', 'success')
     return redirect(url_for('main.admin_admissions'))
+
 
 @main.route('/admin/contacts/delete/<int:contact_id>', methods=['POST'])
 @login_required
@@ -861,3 +947,50 @@ def delete_contact(contact_id):
     db.session.commit()
     flash('Contact message deleted successfully!', 'success')
     return redirect(url_for('main.admin_contacts'))
+
+
+# ================== SITEMAP ==================
+@main.route('/sitemap.xml')
+def sitemap():
+    """Generate dynamic sitemap.xml – Google loves this"""
+    pages = [
+        # url                  lastmod       changefreq   priority
+        ("https://francismariazanzibar.ac.tz/",
+         "2025-12-10", "daily",    "1.0"),
+        ("https://francismariazanzibar.ac.tz/about",
+         "2025-12-10", "monthly",  "0.8"),
+        ("https://francismariazanzibar.ac.tz/admissions",
+         "2025-12-10", "weekly",   "0.9"),
+        ("https://francismariazanzibar.ac.tz/school-life",
+         "2025-12-10", "monthly",  "0.7"),
+        ("https://francismariazanzibar.ac.tz/fees",
+         "2025-12-10", "monthly",  "0.8"),
+        ("https://francismariazanzibar.ac.tz/contact",
+         "2025-12-10", "monthly",  "0.7"),
+        ("https://francismariazanzibar.ac.tz/community",
+         "2025-12-10", "monthly",  "0.7"),
+        ("https://francismariazanzibar.ac.tz/events",
+         "2025-12-10", "weekly",   "0.8"),
+        ("https://francismariazanzibar.ac.tz/family-visit",
+         "2025-12-10", "monthly",  "0.6"),
+        ("https://francismariazanzibar.ac.tz/school-visit",
+         "2025-12-10", "monthly",  "0.6"),
+        ("https://francismariazanzibar.ac.tz/feedback",
+         "2025-12-10", "monthly",  "0.6"),
+    ]
+
+    xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'''
+
+    for url, lastmod, changefreq, priority in pages:
+        xml += f"""
+  <url>
+    <loc>{url}</loc>
+    <lastmod>{lastmod}</lastmod>
+    <changefreq>{changefreq}</changefreq>
+    <priority>{priority}</priority>
+  </url>"""
+
+    xml += "\n</urlset>"
+
+    return Response(xml, mimetype='application/xml')

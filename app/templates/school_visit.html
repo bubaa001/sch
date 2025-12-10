@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}school_visit - Francis Maria Libermann School Zanzibar{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section id="school-visit-hero" class="hero">
@@ -7,7 +9,8 @@
     <div class="hero-content container text-center">
         <h1 class="animate__animated animate__fadeInDown">Schedule an Institutional Visit</h1>
         <p class="lead animate__animated animate__fadeInUp">
-            Welcome educational partners! Experience our campus and explore collaboration opportunities with Francis Maria Libermann School.
+            Welcome educational partners! Experience our campus and explore collaboration opportunities with Francis
+            Maria Libermann School.
         </p>
     </div>
 </section>
@@ -17,7 +20,8 @@
     <div class="container">
         <h2 class="section-title">Request an Institutional Visit</h2>
         <p class="text-center mb-5">
-            Fill out the form below to schedule your institutional visit. We'll contact you to discuss collaboration opportunities and confirm the details.
+            Fill out the form below to schedule your institutional visit. We'll contact you to discuss collaboration
+            opportunities and confirm the details.
         </p>
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -26,7 +30,8 @@
                         <input type="hidden" name="visit_type" value="school">
                         <div class="mb-3">
                             <label for="organization" class="form-label">School/Organization Name *</label>
-                            <input type="text" class="form-control" id="organization" name="organization" required placeholder="Enter your school or organization name">
+                            <input type="text" class="form-control" id="organization" name="organization" required
+                                placeholder="Enter your school or organization name">
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Contact Person Full Name *</label>
@@ -34,7 +39,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="position" class="form-label">Position/Title *</label>
-                            <input type="text" class="form-control" id="position" name="position" required placeholder="e.g., Principal, Head Teacher, Director">
+                            <input type="text" class="form-control" id="position" name="position" required
+                                placeholder="e.g., Principal, Head Teacher, Director">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address *</label>
@@ -62,11 +68,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="participants" class="form-label">Number of Participants</label>
-                            <input type="number" class="form-control" id="participants" name="participants" min="1" placeholder="Approximate number of people">
+                            <input type="number" class="form-control" id="participants" name="participants" min="1"
+                                placeholder="Approximate number of people">
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Areas of Interest & Objectives</label>
-                            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your institution, specific areas of interest, objectives for the visit, and any collaboration opportunities you'd like to explore..."></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="4"
+                                placeholder="Tell us about your institution, specific areas of interest, objectives for the visit, and any collaboration opportunities you'd like to explore..."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Institutional Visit Request</button>
                     </form>
@@ -85,7 +93,8 @@
                 <div class="card h-100 glass-card">
                     <div class="card-body">
                         <h4><i class="fas fa-handshake me-2"></i>Partnership Meetings</h4>
-                        <p>Meet with our leadership team to discuss potential collaborations, partnerships, and knowledge sharing.</p>
+                        <p>Meet with our leadership team to discuss potential collaborations, partnerships, and
+                            knowledge sharing.</p>
                     </div>
                 </div>
             </div>
@@ -101,7 +110,8 @@
                 <div class="card h-100 glass-card">
                     <div class="card-body">
                         <h4><i class="fas fa-building me-2"></i>Facilities Tour</h4>
-                        <p>Comprehensive tour of classrooms, laboratories, boarding facilities, and administrative areas.</p>
+                        <p>Comprehensive tour of classrooms, laboratories, boarding facilities, and administrative
+                            areas.</p>
                     </div>
                 </div>
             </div>
@@ -128,17 +138,23 @@
                     <div class="row">
                         <div class="col-md-6">
                             <ul>
-                                <li><strong>Teacher Exchange Programs</strong> - Share best practices and teaching methodologies</li>
-                                <li><strong>Student Exchange Programs</strong> - Cultural and academic exchange opportunities</li>
-                                <li><strong>Curriculum Development</strong> - Joint development of educational materials</li>
-                                <li><strong>Professional Development</strong> - Joint training and workshops for staff</li>
+                                <li><strong>Teacher Exchange Programs</strong> - Share best practices and teaching
+                                    methodologies</li>
+                                <li><strong>Student Exchange Programs</strong> - Cultural and academic exchange
+                                    opportunities</li>
+                                <li><strong>Curriculum Development</strong> - Joint development of educational materials
+                                </li>
+                                <li><strong>Professional Development</strong> - Joint training and workshops for staff
+                                </li>
                             </ul>
                         </div>
                         <div class="col-md-6">
                             <ul>
                                 <li><strong>Research Collaboration</strong> - Joint educational research projects</li>
-                                <li><strong>Sports & Cultural Events</strong> - Inter-school competitions and events</li>
-                                <li><strong>Resource Sharing</strong> - Sharing of educational resources and facilities</li>
+                                <li><strong>Sports & Cultural Events</strong> - Inter-school competitions and events
+                                </li>
+                                <li><strong>Resource Sharing</strong> - Sharing of educational resources and facilities
+                                </li>
                                 <li><strong>Community Outreach</strong> - Joint community service projects</li>
                             </ul>
                         </div>
@@ -153,7 +169,8 @@
 <section id="contact-info" class="section bg-light" data-aos="fade-up">
     <div class="container text-center">
         <h2 class="section-title">Partnership Inquiries</h2>
-        <p class="mb-4">Our Partnerships & Institutional Relations Team is here to assist with your institutional visit and collaboration inquiries.</p>
+        <p class="mb-4">Our Partnerships & Institutional Relations Team is here to assist with your institutional visit
+            and collaboration inquiries.</p>
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="glass-card p-4">
@@ -185,13 +202,13 @@
 {% block scripts %}
 <script>
     // Set minimum date to today
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('date').min = today;
     });
 
     // Form validation
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', function (e) {
         const requiredFields = [
             { id: 'organization', name: 'School/Organization Name' },
             { id: 'name', name: 'Contact Person Full Name' },

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}student-feedback - Francis Maria Libermann School Zanzibar{% endblock %}
+
 {% block content %}
 <!-- Feedback Section -->
 <section id="feedback" class="section bg-light" data-aos="fade-up">
@@ -30,7 +32,8 @@
                         <div class="mb-3">
                             <label for="rating" class="form-label">Rating</label>
                             <div class="star-rating">
-                                <input type="radio" id="star1" name="rating" value="1" required><label for="star1">★</label>
+                                <input type="radio" id="star1" name="rating" value="1" required><label
+                                    for="star1">★</label>
                                 <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
                                 <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
                                 <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
@@ -54,17 +57,17 @@
                 <div class="glass-card p-4">
                     <h3>Feedback Summary</h3>
                     {% if feedback_list %}
-                        {% set total = feedback_list | map(attribute='rating') | list %}
-                        {% set average = total | sum / total | length %}
-                        <p><strong>Average Rating:</strong> {{ average | round(1) }} / 5</p>
-                        <div class="star-display">
-                            {% for i in range(1, 6) %}
-                                <span class="star {% if i <= average %}filled{% endif %}">★</span>
-                            {% endfor %}
-                        </div>
-                        <p><strong>Total Feedback:</strong> {{ feedback_list | length }}</p>
+                    {% set total = feedback_list | map(attribute='rating') | list %}
+                    {% set average = total | sum / total | length %}
+                    <p><strong>Average Rating:</strong> {{ average | round(1) }} / 5</p>
+                    <div class="star-display">
+                        {% for i in range(1, 6) %}
+                        <span class="star {% if i <= average %}filled{% endif %}">★</span>
+                        {% endfor %}
+                    </div>
+                    <p><strong>Total Feedback:</strong> {{ feedback_list | length }}</p>
                     {% else %}
-                        <p>No feedback available yet. Be the first to share your thoughts!</p>
+                    <p>No feedback available yet. Be the first to share your thoughts!</p>
                     {% endif %}
                 </div>
             </div>
@@ -77,33 +80,33 @@
     <div class="container">
         <h2 class="section-title">What Our Community Says</h2>
         {% if feedback_list %}
-            <div id="feedbackCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    {% for feedback in feedback_list %}
-                        <div class="carousel-item {% if loop.first %}active{% endif %}">
-                            <div class="glass-card p-4 text-center">
-                                <p>“{{ feedback.comment }}”</p>
-                                <h5>{{ feedback.name }} ({{ feedback.role | capitalize }})</h5>
-                                <div class="star-display">
-                                    {% for i in range(1, 6) %}
-                                        <span class="star {% if i <= feedback.rating %}filled{% endif %}">★</span>
-                                    {% endfor %}
-                                </div>
-                            </div>
+        <div id="feedbackCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for feedback in feedback_list %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <div class="glass-card p-4 text-center">
+                        <p>“{{ feedback.comment }}”</p>
+                        <h5>{{ feedback.name }} ({{ feedback.role | capitalize }})</h5>
+                        <div class="star-display">
+                            {% for i in range(1, 6) %}
+                            <span class="star {% if i <= feedback.rating %}filled{% endif %}">★</span>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                {% endfor %}
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#feedbackCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
         {% else %}
-            <p class="text-center">No approved feedback yet. Submit yours today!</p>
+        <p class="text-center">No approved feedback yet. Submit yours today!</p>
         {% endif %}
     </div>
 </section>
@@ -111,40 +114,47 @@
 
 {% block styles %}
 <style>
-.star-rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    gap: 5px;
-}
-.star-rating input[type="radio"] {
-    display: none;
-}
-.star-rating label {
-    font-size: 2rem;
-    color: #ccc;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.star-rating input[type="radio"]:checked ~ label,
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-    color: #f5c518;
-}
-.star-display {
-    display: flex;
-    gap: 2px;
-}
-.star-display .star {
-    font-size: 1.5rem;
-    color: #ccc;
-}
-.star-display .star.filled {
-    color: #f5c518;
-}
-.rating-labels {
-    font-size: 0.8rem;
-    color: #666;
-}
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        gap: 5px;
+    }
+
+    .star-rating input[type="radio"] {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 2rem;
+        color: #ccc;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .star-rating input[type="radio"]:checked~label,
+    .star-rating label:hover,
+    .star-rating label:hover~label {
+        color: #f5c518;
+    }
+
+    .star-display {
+        display: flex;
+        gap: 2px;
+    }
+
+    .star-display .star {
+        font-size: 1.5rem;
+        color: #ccc;
+    }
+
+    .star-display .star.filled {
+        color: #f5c518;
+    }
+
+    .rating-labels {
+        font-size: 0.8rem;
+        color: #666;
+    }
 </style>
 {% endblock %}

@@ -1,15 +1,18 @@
 {% extends "base.html" %}
+{% block title %}community - Francis Maria Libermann School Zanzibar{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section id="community-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/obliqueshot.JPG') }}'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+<section id="community-hero" class="hero"
+    style="background-image: url('{{ url_for('static', filename='assets/obliqueshot.JPG') }}'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
     <div class="hero-overlay"></div>
     <div class="hero-content container text-center">
         <h1 class="animate__animated animate__fadeInDown">Join Our Libermann Community</h1>
         <p class="lead animate__animated animate__fadeInUp">
             Connect with parents, alumni, and volunteers to make a lasting impact.
         </p>
-        <a href="#join-community" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">Get Involved</a>
+        <a href="#join-community" class="btn btn-primary btn-lg mt-3 animate__animated animate__fadeInUp">Get
+            Involved</a>
     </div>
 </section>
 
@@ -94,7 +97,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="graduation_year" class="form-label">Graduation Year</label>
-                            <input type="number" class="form-control" id="graduation_year" name="graduation_year" required>
+                            <input type="number" class="form-control" id="graduation_year" name="graduation_year"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="profession" class="form-label">Profession</label>
@@ -123,7 +127,7 @@
                     <p>Our parent committee is planning a spectacular Family Day on May 10, 2025. Volunteers needed!</p>
                     <small>Posted on April 10, 2025</small>
                 </div>
-               
+
             </div>
         </div>
     </div>

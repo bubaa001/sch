@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}visit_request - Francis Maria Libermann School Zanzibar{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section id="visit-hero" class="hero">
@@ -7,7 +9,8 @@
     <div class="hero-content container text-center">
         <h1 class="animate__animated animate__fadeInDown">Schedule a Visit</h1>
         <p class="lead animate__animated animate__fadeInUp">
-            Experience Francis Maria Libermann School firsthand. Schedule a personalized tour of our campus and facilities.
+            Experience Francis Maria Libermann School firsthand. Schedule a personalized tour of our campus and
+            facilities.
         </p>
     </div>
 </section>
@@ -41,7 +44,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Additional Information (Optional)</label>
-                            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your interests, questions, or any specific areas you'd like to see..."></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="4"
+                                placeholder="Tell us about your interests, questions, or any specific areas you'd like to see..."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Visit Request</button>
                     </form>
@@ -60,7 +64,8 @@
                 <div class="card h-100 glass-card">
                     <div class="card-body">
                         <h4><i class="fas fa-clock me-2"></i>Tour Duration</h4>
-                        <p>Our guided tours typically last 60-90 minutes, giving you ample time to explore our campus and ask questions.</p>
+                        <p>Our guided tours typically last 60-90 minutes, giving you ample time to explore our campus
+                            and ask questions.</p>
                     </div>
                 </div>
             </div>
@@ -68,7 +73,8 @@
                 <div class="card h-100 glass-card">
                     <div class="card-body">
                         <h4><i class="fas fa-map-marked-alt me-2"></i>Campus Highlights</h4>
-                        <p>You'll visit classrooms, science labs, boarding facilities, sports fields, and our beautiful chapel.</p>
+                        <p>You'll visit classrooms, science labs, boarding facilities, sports fields, and our beautiful
+                            chapel.</p>
                     </div>
                 </div>
             </div>
@@ -76,7 +82,8 @@
                 <div class="card h-100 glass-card">
                     <div class="card-body">
                         <h4><i class="fas fa-users me-2"></i>Meet Our Team</h4>
-                        <p>You'll have the opportunity to meet with our Admissions Team and current student ambassadors.</p>
+                        <p>You'll have the opportunity to meet with our Admissions Team and current student ambassadors.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -128,13 +135,13 @@
 {% block scripts %}
 <script>
     // Set minimum date to today
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('date').min = today;
     });
 
     // Form validation
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', function (e) {
         const requiredFields = [
             { id: 'name', name: 'Full Name' },
             { id: 'email', name: 'Email Address' },

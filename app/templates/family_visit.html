@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}family_visit - Francis Maria Libermann School Zanzibar{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section id="family-visit-hero" class="hero">
@@ -7,7 +9,8 @@
     <div class="hero-content container text-center">
         <h1 class="animate__animated animate__fadeInDown">Schedule a Family Visit</h1>
         <p class="lead animate__animated animate__fadeInUp">
-            Experience Francis Maria Libermann School firsthand. Schedule a personalized tour for your family and discover our vibrant community.
+            Experience Francis Maria Libermann School firsthand. Schedule a personalized tour for your family and
+            discover our vibrant community.
         </p>
     </div>
 </section>
@@ -17,7 +20,8 @@
     <div class="container">
         <h2 class="section-title">Request a Family Campus Visit</h2>
         <p class="text-center mb-5">
-            Fill out the form below to schedule your family visit. We'll contact you to confirm the details and prepare a personalized tour.
+            Fill out the form below to schedule your family visit. We'll contact you to confirm the details and prepare
+            a personalized tour.
         </p>
         <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -38,7 +42,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="student_name" class="form-label">Student Name (if applicable)</label>
-                            <input type="text" class="form-control" id="student_name" name="student_name" placeholder="Name of prospective student">
+                            <input type="text" class="form-control" id="student_name" name="student_name"
+                                placeholder="Name of prospective student">
                         </div>
                         <div class="mb-3">
                             <label for="grade_level" class="form-label">Interested Grade Level</label>
@@ -57,7 +62,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Questions or Special Requests</label>
-                            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Tell us about your interests, specific areas you'd like to see, or any questions you have..."></textarea>
+                            <textarea class="form-control" id="message" name="message" rows="4"
+                                placeholder="Tell us about your interests, specific areas you'd like to see, or any questions you have..."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit Family Visit Request</button>
                     </form>
@@ -76,7 +82,8 @@
                 <div class="card h-100 glass-card">
                     <div class="card-body">
                         <h4><i class="fas fa-home me-2"></i>Family-Focused Tour</h4>
-                        <p>Our tours are designed specifically for families, focusing on areas that matter most to parents and students.</p>
+                        <p>Our tours are designed specifically for families, focusing on areas that matter most to
+                            parents and students.</p>
                     </div>
                 </div>
             </div>
@@ -112,7 +119,8 @@
 <section id="contact-info" class="section bg-white" data-aos="fade-up">
     <div class="container text-center">
         <h2 class="section-title">Need Immediate Assistance?</h2>
-        <p class="mb-4">Our Admissions Team is here to help you with any questions about scheduling your family visit.</p>
+        <p class="mb-4">Our Admissions Team is here to help you with any questions about scheduling your family visit.
+        </p>
         <div class="row">
             <div class="col-md-4 mb-4">
                 <div class="glass-card p-4">
@@ -144,13 +152,13 @@
 {% block scripts %}
 <script>
     // Set minimum date to today
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('date').min = today;
     });
 
     // Form validation
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', function (e) {
         const requiredFields = [
             { id: 'name', name: 'Parent/Guardian Full Name' },
             { id: 'email', name: 'Email Address' },

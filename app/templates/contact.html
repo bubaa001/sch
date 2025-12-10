@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}FML School - Contact{% endblock %}
+{% block title %}contact - Francis Maria Libermann School Zanzibar{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section id="contact-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/frontal.JPG') }}'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+<section id="contact-hero" class="hero"
+    style="background-image: url('{{ url_for('static', filename='assets/frontal.JPG') }}'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 80vh; display: flex; align-items: center; justify-content: center;">
     <div class="hero-overlay"></div>
     <div class="hero-content container text-center">
-        <h1 class="animate__animated animate__fadeInDown" data-translate="Get in Touch">Get in Touch with Francis Maria Libermann School</h1>
-        <p class="lead animate__animated animate__fadeInUp" data-translate="We’d love to hear from you! Reach out with any questions or inquiries.">
-            We’d love to hear from you! Whether you have questions about admissions, school programs, or events, feel free to reach out.
+        <h1 class="animate__animated animate__fadeInDown" data-translate="Get in Touch">Get in Touch with Francis Maria
+            Libermann School</h1>
+        <p class="lead animate__animated animate__fadeInUp"
+            data-translate="We’d love to hear from you! Reach out with any questions or inquiries.">
+            We’d love to hear from you! Whether you have questions about admissions, school programs, or events, feel
+            free to reach out.
         </p>
     </div>
 </section>
@@ -23,11 +27,19 @@
                 <div class="glass-card p-4">
                     <h3 data-translate="Contact Information">Contact Information</h3>
                     <ul class="list-unstyled">
-                        <li><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> <span data-translate="Shehia of Tomondo, in western district, in urban western Region.">Shehia of Tomondo, in western district, in urban western Region.</span></li>
-                        <li><i class="fas fa-phone me-2" aria-hidden="true"></i> <span data-translate="+255 658 638 938, +255 713 616 049">+255 658 638 938, +255 713 616 049</span></li>
-                        <li><i class="fas fa-whatsapp me-2" aria-hidden="true"></i> <span data-translate="+255 713 616 049">+255 753 638 938(WhatsApp)</span></li>
-                        <li><i class="fas fa-envelope me-2" aria-hidden="true"></i> <a href="fmlibermann@gmail.com" data-translate="fmlibermann@gmail.com">fmlibermann@gmail.com</a></li>
-                        <li><i class="fas fa-clock me-2" aria-hidden="true"></i> <span data-translate="Office Hours">Mon-Fri, 8:00 AM - 4:00 PM; Sat, 9:00 AM - 1:00 PM</span></li>
+                        <li><i class="fas fa-map-marker-alt me-2" aria-hidden="true"></i> <span
+                                data-translate="Shehia of Tomondo, in western district, in urban western Region.">Shehia
+                                of Tomondo, in western district, in urban western Region.</span></li>
+                        <li><i class="fas fa-phone me-2" aria-hidden="true"></i> <span
+                                data-translate="+255 658 638 938, +255 713 616 049">+255 658 638 938, +255 713 616
+                                049</span></li>
+                        <li><i class="fas fa-whatsapp me-2" aria-hidden="true"></i> <span
+                                data-translate="+255 713 616 049">+255 753 638 938(WhatsApp)</span></li>
+                        <li><i class="fas fa-envelope me-2" aria-hidden="true"></i> <a href="fmlibermann@gmail.com"
+                                data-translate="fmlibermann@gmail.com">fmlibermann@gmail.com</a></li>
+                        <li><i class="fas fa-clock me-2" aria-hidden="true"></i> <span
+                                data-translate="Office Hours">Mon-Fri, 8:00 AM - 4:00 PM; Sat, 9:00 AM - 1:00 PM</span>
+                        </li>
                     </ul>
                     <div class="mt-3">
                         <a href="https://wa.me/255753638938" class="btn btn-success btn-sm" target="_blank">
@@ -37,7 +49,8 @@
                     <div class="mt-4">
                         <h4 data-translate="Follow Us">Follow Us</h4>
                         <div class="social-links">
-                            <a href="https://www.instagram.com/fmlibermann/?hl=en" target="_blank" aria-label="Instagram"><i class="fab fa-instagram me-2"></i></a>
+                            <a href="https://www.instagram.com/fmlibermann/?hl=en" target="_blank"
+                                aria-label="Instagram"><i class="fab fa-instagram me-2"></i></a>
                             <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f me-2"></i></a>
                             <a href="#" aria-label="Twitter"><i class="fab fa-twitter me-2"></i></a>
                             <a href="#" aria-label="YouTube"><i class="fab fa-youtube me-2"></i></a>
@@ -62,7 +75,8 @@
                             <label for="message" class="form-label" data-translate="Message">Message</label>
                             <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" data-translate="Send Message">Send Message</button>
+                        <button type="submit" class="btn btn-primary" data-translate="Send Message">Send
+                            Message</button>
                     </form>
                 </div>
             </div>
@@ -73,25 +87,31 @@
             <div class="accordion" id="contactFAQ">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="faq1">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" data-translate="How can I schedule a campus visit?">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse1" data-translate="How can I schedule a campus visit?">
                             How can I schedule a campus visit?
                         </button>
                     </h2>
                     <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#contactFAQ">
                         <div class="accordion-body">
-                            You can schedule a campus visit by filling out the form in the <a href="#arrange-visit" data-translate="Arrange a Visit">Arrange a Visit</a> section below or by calling us at +255 658 638 938, +255 713 616 049.
+                            You can schedule a campus visit by filling out the form in the <a href="#arrange-visit"
+                                data-translate="Arrange a Visit">Arrange a Visit</a> section below or by calling us at
+                            +255 658 638 938, +255 713 616 049.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="faq2">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" data-translate="What are the school fees for 2025?">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse2" data-translate="What are the school fees for 2025?">
                             What are the school fees for 2025?
                         </button>
                     </h2>
                     <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
                         <div class="accordion-body">
-                            For detailed information on school fees, please contact our office directly at <a href="mailto:fmlibermann@gmail.com">fmlibermann@gmail.com</a> or visit us during office hours.
+                            For detailed information on school fees, please contact our office directly at <a
+                                href="mailto:fmlibermann@gmail.com">fmlibermann@gmail.com</a> or visit us during office
+                            hours.
                         </div>
                     </div>
                 </div>
@@ -100,9 +120,13 @@
         <!-- Map Section -->
         <div class="text-center mt-5">
             <h3 data-translate="Our Location">Our Location</h3>
-            <p data-translate="Visit us in Shehia of Tomondo, just a short drive from Stone Town.">Visit us in Shehia of Tomondo, just a short drive from Stone Town.</p>
+            <p data-translate="Visit us in Shehia of Tomondo, just a short drive from Stone Town.">Visit us in Shehia of
+                Tomondo, just a short drive from Stone Town.</p>
             <div class="map-placeholder">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1020.0893793382705!2d39.22747692552832!3d-6.191646407628886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185cdb1c67ad5417%3A0xd67783594988dd89!2sFrancis%20Maria%20Libermann%20School!5e0!3m2!1sen!2stz!4v1699486247159!5m2!1sen!2stz" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1020.0893793382705!2d39.22747692552832!3d-6.191646407628886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185cdb1c67ad5417%3A0xd67783594988dd89!2sFrancis%20Maria%20Libermann%20School!5e0!3m2!1sen!2stz!4v1699486247159!5m2!1sen!2stz"
+                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
@@ -112,7 +136,8 @@
 <section id="arrange-visit" class="section bg-white" data-aos="fade-up">
     <div class="container">
         <h2 class="section-title" data-translate="Arrange a Visit">Arrange a Visit</h2>
-        <p class="text-center mb-5" data-translate="Come see our campus in Zanzibar! Schedule a visit to experience Francis Maria Libermann School firsthand.">
+        <p class="text-center mb-5"
+            data-translate="Come see our campus in Zanzibar! Schedule a visit to experience Francis Maria Libermann School firsthand.">
             Come see our campus in Zanzibar! Schedule a visit to experience Francis Maria Libermann School firsthand.
         </p>
         <form action="{{ url_for('main.family_visit') }}" method="POST" data-ajax="true">
@@ -137,7 +162,8 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="visit-message" class="form-label" data-translate="Additional Information">Additional Information</label>
+                <label for="visit-message" class="form-label" data-translate="Additional Information">Additional
+                    Information</label>
                 <textarea class="form-control" id="visit-message" name="message" rows="3"></textarea>
             </div>
             <div class="text-center">

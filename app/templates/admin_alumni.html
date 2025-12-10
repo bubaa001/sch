@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}admin_alumni - Francis Maria Libermann School Zanzibar{% endblock %}
+
 {% block content %}
 <section class="section bg-light">
     <div class="container">
@@ -38,8 +40,8 @@
                             <td>{{ 'Yes' if alum.mentorship_interest else 'No' }}</td>
                             <td>{{ alum.created_at }}</td>
                             <td>
-                                <form method="POST" action="{{ url_for('main.delete_alumni', alumni_id=alum.id) }}" 
-                                    onsubmit="return confirm('Are you sure you want to delete this alumni registration?');" 
+                                <form method="POST" action="{{ url_for('main.delete_alumni', alumni_id=alum.id) }}"
+                                    onsubmit="return confirm('Are you sure you want to delete this alumni registration?');"
                                     class="display: inline;">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
@@ -50,4 +52,4 @@
                 </table>
             </div>
         </div>
-{% endblock %}
+        {% endblock %}
