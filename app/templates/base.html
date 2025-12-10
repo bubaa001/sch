@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Francis Maria Libermann School - Holistic Education in Zanzibar. Education Key to Liberty.">
-    <meta name="keywords" content="Libermann students, Secondary School, Education, Zanzibar">
+    
+    <!-- THIS IS THE MOST IMPORTANT PART FOR GOOGLE -->
+    <title>Francis Maria Libermann School | Official Website - Zanzibar</title>
+    <meta name="description" content="Francis Maria Libermann School – Holistic Catholic Secondary Education in Zanzibar. O-Level & A-Level. Boarding & Day. Admissions open for Form 1–5.">
+    <meta name="keywords" content="Francis Maria Libermann School, FML Zanzibar, secondary school Zanzibar, Catholic school Zanzibar, best school Zanzibar, Form 1 admission Zanzibar">
     <meta name="author" content="Francis Maria Libermann School">
-    <title>{% block title %}FML School{% endblock %}</title>
+    <meta name="robots" content="index, follow">
 
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:title" content="Francis Maria Libermann School | Official Website">
+    <meta property="og:description" content="Holistic Catholic Secondary Education in Zanzibar since 1998.">
+    <meta property="og:image" content="https://francismariazanzibar.ac.tz/static/assets/logo.jpeg">
+    <meta property="og:url" content="https://francismariazanzibar.ac.tz">
+    <meta property="og:type" content="school">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://francismariazanzibar.ac.tz{% if request.endpoint != 'main.index' %}{{ request.path }}{% endif %}">
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
@@ -280,4 +293,5 @@
         </script>
     </div>
 </body>
+
 </html>
