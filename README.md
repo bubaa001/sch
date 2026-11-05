@@ -1,31 +1,48 @@
-# SchoolTemplate Flask App
+# Francis Maria Libermann School Website
 
-A Flask-based web application for school management.
+Official website for **Francis Maria Libermann School (Zanzibar)**.
 
-## Setup
+This repository is configured as a **100% Static Website** designed for **free hosting on Render** (via Render's free Static Site service).
 
-1. Clone the repo: `git clone https://github.com/bubaa001/schooltemplate.git`
-2. Create a virtual environment: `python -m venv venv`
-3. Activate it: `venv\Scripts\activate`
-4. Install dependencies: `pip install -r requirements.txt`
-5. Run the app: `python run.py`
+---
 
-## Email (Gmail) configuration
+## Free Hosting on Render (Static Site)
 
-To enable outgoing email using Gmail (recommended in production use an email service like SendGrid or Mailgun):
+You can host this website on Render completely free with custom domains and SSL:
 
-1. Enable 2-Step Verification on your Google account.
-2. Create an App Password (Security -> App passwords) and choose "Mail" or "Other". Copy the 16-character password.
-3. Create a `.env` file from `.env.example` and fill in the values:
+1. **Push your code to GitHub / GitLab**.
+2. **Go to Render Dashboard**: [dashboard.render.com](https://dashboard.render.com/)
+3. Click **New +** -> **Static Site**.
+4. Connect this repository.
+5. Settings:
+   - **Name**: `francis-maria-libermann-school`
+   - **Branch**: `main`
+   - **Build Command**: *(leave empty)*
+   - **Publish Directory**: `.`
+6. Click **Create Static Site**.
 
+Render will deploy the site on its global CDN within seconds at zero cost.
+
+> [!TIP]
+> The repository includes a `render.yaml` blueprint, allowing automated 1-click static site configuration.
+
+---
+
+## Local Preview
+
+To test or preview the static website locally on your computer:
+
+```bash
+# Using Python's built-in HTTP server:
+python3 -m http.server 8000
 ```
-MAIL_SERVER=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USE_TLS=true
-MAIL_USERNAME=your-email@gmail.com
-MAIL_PASSWORD=your-16-char-app-password
-MAIL_DEFAULT_SENDER=your-email@gmail.com
-MAIL_SUPPRESS_SEND=false
-```
+Then open `http://localhost:8000` in your browser.
 
-4. Restart the Flask app. If you want to disable sending for development, set `MAIL_SUPPRESS_SEND=true`.
+---
+
+## Preserved Dynamic Backend Service ("Behind the Scenes")
+
+All dynamic web service features (Flask models, routes, SQLite database, admin portal, online admissions forms with file uploads, automated PDF generation, and visit scheduling) have been **preserved** in the `backend_service/` directory and were **not deleted**.
+
+If you wish to run the full dynamic web service locally or deploy it to a server in the future:
+- See [`BACKEND_SERVICE_README.md`](BACKEND_SERVICE_README.md) for full instructions on running the Flask web service and accessing the admin dashboard.

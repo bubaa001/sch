@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: francis-maria-libermann-school
+    env: static
+    buildCommand: ""
+    staticPublishPath: .

@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Francis Maria Libermann School{% endblock %}
+
+{% block content %}
+    <!-- Hero Section with Background Image and Animations -->
+    <section id="about-hero" class="hero" style="background-image: url('{{ url_for('static', filename='assets/schoolblock1.jpeg') }}'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container text-center">
+            <h1 class="animate__animated animate__fadeInDown" data-translate="About Francis Maria Libermann School">About Francis Maria Libermann School</h1>
+            <p class="lead animate__animated animate__fadeInUp" data-translate="Discover our rich history, mission, and commitment to holistic education in Zanzibar.">
+                Discover our rich history, mission, and commitment to holistic education in Zanzibar.
+            </p>
+        </div>
+    </section>
+
+    <!-- School History Section -->
+    <section id="history" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our History">Our History</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h3 data-translate="Foundation">Foundation</h3>
+                            <p data-translate="Welcome to Francis Maria Libermann School in which was founded in 1994. It is doing well academically arena as well as good morals. The school is located just 5km from Stone Town. Our School offers education to all, from nursery level to Secondary level. Francis Maria Libermann School is a Catholic School owned by the Catholic Diocese of Zanzibar. The School is situated in the Shehia of Tomondo, in western district, in urban western Region. The School started in 1996 with Nursery School followed by Primary School in 1998. Secondary School level followed in 2007. The School embraces all people who wish to fetch the suitable education offered.">
+                                Welcome to Francis Maria Libermann School in which was founded in 1994. It is doing well academically as well as good morals. The school is located just 5km from Stone Town. Our School offers education to all, from nursery level to Secondary level. Francis Maria Libermann School is a Catholic School owned by the Catholic Diocese of Zanzibar. The School is situated in the Shehia of Tomondo, in western district, in urban western Region. The School started in 1996 with Nursery School followed by Primary School in 1998. Secondary School level followed in 2007. The School embraces all people who wish to fetch the suitable education offered.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h3 data-translate="Growth and Development">Growth and Development</h3>
+                            <p data-translate="Over the years, we have expanded our facilities and programs to meet the growing needs of our students and community. Our commitment to academic excellence and character formation has remained steadfast.">
+                                Over the years, we have expanded our facilities and programs to meet the growing needs of our students and community. Our commitment to academic excellence and character formation has remained steadfast.
+                            </p>
+                            <p data-translate="Today, we continue to uphold our motto 'Education Key to Liberty' while adapting to modern educational demands.">
+                                Today, we continue to uphold our motto 'Education Key to Liberty' while adapting to modern educational demands.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section id="mission-vision" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Mission and Vision">Our Mission and Vision</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-bullseye fa-3x mb-3" aria-hidden="true"></i>
+                            <h3 data-translate="Our Mission">Our Mission</h3>
+                            <p data-translate="To Provide Quality Education with Competitive Standards, to help the Students Become more Curious, Reflective and Critical Thinkers as Global citizens.">
+                                To Provide Quality Education with Competitive Standards, to help the Students Become more Curious, Reflective and Critical Thinkers as Global citizens.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-eye fa-3x mb-3" aria-hidden="true"></i>
+                            <h3 data-translate="Our Vision">Our Vision</h3>
+                            <p data-translate="To develop Learners who are: Confident in working with their information, ideas and those of others; Responsible for themselves, environment and respect of others; Reflective as learners, developing their ability to learn; Innovative and equipped for new and future challenges; Engaged intellectually, spiritually and socially and ready to make a difference.">
+                                To develop Learners who are: Confident in working with their information, ideas and those of others; Responsible for themselves, environment and respect of others; Reflective as learners, developing their ability to learn; Innovative and equipped for new and future challenges; Engaged intellectually, spiritually and socially and ready to make a difference.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="values" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Values">Our Values</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-heart fa-2x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Compassion">Compassion</h4>
+                            <p data-translate="We foster a caring environment where students learn to respect and support one another.">
+                                We foster a caring environment where students learn to respect and support one another.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-shield-alt fa-2x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Integrity">Integrity</h4>
+                            <p data-translate="We uphold honesty and ethical behavior in all aspects of school life.">
+                                We uphold honesty and ethical behavior in all aspects of school life.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-graduation-cap fa-2x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Excellence">Excellence</h4>
+                            <p data-translate="We strive for the highest standards in academics, character, and service.">
+                                We strive for the highest standards in academics, character, and service.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- School Facilities Section -->
+    <section id="facilities" class="section bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Our Facilities">Our Facilities</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Classrooms">Classrooms</h4>
+                            <p data-translate="Spacious, well-ventilated classrooms equipped with modern teaching aids to enhance learning.">
+                                Spacious, well-ventilated classrooms equipped with modern teaching aids to enhance learning.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Science Laboratories">Science Laboratories</h4>
+                            <p data-translate="Fully-equipped labs for physics, chemistry, and biology to support practical learning.">
+                                Fully-equipped labs for physics, chemistry, and biology to support practical learning.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Library">Library</h4>
+                            <p data-translate="A well-stocked library with a diverse collection of books and digital resources.">
+                                A well-stocked library with a diverse collection of books and digital resources.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body">
+                            <h4 data-translate="Sports Facilities">Sports Facilities</h4>
+                            <p data-translate="Outdoor fields for football, athletics, and other sports to promote physical fitness.">
+                                Outdoor fields for football, athletics, and other sports to promote physical fitness.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accreditation and Partnerships Section -->
+    <section id="accreditation" class="section bg-white" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title" data-translate="Accreditation and Partnerships">Accreditation and Partnerships</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-award fa-3x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="NECTA Accreditation">NECTA Accreditation</h4>
+                            <p data-translate="We are accredited by the National Examinations Council of Tanzania (NECTA) with codes ZP0372 for primary and S4202 for secondary levels.">
+                                We are accredited by the National Examinations Council of Tanzania (NECTA) with codes ZP0372 for primary and S4202 for secondary levels.
+                            </p>
+                            <a href="https://matokeo.necta.go.tz/" target="_blank" class="btn btn-primary" data-translate="View Results">View Results</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 glass-card" data-tilt>
+                        <div class="card-body text-center">
+                            <i class="fas fa-handshake fa-3x mb-3" aria-hidden="true"></i>
+                            <h4 data-translate="Community Partnerships">Community Partnerships</h4>
+                            <p data-translate="We collaborate with local organizations and businesses to provide real-world learning experiences for our students.">
+                                We collaborate with local organizations and businesses to provide real-world learning experiences for our students.
+                            </p>
+                            <a href="{{ url_for('main.community') }}" class="btn btn-primary" data-translate="Learn More">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="cta" class="section bg-primary text-white" data-aos="fade-up">
+        <div class="container text-center">
+            <h2 class="section-title" data-translate="Join Our Community">Join Our Community</h2>
+            <p class="lead mb-4" data-translate="Become part of our tradition of excellence and holistic education at Francis Maria Libermann School.">
+                Become part of our tradition of excellence and holistic education at Francis Maria Libermann School.
+            </p>
+            <a href="{{ url_for('main.admissions') }}" class="btn btn-light btn-lg me-2" data-translate="Apply Now">Apply Now</a>
+            <a href="{{ url_for('main.contact') }}" class="btn btn-outline-light btn-lg" data-translate="Contact Us">Contact Us</a>
+        </div>
+    </section>
+{% endblock %}
