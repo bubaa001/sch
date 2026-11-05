@@ -55,7 +55,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="static/assets/apple-touch-icon.png">
 
-     content="#1a73e8">
+    <meta name="theme-color" content="#1a73e8">
     <meta name="google-adsense-account" content="ca-pub-3886385334900329">
 </head>
 
@@ -80,8 +80,33 @@
             <div class="preloader-text">Preparing Excellence</div>
         </div>
     </div>
+    <script>
+        // Instant preloader failsafe - guarantees site reveals smoothly
+        (function() {
+            function reveal() {
+                var p = document.getElementById('preloader');
+                var c = document.getElementById('content');
+                if (p && p.style.display !== 'none') {
+                    p.classList.add('hidden');
+                    setTimeout(function() { p.style.display = 'none'; }, 400);
+                }
+                if (c) {
+                    c.style.display = 'block';
+                    c.classList.add('visible');
+                }
+                document.body.classList.add('loaded');
+            }
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                setTimeout(reveal, 500);
+            } else {
+                document.addEventListener('DOMContentLoaded', function() { setTimeout(reveal, 500); });
+                window.addEventListener('load', function() { setTimeout(reveal, 200); });
+            }
+            setTimeout(reveal, 1200);
+        })();
+    </script>
 
-    <div id="content" style="display: none;">
+    <div id="content">
         <!-- Enhanced Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">

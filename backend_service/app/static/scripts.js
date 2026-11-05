@@ -101,150 +101,74 @@ function showFlashMessage(message, category = 'info') {
     }, 5000);
 }
 
-// Enhanced form handler
+// Enhanced form handler for static website
 function handleFormSubmission(form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const submitButton = form.querySelector('button[type="submit"]');
-        const originalContent = submitButton.innerHTML;
-        const originalDisabled = submitButton.disabled;
+        const originalContent = submitButton ? submitButton.innerHTML : '';
+        const originalDisabled = submitButton ? submitButton.disabled : false;
 
-        // Show loading state
-        submitButton.disabled = true;
-        submitButton.innerHTML = `
-            <span class="spinner-border spinner-border-sm" role="status"></span>
-            Processing...
-        `;
-
-        try {
-            const formData = new FormData(form);
-            console.log('AJAX submit for form', form.action, form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
-
-            let result = null;
-            try {
-                result = await response.json();
-            } catch (jsonErr) {
-                // Not JSON - log and create a fallback
-                console.warn('Non-JSON response from', form.action, jsonErr);
-                const text = await response.text().catch(() => '');
-                result = { success: false, message: text || 'Unexpected server response', category: 'danger' };
-            }
-
-            console.log('AJAX response for', form.action, result);
-
-            // Show the flash message
-            if (result && result.message) {
-                showFlashMessage(result.message, result.category || (result.success ? 'success' : 'info'));
-            } else {
-                showFlashMessage('No message returned from server.', 'warning');
-            }
-
-            // Reset form if successful
-            if (result.success) {
-                form.reset();
-            }
-
-        } catch (error) {
-            console.error('Form submission error:', error);
-            showFlashMessage('An error occurred. Please try again.', 'danger');
-        } finally {
-            // Restore button
-            submitButton.disabled = originalDisabled;
-            submitButton.innerHTML = originalContent;
+        // Show loading state briefly
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = `
+                <span class="spinner-border spinner-border-sm" role="status"></span>
+                Processing...
+            `;
         }
+
+        setTimeout(() => {
+            showFlashMessage('Online portal submissions are currently offline. Please contact the school directly via phone/WhatsApp (+255 753 638 938) or email (fmlibermann@gmail.com).', 'info');
+            if (submitButton) {
+                submitButton.disabled = originalDisabled;
+                submitButton.innerHTML = originalContent;
+            }
+        }, 500);
     });
 }
 
-// Enhanced preloader with robust error handling
+// Robust preloader handler - reveals site swiftly
 function initializePreloader() {
-    console.log('Initializing preloader');
-    
-    const preloader = document.querySelector('.preloader');
+    const preloader = document.getElementById('preloader') || document.querySelector('.preloader');
     const content = document.getElementById('content');
     const body = document.body;
-    
-    // Immediately hide content
-    if (content) content.style.display = 'none';
-    
-    // Start preloader animation
-    if (preloader) {
-        preloader.style.opacity = '1';
-        
-        // Handle page load completion with a fixed minimum display time
-        const minDisplayTime = 500; // 0.5s minimum for all pages
-        const handleLoadComplete = () => {
-            console.log('Page load complete, hiding preloader');
-            const loadTime = performance.now();
-            const remainingTime = Math.max(0, minDisplayTime - loadTime);
-            
+    let dismissed = false;
+
+    function dismissPreloader() {
+        if (dismissed) return;
+        dismissed = true;
+        if (preloader) {
+            preloader.classList.add('hidden');
             setTimeout(() => {
-                preloader.classList.add('hidden');
-                
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    if (content) {
-                        content.style.display = 'block';
-                        content.classList.add('visible');
-                    }
-                    body.classList.add('loaded'); // Enable scrolling
-                    try {
-                        initializePageFeatures();
-                    } catch (error) {
-                        console.error('Error initializing page features:', error);
-                    }
-                }, 500);
-            }, remainingTime);
-        };
-        
-        // Check if page is already loaded or handle load event
-        if (document.readyState === 'complete') {
-            console.log('Document already complete, calling handleLoadComplete');
-            handleLoadComplete();
-        } else {
-            console.log('Adding load event listener');
-            window.addEventListener('load', handleLoadComplete);
+                preloader.style.display = 'none';
+            }, 400);
         }
-        
-        // Fallback to show content after 3 seconds if load event fails
-        setTimeout(() => {
-            if (preloader && preloader.style.display !== 'none' && content) {
-                console.warn('Preloader timeout reached, forcing content display');
-                preloader.classList.add('hidden');
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    content.style.display = 'block';
-                    content.classList.add('visible');
-                    body.classList.add('loaded'); // Enable scrolling
-                    try {
-                        initializePageFeatures();
-                    } catch (error) {
-                        console.error('Error initializing page features:', error);
-                    }
-                }, 500);
-            }
-        }, 3000);
-    } else {
-        console.log('No preloader found, showing content immediately');
-        // If no preloader, show content immediately and initialize features
         if (content) {
             content.style.display = 'block';
             content.classList.add('visible');
         }
-        body.classList.add('loaded'); // Enable scrolling
+        body.classList.add('loaded');
         try {
             initializePageFeatures();
-        } catch (error) {
-            console.error('Error initializing page features:', error);
+        } catch (err) {
+            console.error('Error initializing page features:', err);
         }
     }
+
+    // Dismiss shortly after DOM is ready (giving smooth 400ms intro)
+    setTimeout(dismissPreloader, 400);
+
+    // Also listen to window load
+    if (document.readyState === 'complete') {
+        dismissPreloader();
+    } else {
+        window.addEventListener('load', dismissPreloader);
+    }
+
+    // Absolute fallback: ensure content is ALWAYS visible after 1 second max
+    setTimeout(dismissPreloader, 1000);
 }
 
 // Function to initialize all page features (AOS, counters, chatbot, etc.)
